@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="css/complanylist.css">
+    </head>
+
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <header-common :title=title></header-common>
+            <!--header结束-->
+            <!--content开始-->
+            <div id="content" class="ub-f1 tx-l" style="background-color: white">
+                <div class="ub ub-ver ">
+                    <div class="ub" style="padding:.5em 0;margin: 0 .625em;line-height:1.4em;border-bottom: 1px solid #ececec" >
+                        <div class="leftStyle ub ub-ac" style="padding-right:.625em;min-width:3.25em;overflow: hidden;">
+                            <span class="ulev26 clr666" >企业人数/上限人数</span>
+                        </div>
+                        <div class="ub-f1" style="border-left: 1px solid #ececec;word-break: break-all;overflow: auto;padding-left:.625em ;">
+                            <span class="clr333 ulev28"><span class="currentUser">{{componyInfo.currentUserCount}}</span>/<span>{{upperUser}}</span></span>
+                        </div>
+                    </div>
+                    <!-- <item-detail name="企业人数/上限人数" :value="componyInfo.user" :borderbottom="true"></item-detail> -->
+                    <item-detail name="企业注册时间" :value="componyInfo.enterpriseRegisterTime" :borderbottom="true"></item-detail>
+                    <!-- <item-detail name="付费时间" :value="componyInfo.payDatetime" :borderbottom="true"></item-detail> -->
+                    <!-- <item-detail name="企业收费状态" :value="componyInfo.payStatus" :borderbottom="true"></item-detail> -->
+                    <!-- <item-detail name="企业使用版本" :value="componyInfo.versionName" :borderbottom="true" ></item-detail> -->
+                       <div class="ub" style="padding:.5em 0;margin: 0 .625em;line-height:1.4em;border-bottom: 1px solid #ececec" >
+                        <div class="leftStyle ub ub-ac" style="padding-right:.625em;min-width:3.25em;overflow: hidden;">
+                            <span class="ulev26 clr666" >企业使用版本</span>
+                        </div>
+                        <div class="ub-f1" style="border-left: 1px solid #ececec;word-break: break-all;overflow: auto;padding-left:.625em ;">
+                            <span class="clr333 ulev28"><span class="currentUser">{{componyInfo.versionName}}</span><span style="color:red">{{versionStatus}}</span></span>
+                        </div>
+                    </div>
+                    <item-detail name="使用到期时间" :value="componyInfo.expireTime" :borderbottom="true"></item-detail>
+                    <item-detail name="企业认证状态" :value="status" :borderbottom="true" :btn=statusText @clickbtn='clickbtn'></item-detail>
+                    <div v-show="reject">
+                        <item-detail name="驳回原因" :value="rejextIdea" :borderbottom="true"></item-detail>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_jasRequest.js"></script>
+        <script src="../../vue_component/item_detail.component.vue.js"></script>
+        <script src="../../vue_component/header_common.component.vue.js"></script>
+          <script>
+        var vm = new Vue({
+            el : "#page_0",
+            data : {
+                userBo : JSON.parse(appcan.locStorage.getVal('userBo')),
+                title : '',
+                componyInfo : {
+                    enterpriseScale : '',
+                    enterpriseCreateTime : "",
+                    payDatetime : "",
+                    effectiveTime : "",
+                },
+                currentStatus : 0,
+                statusText : "",
+                reject : false,
+                rejextIdea : '',
+                status : '',
+                upperUser:'',
+                versionStatus:''//版本使用状态
+            },
+            mounted : function() {
+                var that = this;
+                appcan.ready(function() {
+                    that.requestData();
+                    that.bindEvent();
+                });
+            },
+            methods : {
+                clickbtn : function() {
+                    if (this.currentStatus == 0) {
+                        appcan.openWinWithUrl("companyapprove", "companyapprove.html");
+                        //进行认证信息的填写
+                    } else if (this.currentStatus == -1) {
+                        appcan.locStorage.val("againapplay", "again");
+                        //进行存储，判断是进行申请还是再次申请
+                        appcan.openWinWithUrl("applayapprove", "applayapprove.html");
+                    } else {
+                        appcan.openWinWithUrl("viewapplayapprove", "viewapplayapprove.html");
+                        //已经认证过，进行相关信息的展示
+                    }
+                },
+                requestData : function() {
+                    var that = this;
+                    var partURL = "cloudlink-core-framework/commonData/enterpriseApp/getPageList";
+                    var queryObj = {
+                        enterpriseId : that.userBo.enterpriseId
+                    };
+                    // var payStatus = {
+                        // "1" : "免费",
+                        // "2" : "试用",
+                        // "3" : "收费",
+                        // "4" : "续费"
+                    // };
+                    baseOperation.londingToast('数据加载中，请稍后...',99999);
+                    jasRequest.post(partURL, JSON.parse(JSON.stringify(queryObj)), function(data) {
+                          baseOperation.closeToast();
+                          var obj=data;
+                          if (obj.success == 1) {
+                            // if (obj.rows[0].payStatus == 3 || obj.rows[0].payStatus == 4) {
+                                // that.upperUser= "无限";
+                            // } else {
+                                that.upperUser=obj.rows[0].upperLimitUserCount||"";
+                                if(obj.rows[0].currentUserCount>obj.rows[0].upperLimitUserCount){
+                                    $(".currentUser").css("color","red");
+                                }                              
+                            // }
+                            if(obj.rows[0].expireTime){
+                                if(obj.rows[0].payStatus==1&&obj.rows[0].versionName=="免费版"){
+                                   obj.rows[0].expireTime = '无';  
+                                }else{
+                                     obj.rows[0].expireTime = obj.rows[0].expireTime;
+                                }
+                            }else{
+                              obj.rows[0].expireTime = '无';    
+                            }
+                           
+                            obj.rows[0].versionName = obj.rows[0].versionName;  
+                            if(obj.rows[0].payStatus==1){
+                            
+                               that.versionStatus="（免费）";
+                            }
+                            if(obj.rows[0].payStatus==2){
+                               that.versionStatus="（试用）";
+                            }
+                            that.componyInfo = obj.rows[0];
+                            that.requestStatus();
+                         }
+                    });
+                },
+                requestStatus : function() {
+                    var that = this;
+                    var enterpriseName = appcan.locStorage.getVal("enterpriseName");
+                    if (enterpriseName == null || enterpriseName == "") {
+                        that.title = that.userBo.enterpriseName;
+                    } else {
+                        that.title = enterpriseName;
+                    }
+                    var partURL = "cloudlink-core-framework/enterprise/getById";
+                    jasRequest.get(partURL,{objectId: that.userBo.enterpriseId}, function(data) {
+                        that.currentStatus = data.rows[0].authenticateStatus;
+                        var statusText = {
+                            "-1" : "认证驳回",
+                            "0" : "未认证",
+                            "1" : "已认证",
+                            "2" : "等待认证"
+                        };
+                        that.status = statusText[that.currentStatus + ""];
+                        if (that.currentStatus == 0) {
+                            that.statusText = "申请认证";
+                            that.reject = false;
+                        } else if (that.currentStatus == -1) {
+                            that.statusText = "重新认证";
+                            that.reject = true;
+                            that.getauthenidea();
+                        } else {
+                            that.reject = false;
+                            that.statusText = "查看认证";
+                        }
+                    });
+                },
+                getauthenidea : function() {
+                    var that = this;
+                    var url = "cloudlink-core-framework/enterprise/getAuthApproveContent";
+                    jasRequest.get(url,{enterpriseId:that.userBo.enterpriseId}, function(data) {
+                        var obj = data;
+                        if (obj.success == 1) {
+                            if (obj.rows[0].approveContent == null) {
+                                that.rejextIdea = "无驳回意见";
+                            } else {
+                                that.rejextIdea = obj.rows[0].approveContent;
+                            }
+                        } else {
+                            that.rejextIdea = "无驳回意见";
+                        }
+                    });
+                },
+                bindEvent : function() {
+                    var that = this;
+                    appcan.window.on('resume', function() {
+                        that.requestStatus();
+                    });
+                }
+            }
+        });
+    </script>
+    </body>
+  
+
+</html>

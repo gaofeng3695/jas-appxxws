@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="css/shareold.css">
+    </head>
+    <body class="um-vp" style="background:#EEE;">
+        <div class="ub ub-ver ub-umt ub-h100 form_main" >
+            <!-- 输入姓名开始-->
+            <div class="distance list1">
+                <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1 border  allStyle">
+                    <div class="ulev-app1 umw55 pl size2">
+                        姓名
+                    </div>
+                    <div class="ub ub-ac umh5 ub-f1 marl8">
+                        <div class="uinput ub ub-f1">
+                            <input placeholder="请输入姓名（必填）" type="text" class="ub-f1" id="roleName" >
+                        </div>
+                    </div>
+                </div>
+                <div class="note">
+                    <p class="judge1"></p>
+                </div>
+            </div>
+            <!-- 输入姓名结束-->
+            <!-- 输入手机号开始-->
+            <div class="distance">
+                <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1  border   allStyle">
+                    <div class="ulev-app1 umw55 pl ">
+                        手机号
+                    </div>
+                    <div class="ub ub-ac umh5 ub-f1 marl8">
+                        <div class="uinput ub ub-f1 ub-ac">
+                            <input placeholder="请输入11位手机号（必填）" type="text" class="ub-f1" id="loginname"  onBlur="this.value=ignoreSpaces(this.value);">
+                        </div>
+                        <div style="height:1.8em;width:1.6em;padding-right:0.6em">
+                            <img style="height:1.8em;width:1.6em;" src="images/dhb.png" onclick="gettel()"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="note">
+                    <p class="judge2"></p>
+                </div>
+            </div>
+            <!-- 输入手机号结束-->
+            <!-- 输入角色开始-->
+            <div class="distance">
+                <div class="uba b-gra3 uc-a1 c-wh umh5 ub uinn-a7 ub-ac umar-at1 border  allStyle ">
+                    <div class="ulev-app1 umw55 pl size2">
+                        角色
+                    </div>
+                    <div class="select ub ub-ac  bc-text  ub-f1 marl5">
+                        <div class="text" style="padding: 0;color:#999" id="setrole">
+                            请选择角色（必选）
+                        </div>
+                        <div class="icon" style="color:#999"></div>
+                        <select id="roleIds" name="roleIds"></select>
+                    </div>
+                </div>
+                <div class="note">
+                    <p class="judge3"></p>
+                </div>
+            </div>
+            <!-- 输入角色结束-->
+            <!-- 输入部门开始-->
+            <div class="distance">
+                <div class="uba b-gra3 uc-a1 c-wh umh5 ub uinn-a7 ub-ac umar-at1 border  allStyle" id="choosedept">
+                    <div class="ulev-app1 umw55 pl size2">
+                        部门
+                    </div>
+                    <div class="select ub ub-ac  bc-text  ub-f1 marl8">
+                        <div class="text" style="padding: 0;color:#999" id="setdept">
+                            请选择部门（必选）
+                        </div>
+                        <div class="icon" style="color:#999" ></div>
+                    </div>
+                </div>
+                <div class="note">
+                    <p class="judge4"></p>
+                </div>
+            </div>
+            <!-- 输入部门结束-->
+            <!-- 输入职位开始-->
+            <div class="distance">
+                <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1 border allStyle">
+                    <div class="ulev-app1 umw55 pl size2">
+                        职位
+                    </div>
+                    <div class="ub ub-ac umh5 ub-f1 marl5">
+                        <div class="uinput ub ub-f1 ub-ac">
+                            <input placeholder="请输入职位" type="text" class="ub-f1" id="position">
+                        </div>
+                    </div>
+                </div>
+                <div class="note">
+                    <p class="judge5"></p>
+                </div>
+            </div>
+            <!-- 输入职位结束-->
+            <!-- 取消按钮开始-->
+            <div class="ub ub-ver umar-a ">
+                <div class="uinn-at1 ">
+                    <div class=" ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="quite">
+                        确认邀请
+                    </div>
+                </div>
+            </div>
+            <!-- 取消按钮结束-->
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../common/js/common_httprequest.js"></script>
+        <script src="../common/js/common_base.js"></script>
+
+    </body>
+    <script>
+        var jasHttpRequest = null;
+        var invMobileNum = null;
+        var isFrist = 0;
+        appcan.ready(function() {
+            jasHttpRequest = new JasHttpRequest();
+
+            uexContact.cbOpen = function(opId, dataType, data) {
+                var obj = eval('(' + data + ')');
+                invMobileNum = obj.num;
+                invMobileNum = invMobileNum.split(" ").join("");
+                $("#loginname").val(invMobileNum);
+                var rex = /^1\d{10}$/;
+                if (!rex.test(invMobileNum)) {
+                    $('.judge2').html("请输入有效手机号");
+                    return;
+                } else {
+                    $('.judge2').html("");
+                }
+            };
+            getUserDepartments();
+        });
+        appcan.select(".select", function(ele, value) {
+            $('.judge3').html("");
+            $("#setrole").css("color", "#333");
+        });
+        $('.select select').trigger('change');
+        /*点击获取手机号码*/
+        function gettel() {
+            uexContact.open();
+        }
+
+        //获取角色
+        function getRolesList() {
+            var url = "cloudlink-core-framework/role/queryList?roleType=2";
+            jasHttpRequest.jasHttpGet(url, function(id, state, data) {
+                if (data == "") {
+                    baseOperation.alertToast("获取角色列表：网关异常");
+                    return;
+                }
+                var dbObj = JSON.parse(data);
+                if (dbObj.success == 1) {
+                    loadOptionList(dbObj);
+                } else {
+                    baseOperation.alertToast("获取角色列表：请求失败");
+                    return;
+                }
+            });
+        }
+
+        /*
+         * 获取当前用户企业所包含的部门
+         */
+        function getUserDepartments() {
+            if (isFrist == 0) {
+                isFrist = 1;
+                var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+                var params = {
+                    "enterpriseId" : userBo.enterpriseId
+                };
+                var part1 = 'cloudlink-core-framework/organization/queryList';
+                jasHttpRequest.jasHttpPost(part1, function(id, state, dbSource) {
+                    if (dbSource == "") {
+                        //baseOperation.alertToast("网络繁忙，请稍候再试...");
+                        return;
+                    }
+                    var obj = JSON.parse(dbSource);
+                    orgList = obj.rows;
+                    if (orgList.length > 1) {
+                        getRolesList();
+                    } else {
+                        appcan.window.confirm({
+                            title : '友情提示',
+                            content : '您暂未设置企业的组织机构，\r\n是否进行设置？',
+                            buttons : ['是', '否'],
+                            callback : function(err, data, dataType, optId) {
+                                if (data == 0) {
+                                    getRolesList();
+                                    appcan.openWinWithUrl("organization", "../setting/personcenter_v1.3/organization.html");
+                                } else {
+                                    getRolesList();
+                                }
+                            }
+                        });
+                    }
+                }, JSON.stringify(params));
+            } else {
+                getRolesList();
+            }
+        }
+
+        function loadOptionList(optionList) {
+            $("#roleIds").html("");
+            var txt = '<option value="0">请选择</option>';
+            for (var i in optionList.rows) {
+                txt += '<option value="' + optionList.rows[i].objectId + '">' + optionList.rows[i].roleName + '</option>';
+            }
+            $("#roleIds").append(txt);
+        }
+
+
+        appcan.button("#choosedept", "ani-act", function() {
+            appcan.locStorage.setVal("orageResource", "choose");
+            appcan.locStorage.setVal("chooseresource", "inviter");
+            //区分选择是来自邀请还是功能设置的部门选择
+            appcan.openWinWithUrl("organization", "../setting/personcenter_v1.3/organization.html");
+        });
+        var clickstatus = true;
+        appcan.button("#quite", "ani-act", function() {
+            var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var partURL1 = "cloudlink-core-framework/invite/breachUserCountLimit?enterpriseId=" + userBo.enterpriseId;
+            jasHttpRequest.jasHttpGet(partURL1, function(id, state, data) {
+                if (JSON.parse(data).success == 1) {
+                    if (JSON.parse(data).rows[0].breachLimit) {
+                        baseOperation.alertToast("已经达到上限，不可再次邀请");
+                    } else {
+                        valid();
+                    }
+                }
+            });
+
+        });
+
+        function valid() {
+            if (clickstatus) {
+                clickstatus = false;
+                var roleName = $('#roleName').val().trim();
+                var setdept = $('#setdept').text();
+                var val = $('#roleName').val().trim();
+                if (val.length == 0) {
+                    $('.judge1').html("名字不能为空");
+                    clickstatus = true;
+                    return;
+                } else if (checkName() == false) {
+                    clickstatus = true;
+                    return;
+                } else if (checkTel() == false) {
+                    clickstatus = true;
+                    return;
+                } else if ($("#roleIds").val() == 0) {
+                    $('.judge3').html("角色不能为空");
+                    clickstatus = true;
+                    return;
+                } else if (setdept.indexOf("请选择部门（必选）") > -1) {
+                    $('.judge4').html("部门不能为空");
+                    clickstatus = true;
+                    return;
+                } else if (checkposition() == false) {
+                    clickstatus = true;
+                    return;
+                } else {
+                    inviteUser();
+                }
+            }
+        }
+
+        /*
+        * 验证被邀请人有没有注册过
+        */
+        // function invateExist() {
+        // var tel = $('#loginname').val().trim();
+        // var partURL = "cloudlink-core-framework/login/isExist?registNum=" + tel;
+        // jasHttpRequest.jasHttpGet(partURL, function(id, state, dbSource) {
+        // if (dbSource == "") {
+        // baseOperation.alertToast("网关异常，稍后请重新邀请");
+        // clickstatus = true;
+        // return;
+        // }
+        // var obj = JSON.parse(dbSource);
+        // if (obj.success == 1) {
+        // var isExist = obj.rows.isExist;
+        // if (isExist == 1) {
+        // //该用户已经注册过
+        // invite();
+        // } else {
+        // //该用户没有注册过
+        // inviteAndRegist();
+        // }
+        // } else {
+        // baseOperation.alertToast(obj.msg);
+        // clickstatus = true;
+        // return;
+        // }
+        // });
+        // }
+
+        /*
+         *邀请用户注册
+         */
+        function inviteUser() {
+            var bo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var position = $('#position').val().trim();
+            var roleIds = $("#roleIds").val();
+            var orgId = appcan.locStorage.getVal("orgdept");
+            var MobileNum = $('#loginname').val().trim();
+            var userName = $('#roleName').val().trim();
+            var partURL = "cloudlink-core-framework/invite/inviteUser";
+            jasHttpRequest.jasHttpPost(partURL, function(id, state, data) {
+                if (data == "") {
+                    baseOperation.alertToast("网关异常，请稍后尝试");
+                    clickstatus = true;
+                    return;
+                }
+                var obj = JSON.parse(data);
+                if (obj.success == 1) {
+                    baseOperation.alertToast("您已邀请成功！");
+                    clickstatus = true;
+                    clearInviteForm();
+                } else {
+                    if (obj.code == "R01") {
+                        baseOperation.alertToast("该用户已加入企业！");
+                        clickstatus = true;
+                        clearInviteForm();
+                        return;
+                    } else if (obj.code == "400") {
+                        baseOperation.alertToast("发送短信异常，请联系客服。");
+                        clickstatus = true;
+                        clearInviteForm();
+                        return;
+                    }
+                }
+            }, JSON.stringify({
+                "inviteMode" : "1",
+                "inviter" : bo.objectId,
+                "enterpriseId" : bo.enterpriseId,
+                "mobileNum" : MobileNum,
+                "roleIds" : roleIds,
+                "orgId" : orgId,
+                "position" : position,
+                "userName" : userName
+            }));
+        }
+
+        /*
+         *调用用户没有注册
+         */
+        function inviteAndRegist() {
+            var bo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var position = $('#position').val().trim();
+            var roleIds = $("#roleIds").val();
+            var orgId = appcan.locStorage.getVal("orgdept");
+            var MobileNum = $('#loginname').val().trim();
+            var userName = $('#roleName').val().trim();
+            var partURL = "cloudlink-core-framework/invite/inviteAndRegist";
+            jasHttpRequest.jasHttpPost(partURL, function(id, state, data) {
+                if (data == "") {
+                    baseOperation.alertToast("网关异常，请稍后尝试");
+                    clickstatus = true;
+                    return;
+                }
+                var obj = JSON.parse(data);
+                if (obj.success == 1) {
+                    baseOperation.alertToast("您已邀请成功！");
+                    clickstatus = true;
+                    clearInviteForm();
+                } else {
+                    baseOperation.alertToast(obj.code);
+                    clickstatus = true;
+                    clearInviteForm();
+                    return;
+                }
+            }, JSON.stringify({
+                "inviteMode" : "1",
+                "inviter" : bo.objectId,
+                "enterpriseId" : bo.enterpriseId,
+                "mobileNum" : MobileNum,
+                "roleIds" : roleIds,
+                "orgId" : orgId,
+                "position" : position,
+                "userName" : userName
+            }));
+        }
+
+        /*部门的设定
+         */
+        function setdept() {
+            var orgname = appcan.locStorage.getVal("orgname");
+            appcan.locStorage.remove("orgname");
+            $("#setdept").html(orgname);
+            $('.judge4').html("");
+            $("#setdept").css("color", "#333");
+        }
+
+        //验证姓名
+        $('#roleName').blur(function() {
+            checkName();
+        });
+        function checkName() {
+            var val = $('#roleName').val().trim();
+            var rex = /^[a-zA-Z\u4e00-\u9fa5]/g;
+            if (val.length >= 16) {
+                $('.judge1').html("姓名不能超过15个字");
+                return false;
+            } else if (16 > val.length && val.length > 0) {
+                if (!rex.test(val)) {
+                    $('.judge1').html("不能以数字下划线特殊字符开头");
+                    return false;
+                } else {
+                    $('.judge1').html("");
+                    return true;
+                }
+            }
+        }
+
+        //验证手机号
+        $('#loginname').blur(function() {
+            checkTel();
+        });
+        function checkTel() {
+            var val = $('#loginname').val().trim();
+            var rex = /^1\d{10}$/;
+            if (val == '' || val == undefined) {
+                $('.judge2').html("请输入手机号");
+                return false;
+            } else if (!rex.test(val)) {
+                $('.judge2').html("请输入有效手机号");
+                return false;
+            } else {
+                $('.judge2').html("");
+                return true;
+            }
+        }
+
+        //验证职位
+        $('#position').blur(function() {
+            checkposition();
+        });
+        function checkposition() {
+            var val = $('#position').val().trim();
+            var rex = /^[\u4e00-\u9fa5]/g;
+            if (val == "") {
+                return true;
+            } else if (!rex.test(val)) {
+                $('.judge5').html("不以数字字母下划线特殊字符开头的中文");
+                return false;
+            } else {
+                $('.judge5').html("");
+                return true;
+            }
+        }
+
+        function clearInviteForm() {
+            $('#roleName').val("");
+            $('#loginname').val("");
+        }
+
+        function ignoreSpaces(string) {
+            var temp = "";
+            string = '' + string;
+            splitstring = string.split(" ");
+            for ( i = 0; i < splitstring.length; i++)
+                temp += splitstring[i];
+            return temp;
+        }
+    </script>
+</html>

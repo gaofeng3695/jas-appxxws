@@ -1,0 +1,37 @@
+.qq, .name, .tel, .email, .weixin,.position,.age {
+    width: 95%;
+    line-height: 2.8125em;
+    outline: none;
+    border: none;
+    padding-left: 0.5em;
+    min-height: 2.8125em;
+    font-size: 0.875em;
+    color:#666;
+}
+.allstyle{
+    font-size: 0.875em;
+    color:#666;
+    min-height: 2.8125em;
+    padding-left:0.625em;
+    }
+.uinput input{
+    display: block;
+}    
+.clear {
+    display:block;
+    width: 2.5em;
+    height: 2.5em;
+    background: url("../images/delete.png") no-repeat center;
+    background-size:1.4em;
+    top: 3%;
+    left: 90%;
+    background-color: #ffffff;
+}
+
+.bc-bg1 {
+    background: #ffffff;
+}
+
+.cc {    
+    margin-left: 2em;
+}

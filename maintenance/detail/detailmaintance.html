@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/detailmaintance.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <header-common
+            title="整改维修"
+            icon1="../src/images/time.png"
+            @click1 = "clicktime"
+            ></header-common>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+
+            <footer-common
+                v-if="enterance=='local'"
+                :btns="[{color:'#59bcf6',name:'上传',disabled:disabled},{color:'#faae3e',name:'删除'}]"
+                @click1="uploadRecord" 
+                @click2="deleteRecord" 
+            ></footer-common>
+
+            <footer-common
+                v-if="enterance=='detail'"
+                :btns="[{color:'#59bcf6',name:'返回'}]"
+                @click1="closePage" 
+            ></footer-common>
+
+            <footer-switch
+                v-if="enterance=='form'"
+                :state="state"
+                :btns1="[{color:'#59bcf6',name:'用户签字'}]"
+                :btns2="[{color:'#fdb96a',name:'修改记录'},{color:'#59bcf6',name:'保存本地'},{color:'#58d5ad',name:'直接上传',disabled:disabled}]"
+                @click11="signRecord"
+                @click21="closePage"
+                @click22="saveToLocal"
+                @click23="uploadRecord"
+            ></footer-switch>
+
+        </div>
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_database.js"></script>
+
+        <script src="../../vue_component/header_common.component.vue.js"></script>
+        <script src="../../vue_component/footer_common.component.vue.js"></script>
+        <script src="../src/js/common/local_server.js"></script>
+
+    </body>
+    <script>
+
+       // window.onerror = function(msg, url, line) {
+       //      alert("erro" + msg + "\n" + url + ":" + line);
+       //      return true;
+       //  };        
+
+        var vm = new Vue({
+            el : "#page",
+            data : {
+               state:appcan.locStorage.val('maintenance_originTypeCode') === 'MO_01' ? 1 : 2,
+               disabled:false,
+            },
+            computed : {
+                enterance : function() {
+                    var enter = appcan.locStorage.val('maintenanceDetailEntrance');
+                    return enter;
+                }
+            },
+            methods : {
+                closePage : function() {
+                    appcan.window.close(-1);
+                },
+                clicktime : function() {
+                    appcan.openWinWithUrl('detailTimemaintance', '../detail/detailTimemaintance.html');
+                },
+                uploadRecord : function() {
+                    appcan.window.evaluatePopoverScript('', 'content', 'operations.uploadRecord()');
+                },
+                deleteRecord : function() {
+                    appcan.window.alert({
+                        title : "删除本地记录",
+                        content : "是否删除本条整改维修记录？",
+                        buttons : ['确定', '取消'],
+                        callback : function(err, data, dataType, optId) {
+                            if (+data === 0) {
+                                var maintanceId = appcan.locStorage.val('maintenanceId');
+                                localServer.delete(maintanceId, function(result) {
+                                    if (result.success == 1) {
+                                        baseOperation.alertToast("删除成功");
+                                        appcan.window.close(-1);
+                                    } else {
+                                        baseOperation.alertToast("删除失败");
+                                    }
+                                });
+                            }
+                        }
+                    });
+                },
+                signRecord : function() {
+                    var that = this;
+                    if (!window.uexESignature) {
+                        alert('please install sign plugins!');
+                        return;
+                    }
+                    uexESignature.cbOpen = function(opId, dataType, data){                          
+                        if (!data) { //签名图片的url
+                            baseOperation.alertToast('签名生成失败，请重试');
+                            return;
+                        }
+                        that.scoreRate(5,data);                                       
+                    };     
+                    uexESignature.open();                                   
+                },
+                scoreRate : function(n,sSignUrl){//评分值，签名图片的url
+                    var that= this;
+                    uexRatingBar.cbOpen = function(opId, dataType, data){
+                        var ratingData = JSON.parse(data);
+                        //alert("评分："+ratingData.region+",描述："+ratingData.description);
+                        appcan.window.evaluatePopoverScript('', 'content', 'vm.maintanceObj.signatureUrl = ["'+ sSignUrl +'"]');
+                        appcan.window.evaluatePopoverScript('', 'content', 'vm.maintanceObj.satisfaction = '+ ratingData.region ); 
+                        appcan.window.evaluatePopoverScript('', 'content', 'document.body.scrollTop = 10000');                    
+                        that.state = 2;                                          
+                    };
+                    uexRatingBar.open(n || '');
+                },  
+                saveToLocal : function() {
+                    appcan.window.evaluatePopoverScript('', 'content', 'operations.saveDataFromDraft()');
+                },
+            },
+            mounted : function(){
+                appcan.ready(function(){
+                    operations.openPopover();
+                });
+            }
+        });
+
+        var operations = {
+            openPopover : function() {
+                var titHeight = $('#content').offset().top;
+                appcan.frame.open("content", "detailmaintance_content.html", 0, titHeight);
+                window.onorientationchange = window.onresize = function() {
+                    appcan.frame.resize("content", 0, titHeight);
+                };
+            },
+            close : function(){
+                appcan.window.evaluateScript({
+                    name : 'do_maintenance',
+                    scriptContent : 'appcan.window.close()'
+                });
+                appcan.window.close(-1);                
+            }
+        };
+    </script>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="index/css/common.css">
+</head>
+<body class="um-vp " ontouchstart>
+<div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+    <!--header开始-->
+    <div id="header" class="uh bc-text-head ub bc-head">
+        <div class="nav-btn btn_return" id="nav-left">
+            <div class="fa fa-angle-left fa-2x"></div>
+        </div>
+        <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">填写信息</h1>
+        <div class="nav-btn nav-bt" id="nav-right"></div>
+    </div>
+    <!--header结束--><!--content开始-->
+    <div id="content" class="ub-f1 tx-l">
+
+    </div>
+    <!--content结束-->
+    <!--footer开始-->
+    <div id="footer" class="uf ub us_top">
+        <div class="ub-ac event_btn ub-fh ub">
+            <div class="ub-f1 tx-c ub-ac">
+                <span class="event_report report_submit">提交</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../common/js/common_base.js"></script>
+<script src="../common/js/common_httprequest.js"></script>
+<script src="../common/js/common_business.js"></script>
+</body>
+<script>
+    var flag=true;
+    appcan.ready(function() {
+        uexWindow.setWindowScrollbarVisible(false);
+        var titHeight = $('#header').offset().height;
+        appcan.frame.open("content", "disposal_report_content.html", 0, titHeight,"disposal_report_content");
+        window.onorientationchange = window.onresize = function() {
+            appcan.frame.resize("disposal_report_content", 0, titHeight);
+        };
+
+
+        //物理返回键监听
+        uexWindow.setReportKey(0,1);
+        uexWindow.onKeyPressed =function(keyCode){
+            if(keyCode==0){
+                appcan.window.confirm({
+                    title:'提示',
+                    content:'您好，是否取消处置并离开？',
+                    buttons:['确定','取消'],
+                    callback:function(err,data,dataType,optId){
+                        if(err || data ===1){
+                            //如果出错了
+                            return;
+                        }
+                        if(data===0){
+                            appcan.window.close(-1);
+                        }
+                    }
+                });
+            }
+        };
+        
+        noPermissionsUserCheckOut();
+    });
+    $(".btn_return").on('click',function(){
+        appcan.window.confirm({
+            title:'提示',
+            content:'您好，是否取消处置并离开？',
+            buttons:['确定','取消'],
+            callback:function(err,data,dataType,optId){
+                if(err || data ===1){
+                    //如果出错了
+                    return;
+                }
+                if(data===0){
+                    appcan.window.close(-1);
+                }
+            }
+        });
+    });
+
+    /*
+        *移除底部
+    */
+    function footRemove () {
+        uexWindow.evaluateScript('task_details',"footRemove()");
+    }
+    
+    
+    function utn_return(eventStatus){
+        baseOperation.closeToast();
+        appcan.frame.evaluateScript('task_details','task_details_content',"refresh('"+eventStatus+"')");
+        appcan.window.close(-1);
+    }
+    function changeButton(){
+        flag=true;
+    }
+
+    /*提交*/
+    $(".report_submit").click(function() {
+        if(flag){
+            flag=false;
+            appcan.window.evaluatePopoverScript('disposal_report','disposal_report_content','on_submit()');
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,197 @@
+.lh01 {
+    line-height: 2.1875em;
+}
+
+.select_height {
+    height: 2.4em;
+}
+
+.pb625 {
+    padding-bottom: .625em;
+}
+
+.bt1 {
+    border-top: 1px solid #ccc;
+}
+
+.bb1 {
+    border-bottom: 1px solid #ccc;
+}
+
+.tran25 {
+    transform: translateY(-.25em);
+    -webkit-transform: translateY(-.25em);
+}
+
+.bgfff {
+    background: white;
+}
+
+.add {
+    background: url(../images/add.png) no-repeat center center;
+    background-size: 1.4em;
+}
+
+.local {
+    margin: 0 .9375em;
+    width: 2.9em;
+    text-align: center;
+    color: white;
+    border: 1px solid #9fd3fb;
+    height: 1.65em;
+    line-height: 1.65em;
+}
+
+.local div {
+    position: absolute;
+    height: 1.6em;
+    line-height: 1.6em;
+    font-size: .6em;
+    padding: 0 .6em;
+    background-color: #ff625b;
+    border-radius: .8em;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    -webkit-transform: translate(50%, -50%);
+}
+
+.select .text {
+    padding: 0 .5em;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.posi_left {
+    position: absolute;
+    left: 0;
+}
+
+.posi_right {
+    position: absolute;
+    right: 0;
+}
+
+
+.footer {
+    height: 3.06em;
+    background-color: white;
+    overflow: hidden;
+}
+
+.footer .wrapper {
+    transition: all .3s;
+}
+
+.footer .btn_wrapp {
+    height: 3.06em;
+    padding: .5em;
+    box-sizing: border-box;
+}
+
+.btn_width {
+    width: 5.625em;
+}
+
+.btn_active {
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.bg_or {
+    background: #faae3e;
+}
+
+.mar05 {
+    margin: 0 .5em;
+}
+
+.marl125 {
+    margin-left: .125em;
+}
+
+.marl05 {
+    margin-right: 1em;
+}
+
+
+/*check美化样式*/
+
+.checkbox,
+.radiobox {
+    width: 1.15em;
+    height: 1.05em;
+}
+
+.checkbox input[type=checkbox],
+.radiobox input[type=radio] {
+    font-size: .7em !important;
+}
+
+.checkbox input[type=checkbox]:checked:before {
+    font-size: 1.65em !important;
+    content: "\f14a";
+}
+
+.checkbox input[type=checkbox]:checked:before,
+.radiobox input[type=radio]:checked:before {
+    color: #59b6fc;
+}
+
+.checkbox input[type=checkbox]:before,
+.radiobox input[type=radio]:before {
+    color: #59b6fc;
+}
+
+
+.checkbox input[disabled]:checked:before {
+    color: #ececec;
+}
+
+.checkbox input[disabled]:before {
+    color: #ececec;
+}
+
+
+
+/*时间控件*/
+
+.dataBtn {
+    background: url(../images/icon-date.png) no-repeat center center;
+    background-size: 1.525em 1.525em;
+}
+
+
+/* 选择时间的面板 */
+
+.btnWrapper {
+    padding: .88em .4em .3em;
+}
+
+.circleBtn {
+    height: 1.525em;
+    width: 1.525em;
+    border: 1px solid #59b5fc;
+    border-radius: 1.062em;
+}
+
+.activeBg {
+    background-color: #59b5fc;
+    color: #fff !important;
+}
+
+
+/* 时间列，居中 */
+
+.dateBtnWrapper .dateBtn {
+    background: url(../images/icon-date.png) no-repeat center center;
+    background-size: 2.125em 2.125em;
+}
+
+.dateBtnWrapper .activeBg {
+    background: #59b5fc url(../images/icon-date.png) no-repeat center center;
+    background-size: 2.125em 2.125em;
+}
+

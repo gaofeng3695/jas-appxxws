@@ -1,0 +1,420 @@
+
+/*搜索框*/
+/*#searchMdl{
+    padding: .625em 0;
+}
+#searchMdl .searchBox{
+    width: 80%;
+    border:1px solid #dcdbd9;
+    padding-left: .625em;
+    background: #ffffff;
+}
+#searchMdl .searchBox input{
+    font-size: .7222em ;
+    line-height: 1.8em;
+}
+
+#search{
+    width: 2.6em;
+    border-left: 1px solid #ececec;
+    background: url(../images/search.png) no-repeat center center;
+    background-size: 1.2em;
+}*/
+
+
+
+/*事件列表*/
+.event_all{
+}
+
+.event_list{
+    background: #FFFFFF;
+    margin-bottom: .625em;
+    padding: 0 .625em;
+}
+.event_title{
+    height: 2.125em;
+    border-bottom: 1px solid #ececec;
+    line-height: 2.125em;
+}
+.event_list h1{
+    font-weight: normal;
+    font-size: .75em;
+    color: #999;
+    overflow: hidden;
+}
+.event_list h1 span.event_state{
+    padding: .25em .3em;
+    background: #00A1EA;
+    color: #FFFFFF;
+    border-radius: 5px;
+    margin-top: -.3em;
+}
+.event_list h1 span.userName{
+    /*padding-right: .5em;*/
+    width: 6em;
+    text-align: right;
+    word-break:break-all;
+}
+.event_main{
+    padding: .625em 0;
+}
+.event_check{
+    width: 5.3em;
+}
+.event_checkP{
+    width: 3.425em;
+}
+.event_checkP .event_img{
+    display: inline-block;
+    width: 2.8em;
+    height: 2.8em;
+}
+.event_checkP .event_img img{
+    display: inline-block;
+    width: 2.8em;
+    height: 2.8em;
+}
+.event_check .event_img{
+    display: inline-block;
+    width: 2.8em;
+    height: 2.8em;
+    margin-left: 1.875em;
+}
+.event_check .event_img img{
+    display: inline-block;
+    width: 2.8em;
+    height: 2.8em;
+
+}
+.event_img2{
+    background: url("../images/disasters.png") no-repeat;
+    background-size: 100% 100%;
+}
+.event_img1{
+    background: url("../images/construction.png") no-repeat;
+    background-size: 100% 100%;
+}
+.event_img3{
+    background: url("../images/pipe.png") no-repeat;
+    background-size: 100% 100%;
+}
+.event_main dl dt{
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    line-height: 1.2125em;
+    font-size: .875em;
+    color: #666666;
+    word-break:break-all;
+}
+.event_main dl dd{
+    color: #59b5fc;
+    font-size: .75em;
+    line-height: 1.2em;
+    padding-top: .5em;
+    /*padding-left: 1.2em;*/
+    /*background: url("../images/tracking.png") no-repeat center left;*/
+    /*background-size: auto 100%;*/
+}
+
+
+
+/*check美化样式*/
+.piaochecked {
+    width: 1.25em;
+    height: 1.25em;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    background: url("../images/select.png") no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 50%;
+    margin-top: -.625em;
+}
+
+.on_check {
+    background: url("../images/selected.png") no-repeat;
+    background-size: 100% 100%;
+}
+.checkClass {
+    opacity: 0;
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+.pay_list_c1 {
+    width: 1.25em;
+    height: 1.25em;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    background: url("../images/radio.png") no-repeat;
+    background-size: 100% 100%;
+    margin-top: .625em;
+}
+.radioclass {
+    opacity: 0;
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+.on {
+    background: url("../images/radioed.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+
+
+/*事件上报*/
+.report{
+    background: #ffffff;
+    padding: .4em .625em;
+    margin-bottom: .625em;
+}
+.report_list{
+    padding: .16em 0;
+}
+.report_introduce{
+    width: 4em;
+}
+.report_introduce.report_people{
+    width: 4.825em;
+}
+.report_introduce span{
+    font-size: 0.8125em !important;
+    color: #666;
+}
+.report_introduce span.report_type{
+    height: 3.75em;
+    display: -webkit-box;
+    margin-left: .125em;
+}
+.report_introduce span em{
+    color: red;
+    font-size: .8125em;
+}
+.report_content{
+    min-height: 2.1875em;
+}
+.report_text{
+    height: 2.1875em;
+    overflow: hidden;
+    line-height: 2.1875em;
+}
+.report_literal{
+    min-height: 3.7em;
+    padding-top: .3em;
+}
+.report_literal p{
+    font-size: .875em;
+    color: #333333;
+    line-height: 140%;
+    padding-left: 1.2em;
+    word-wrap:break-word;
+}
+.report_text dl{
+    color: #666;
+    padding-left: .2em;
+}
+.report_text .select .text{
+    padding: 0 .37em;
+    font-size: 0.8125em !important;
+    font-weight: normal;
+}
+.report_text input[type='text']{
+    text-indent: .67em;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 0.8125em !important;
+    display: inline-block;
+    width: 100%;
+    line-height: 100%;
+    color: #000;
+}
+.report_content span.report_img{
+    height: 1.6em;
+    margin-top: .3em;
+    display: inline-block;
+    overflow: hidden;
+    margin-right: .3em;
+}
+.report_content span.mun-camera{
+    /*line-height: 2.25em;*/
+    color: #333;
+    font-size: .875em !important;
+    padding-left: 1.2em;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+
+}
+.report_content span.report_status{
+    color: #ffffff;
+    background: green;
+    border-radius: 3px;
+    height: 1.6em;
+    line-height: 1.6em;
+    padding: 0 .3em;
+    display: inline-block;
+    margin-top: .3em;
+}
+.camera_img{
+    height: 4.375em;
+}
+.camera_img div{
+    height: 100%;
+    margin-right: .9em;
+}
+#camera_img div.pic_list{
+    width: 33%;
+}
+#camera_img div.pic_list img{
+    width: 33vw;
+    height: 33vw;
+}
+
+
+
+.report_sub span{
+    font-size: 0.8125em !important;
+    color: #666;
+}
+.report_radio{
+    min-height: 2.5em;
+    padding-left: 1em;
+}
+.report_radio label{
+    margin-top: .625em;
+    margin-left: .4em;
+    margin-right: 1.5em;
+    font-size: 1em;
+}
+.radio_prompt{
+}
+.radio_prompt p{
+    font-size: .9em;
+    color: #00A1EA;
+    height: 1.5em;
+    line-height: 1.5em;
+}
+.yes_no{
+    display: none !important;
+}
+
+
+
+
+.report_content textarea{
+    resize: none;
+    text-indent: .67em;
+    font-size: 1em !important;
+    border: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    padding-top: .3em;
+}
+
+.event_all .ubb.ub.bc-border.bc-text.ub-ac.lis{
+    padding: 0;
+    border: none;
+    -webkit-box-shadow:none;
+    box-shadow: none;
+}
+input{
+    width:100%;
+    height:2em;
+    background:#ffffff;
+    color:#666666;
+    font-size:1.2em;
+    border-radius:.2em;
+    border:1px solid #e4e4e4;
+    outline:none;
+    }
+progress {
+    width: 100%;
+    border: 1px solid #0064B4;
+    background-color:#e6e6e6;
+    color: #0064B4; /*IE10*/
+    border-radius:.2em;
+}
+
+.img_details div{
+    margin-right: 10px;
+    overflow: hidden;
+    /*background: #d9d9d9;*/
+    text-align: center;
+    border: 1px solid #ffffff;
+    margin-bottom: 10px;
+}
+.img_details div span{
+    overflow: hidden;
+}
+.img_details div span img{
+    float: left;
+}
+.img_details div:nth-child(3){
+    margin-right: 0;
+}
+.line_hidden{
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+
+
+.event_userName{
+    max-width: 10em;
+    display: -webkit-inline-box;
+    word-break:break-all;
+    vertical-align: middle;
+}
+.event_date{
+    display: -webkit-inline-box;
+    vertical-align: middle;
+}
+
+
+
+progress::-moz-progress-bar { background: #84c1ff; border-radius:.2em;}
+progress::-webkit-progress-bar { background: #e6e6e6; border-radius:.2em;}
+progress::-webkit-progress-value  { background: #84c1ff;}
+
+.no_data{
+    display: none;
+}
+
+.task_event_top{
+    padding-top: .625em;
+}
+
+#word{
+    font-size:0.875em;
+    color:#999;
+    position:absolute;
+    bottom:0.563em;
+    right:0.625em;
+}
+
+#speak{
+    background-color: #59b5fe;
+    color: #FFFFFF;
+}
+
+#voiceFiles{
+    display: none;
+}

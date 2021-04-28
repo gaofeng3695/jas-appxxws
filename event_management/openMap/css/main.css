@@ -1,0 +1,48 @@
+.bg {
+    background: #fff;
+}
+.mar5 {
+    margin: .5em .5em 0em .5em;
+}
+.linh {
+    height: 2.5em;
+    line-height: 2.5em;
+}
+input {
+    margin: 0px;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: none;
+    padding: .4em 0;
+    line-height: 1.2em;
+    background: none;
+    text-decoration: none;
+    font-size: 1em;
+    display: block;
+    outline: none;
+}
+.clrfff {
+    color: #fff;
+}
+.bgfa {
+    background: #faae40;
+}
+.bgbl {
+    background: #59b6fc;
+}
+.textcenter {
+    text-align: center;
+}
+.borradio {
+    border-radius: .2em;
+}
+.pdb5{
+    padding: .5em 0em;
+}
+.pa5{
+    padding:.5em 0em;
+}
+.brLine{
+   border:1px solid #cccccc; 
+}

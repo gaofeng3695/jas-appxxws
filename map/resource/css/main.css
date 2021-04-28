@@ -1,0 +1,47 @@
+#footer{
+	box-shadow: 0 -.07em .2em #999;
+	margin-top: .15em;
+	background: white;
+}
+#footer .btn{
+	margin: 0 .5em;
+	min-height: 1.8em;
+	padding: .2em 0;
+}
+
+
+
+#content{
+	background: url(../images/map.png) no-repeat;
+	background-size: cover;
+}
+#mask{
+	background: white;
+	box-sizing: border-box;
+	padding: .5em 0;
+	box-shadow: 0 .1em .2em #999;
+	margin-bottom: .2em;
+}
+#user{
+	min-width: 6.5em;
+	border-right: 1px solid #eee;
+}
+#user img{
+	display: block;
+	height: 2.2em;
+}
+.ulev26px{
+	font-size: .7222em;
+}
+.ulev32px{
+	font-size: .8333em;
+}
+.umartb{
+	margin:.3em 0;
+}
+.clr666{
+	color: #666;
+}
+
+
+

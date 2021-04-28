@@ -1,0 +1,246 @@
+.hide{
+    display: none !important;
+}
+.bg-w{
+    background-color: #fff;
+}
+/*  header  */
+.icon-personal{
+    background-image: url(../images/icon-personal.png) !important;
+    background-size: 1.68em;
+}
+.icon-company{
+    background-image: url(../images/icon-company.png) !important;
+    background-size: 1.68em;    
+}  
+
+/* subtitle */
+.subtitle{
+    padding: 0 .625em;
+    background-color: #fff;
+    margin-bottom: .625em;
+}
+.typeWrapper{
+    border-bottom: 1px solid #ddd;
+    height: 2.5em;
+}
+#type{
+    padding: 0 .8em;
+    background: url(../images/iconDown.png) no-repeat right center;
+    background-size: .5623em .343em;
+}
+.subMask{
+    position: absolute;
+    top: 2.2em;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    box-shadow: 0 0 10px #ccc;
+    background-color: #fff;
+    padding: .59em;
+    padding-top: 0;
+    z-index: 10;
+    border: 1px solid #ddd;
+}
+.subMask>div{
+    padding-top:  .59em;
+    background: #fff;
+}
+.subMask>div>div{
+    height: 2.5em;
+    line-height: 2.5em;
+    overflow: hidden;
+    text-align: center;   
+    padding: 0 2.3em;     
+    background-color: #fff;
+}
+.subMask>div>div:first-child{
+    /* padding-top: .59em; */
+    border-bottom: 1px solid #ddd;
+}
+.subMask:before{
+
+    top:0;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);  
+    -webkit-transform: translateX(-50%) rotate(45deg);  
+    content: " ";
+    box-shadow: 0 0 10px #ccc;    
+    height: 2em;
+    width: 2em;
+    background: #fff;
+    position: absolute;
+    pointer-events: none;
+    border: 1px solid #ddd;
+}
+.iconActive{
+    background: url(../images/icon-active.png) no-repeat .2em center ;
+    background-size: 1em;
+    color: #59b5fc;
+}
+
+/* 选择时间的面板 */
+.btnWrapper{
+    padding:.88em .4em .3em;
+}
+.circleBtn{
+    height: 2.125em;
+    width: 2.125em;
+    border: 1px solid #59b5fc;
+    border-radius: 1.062em;
+}
+.activeBg{
+    background-color: #59b5fc;
+    color: #fff !important;
+}
+
+/* 用户列，偏左 */
+.userWrapper .user{
+    overflow: hidden;
+}
+.userWrapper .user>img{
+    height: 2.125em;
+    width: 2.125em;
+}
+.username{
+    text-align: center;
+    width: 2.125em;
+    height: 1.3em;
+}
+
+#username{
+    display: inline-block;
+    width: 120%;
+    margin-left: -10%;
+}
+/* 时间列，居中 */
+.dateWrapper .dateSubWrapper{
+    margin: 0 .31em;
+    border: 1px solid #59b5fc;
+    border-radius: 1.062em;
+}
+.dateWrapper .dateSubWrapper>div{
+    height: 2.125em;
+    width: 33.33%;
+    text-align: center;
+    line-height: 2.125em;
+    color: #59b5fc;
+    border-radius: 1.062em;    
+}
+.dateWrapper .date{
+    text-align: center;
+    height: 1.3em;
+    line-height: 1.3em;
+}
+.dateBtnWrapper .dateBtn{
+    background: url(../images/icon-date.png) no-repeat center center;
+    background-size: 2.125em 2.125em; 
+}
+.dateBtnWrapper .activeBg{
+    background: #59b5fc url(../images/icon-date-active.png) no-repeat center center;
+    background-size: 2.125em 2.125em; 
+}
+
+.pickTimeWrap{
+    text-align: center;
+    vertical-align: top;
+}
+.pickTimeWrap .pickTime{
+    display: inline-block;
+}
+/* 表头 */
+.chartTitle{
+
+    /* height: 2.5em; */
+    padding: .5em 0;
+    background: white;
+    margin:0 .625em;
+    border-bottom: 1px solid #ddd;    
+}    
+.chartTitle>div:last-child{
+
+}
+.chartTitle>div>div>span:first-child{
+    margin-right: 1.6em;
+}
+
+/* content */
+#content{
+    background: white;
+    overflow: hidden;
+    /* Prevent native touch events on Windows */
+    -ms-touch-action: none;
+
+    /* Prevent the callout on tap-hold and text selection */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    /* Prevent text resize on orientation change, useful for web-apps */
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    text-size-adjust: none;    
+}
+#content #chartBox{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    /* Prevent elements to be highlighted on tap */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+    /* Put the scroller into the HW Compositing layer right from the start */
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+
+}
+canvas{
+    background-color: #fff;
+}
+
+
+#content #mask{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -999;
+}
+
+/* 时间轴 */
+
+.mbsc-fr-popup{
+    /* transition: all 0.3s linear 0s !important; */
+    /* visibility: hidden; */
+    overflow: hidden;
+}
+.mbsc-calendar{
+   /*  overflow: hidden; */
+}
+/* div[lang = zh],div[lang = zh] div{
+    position: static;
+} */
+
+.mbsc-cal-btnw {
+    height: 3.3em;
+}
+.mbsc-range-btn {
+    line-height: 1.67em;
+}
+.mbsc-fr-popup{
+    font-size: 0.75em;
+}
+.mbsc-material .mbsc-fr-w {
+    font-size: 1em;
+}
+.mbsc-material .mbsc-fr-btn-cont .mbsc-fr-btn {
+    font-size: 1.16em;
+}

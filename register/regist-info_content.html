@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="resource/regist-info_content/css/main.css">
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+<div class="ub ub-ver uinn-a1">
+    <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1">
+        <div class="ulev-app1 umw45">
+            输入姓名
+        </div>
+        <div class="ub ub-ac umh5 ub-f1">
+            <div class="uinput ub ub-f1">
+                <input placeholder="请输入姓名" type="text" class="ub-f1" id="roleName">
+            </div>
+        </div>
+    </div>
+    <div class="uba b-gra3 uc-a1 c-wh umh5 ub uinn-a7 ub-ac umar-at1">
+        <div class="ulev-app1 umw45">
+            选择角色
+        </div>
+        <div class="select ub ub-ac  bc-text  ub-f1" style="padding: 0;">
+            <div class="text" style="padding: 0;">
+                请选择
+            </div>
+            <div class="icon"></div>
+            <select id="roleIds" name="roleIds">
+
+            </select>
+        </div>
+    </div>
+    <div class="ub ub-ver">
+
+        <div class="ub umar-at1 uinn-a7 umh2">
+                    <span class="ulev-1  sc-text-warn" id="reminder">
+                    </span>
+        </div>
+        <div class="uinn-at1">
+            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="submit">
+                提交并登录
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/appcan.listview.js"></script>
+<script src="../common/js/common_base.js"></script>
+<script src="../common/js/common_httprequest.js"></script>
+<script src="../common/js/common_tianji.js"></script>
+</body>
+<script>
+
+    var roleName;
+    var roleIds;
+    var jasHttpRequest = null;
+
+    appcan.select(".select", function (ele, value) {
+        if ($("#reminder").html() === '请选择角色名称') {
+            $("#reminder").html("");
+        }
+    });
+    //var enterpriseId=appcan.locStorage.getVal("enterpriseId");//存在企业id
+    // if(enterpriseId!=null&&enterpriseId!=""){
+    // $('.select select').val('b5215de6-12f6-4ebc-a349-db00dccb96f2');//如果存在企业默认选择是巡检员
+    // }else{
+    // $('.select select').val('7ee6a23a-c352-41c2-b2a4-93cb6a1a0e9b'); //管理员id
+    // }
+
+    $('.select select').trigger('change');
+
+    $("#roleName").blur(function () {
+        roleName = $("#roleName").val();
+        if (roleName.length === 0) {
+            $("#reminder").html("请输入姓名");
+        }
+        if (/[^(A-Za-z_\-\u4e00-\u9fa5)]/.test(roleName) === true) {
+            $("#reminder").html("姓名只能由汉字、字母、下划线组成");
+            return;
+        }
+    });
+
+    /*
+     * 提交并登录的方法
+     */
+    appcan.button("#submit", "ani-act", function () {
+        roleName = $("#roleName").val();
+        roleIds = $("#roleIds").val();
+        if (roleName.length === 0) {
+            $("#reminder").html("请输入姓名");
+            return;
+        }
+        if (/[^(A-Za-z0-9_\-\u4e00-\u9fa5)]/.test(roleName) === true) {
+            $("#reminder").html("姓名只能由汉字、字母、下划线组成");
+            return;
+        }
+        if (roleIds === '0'||roleIds==null||roleIds=="") {
+            $("#reminder").html("请选择角色名称");
+            return false;
+        }
+        appcan.locStorage.setVal("roleName", roleName);
+        appcan.locStorage.setVal("roleIds", roleIds);
+        $("#reminder").html(" ");
+        var dataArray;
+        var registNum = appcan.locStorage.getVal("registNum");
+        if (registNum == null || registNum == "") {
+            registNum = JSON.parse(appcan.locStorage.getVal("userBo")).mobileNum;
+        }
+        var enterpriseName = appcan.locStorage.getVal("enterpriseName");
+        var enterpriseScale = appcan.locStorage.getVal("enterpriseScale");//企业规模
+        var password = appcan.locStorage.getVal("password");
+        if (password == null || password == "") {
+            password = JSON.parse(appcan.locStorage.getVal("userBo")).password;
+        }
+        var enterpriseId = appcan.locStorage.getVal("enterpriseId");
+        //alert(enterpriseId);
+        if (enterpriseId != null && enterpriseId != "") {
+            dataArray = {
+                "mobileNum": registNum,
+                "userName": roleName,
+                "roleIds": roleIds,
+                "enterpriseName": enterpriseName,
+                "enterpriseScaleStr": enterpriseScale,
+                "password": password,
+                "enterpriseId": enterpriseId
+            };
+        }
+        else {
+            dataArray = {
+                "mobileNum": registNum,
+                "userName": roleName,
+                "roleIds": roleIds,
+                "enterpriseName": enterpriseName,
+                "enterpriseScaleStr": enterpriseScale,
+                "password": password
+            };
+        }
+        var partURL1 = "cloudlink-core-framework/login/registAndLogin";//cloudlink-core-framework/
+        jasHttpRequest.jasHttpPost(partURL1, function (id, state, data) {
+            var obj = JSON.parse(data);
+            if (obj.success == 1) {
+                appcan.locStorage.setVal("userName", roleName);
+                appcan.locStorage.setVal("roleIds", roleIds);
+                appcan.locStorage.setVal("token", obj.token);
+                appcan.locStorage.setVal("userBo", obj.rows[0]);
+                registSeccuss();
+            } else {
+                $("#reminder").html("注册未成功！");
+                if (tjSwitch == 1) {
+                    try {
+                        var zg_param={eventName:"注册未成功",info:{}};
+                        uexTianji.track(zg_param);
+                    } catch (e) {
+                    }
+                }
+            }
+        }, JSON.stringify(dataArray));
+    });
+
+
+    function getRolesList() {
+        var url = "cloudlink-core-framework/role/queryList?roleType=2";
+        var jasHttpRequest = new JasHttpRequest();
+        jasHttpRequest.jasHttpGet(url, function (id, state, data) {
+            if (data == "") {
+                baseOperation.alertToast("获取角色列表：网关异常");
+                return;
+            }
+            //alert(data);
+            var dbObj = JSON.parse(data);
+            if (dbObj.success == 1) {
+                loadOptionList(dbObj);
+            }
+            else {
+                baseOperation.alertToast("获取角色列表：请求失败");
+                return;
+            }
+        });
+    }
+
+    function loadOptionList(optionList) {
+        $("#roleIds").html("");
+        var txt = '<option value="0">请选择</option>';
+        for (var i in optionList.rows) {
+            txt += '<option value="' + optionList.rows[i].objectId + '">' + optionList.rows[i].roleName + '</option>';
+        }
+        //alert(txt);
+        $("#roleIds").append(txt);
+    }
+
+    appcan.ready(function () {
+        jasHttpRequest = new JasHttpRequest();
+        getRolesList();
+    });
+
+    /*
+     * 登录并注册的成功方法
+     */
+    function registSeccuss() {
+        if (tjSwitch == 1) {
+            try {
+                var zg_param={eventName:"注册成功",info:{}};
+                uexTianji.track(zg_param);
+                appcan.openWinWithUrl("index", "../index.html");
+            }
+            catch (e) {
+                appcan.openWinWithUrl("index", "../index.html");
+            }
+        }
+        else {
+            appcan.openWinWithUrl("index", "../index.html");
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+    <link rel="stylesheet" href="myenter_content/css/main.css">
+</head>
+
+<body class="um-vp bc-bg" ontouchstart>
+    <div class="ub ub-ver content_enter">
+        <div class="title ub ub-ac">
+            <div class="ub-f1 " id="morlogin">
+                当前登录企业：
+            </div>
+        </div>
+        <div class="loginenterprise" id="loginenterprise">
+        </div>
+        <div class="allenterprise" id="allenterprise">
+
+        </div>
+
+        <div class="note ">
+            <p>
+                *设为<img src="myenter_content/css/icon_qy1.png" class="img_pic ">默认企业后，重新登录账户即可进入该企业
+            </p>
+        </div>
+
+    </div>
+    <div class=" umar-bgf">
+        <span class="create_border" id="create">我要创建新企业</span>
+    </div>
+
+</body>
+<script src="../../js/appcan.js"></script>
+<script src="../../js/appcan.control.js"></script>
+<script src="../../js/appcan.listview.js"></script>
+<script src="../../common/js/common_base.js"></script>
+<script src="../../common/js/common_httprequest.js"></script>
+<script src="../../common/js/common_tianji.js"></script>
+</body>
+<script>
+    var jasHttpRequest = null;
+    appcan.ready(function() {
+        baseOperation.londingToast('数据加载中，请稍候...', 3000);
+        jasHttpRequest = new JasHttpRequest();
+        relaodEnterprise();
+    });
+    /*单选框选择*/
+    $("body").on("click", ".radio", function() {
+        var that = this;
+        var note = "";
+        var join = $(that).find("input[type='radio']").attr("id");
+        var enterpriseId = $("input[name='enterprise']:checked").val();
+        var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+        if (enterpriseId == userBo.enterpriseId) {
+            appcan.window.alert({
+                title: "提示",
+                content: "您好，该企业已是默认企业",
+                buttons: ['确定'],
+                callback: function(err, data, dataType, optId) {
+                    //                        if (data == 0) {
+                    //                          appcan.window.evaluateScript("myenter", "closeWin()");
+                    //                        }
+                }
+            });
+        } else {
+            if (join.indexOf("nojoin") > -1) {
+                note = "您是否同意加入该企业\r\n并将该企业设置为默认企业？";
+            } else {
+                note = "您是否将该企业设置为默认企业？";
+            }
+            appcan.window.alert({
+                title: "提示",
+                content: note,
+                buttons: ['确定', '取消'],
+                callback: function(err, data, dataType, optId) {
+                    if (data == 0) {
+                        $(".radio").each(function(index) {
+                            if ($(this).hasClass("on_check")) {
+                                $(this).removeClass("on_check");
+                            }
+                        });
+                        appcan.locStorage.setVal("chooseenterpriseid", "1");
+                        $(that).addClass("on_check");
+                        $(that).find("input[type='radio']").prop("checked", true);
+                        setDefaultEnterprise();
+                    }
+                }
+            });
+        }
+    });
+
+    function relaodEnterprise() {
+        var mornalhtml = "";
+        var allenterprise = "";
+        var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+        var status = '0,1';
+        var partURL1 = "cloudlink-core-framework/enterprise/getByUserId?userId=" + userBo.objectId + "&status=" + status;
+        jasHttpRequest.jasHttpGet(partURL1, function(id, state, dbSource) {
+            // uexLog.sendLog(dbSource);
+            //根据获取到的status  设定不同状态 目前：未加入企业  0 已加入的是1 冻结-1 移除 -2  默认企业  其余的都是退出企业
+            if (dbSource == "") {
+                baseOperation.alertToast("网络繁忙，请稍候再试...");
+                return;
+            }
+            var data = JSON.parse(dbSource);
+            $(".allenterprise").html("");
+            $(".loginenterprise").html("");
+            if (data.success == 1) {
+                var datalist = data.rows;
+                for (var i = 0; i < datalist.length; i++) {
+                    if (datalist[i].objectId != userBo.enterpriseId) {
+                        if (datalist[i].isDefault == "1") {
+                            $(".morradio").removeClass("on_check");
+                            allenterprise += '<div class="content ub"><div class="ub-f1 content_left"><div class="radio on_check" >' + '<input type="radio" name="enterprise" class="radiobox" value="' + datalist[i].objectId + '" id="radio' + i + '"/>' + '</div>' + '<label class="line1 textwidth ub-f1" for="radio' + i + '">' + datalist[i].enterpriseName + '</label></div><div class="nologinright tx-c ub ub-ac">' + '<span class="text"  onclick="loginout(\'' + datalist[i].objectId + '\',2);">退出该企业</span></div></div></div>';
+
+                        } else {
+
+                            if (datalist[i].status == 0) {
+                                allenterprise += '<div class="content ub"><div class="ub-f1 content_left"><div class="radio" >' + '<input type="radio" name="enterprise" class="radiobox" value="' + datalist[i].objectId + '"  id="nojoin' + i + '"/></div>' + '<label class="line1 textwidth ub-f1" for="nojoin' + i + '">' + datalist[i].enterpriseName + '</label></div><div class="nojoinright tx-c ub ub-ac">' + '<span class="nojoin" >未加入</span></div></div></div>';
+                            } else {
+                                allenterprise += '<div class="content ub"><div class="ub-f1 content_left"><div class="radio" >' + '<input type="radio" name="enterprise" class="radiobox" value="' + datalist[i].objectId + '" id="radio' + i + '"/>' + '</div>' + '<label class="line1 textwidth ub-f1" for="radio' + i + '">' + datalist[i].enterpriseName + '</label></div><div class="nologinright tx-c ub ub-ac">' + '<span class="text"  onclick="loginout(\'' + datalist[i].objectId + '\',2);">退出该企业</span></div></div></div>';
+                            }
+                        }
+                    } else {
+                        if (datalist[i].isDefault == "1") {
+                            mornalhtml = '<div class="content ub"><div class="ub-f1 content_left"><div class="radio on_check" ><input type="radio" name="enterprise" class="radiobox" value="' + datalist[i].objectId + '" id="morid"/></div>' + '<label class="line1 textwidth ub-f1" for="morid">' + datalist[i].enterpriseName + '</label></div><div class="nologinright tx-c ub ub-ac" ><span class="text"  onclick="loginout(\'' + datalist[i].objectId + '\',1)">退出该企业</span></div></div>';
+                            $(".loginenterprise").append(mornalhtml);
+                        } else {
+                            mornalhtml = '<div class="content ub"><div class="ub-f1 content_left"><div class="radio" ><input type="radio" name="enterprise" class="radiobox" value="' + datalist[i].objectId + '" id="morid"/></div>' + '<label class="line1 textwidth ub-f1" for="morid">' + datalist[i].enterpriseName + '</label></div><div class="nologinright tx-c ub ub-ac" ><span class="text"  onclick="loginout(\'' + datalist[i].objectId + '\',1)">退出该企业</span></div></div>';
+                            $(".loginenterprise").append(mornalhtml);
+                        }
+                    }
+
+                }
+                if (allenterprise != "") {
+                    $(".allenterprise").css("marginTop", '1em');
+                    $(".allenterprise").append(allenterprise);
+                    baseOperation.closeToast();
+                } else {
+                    baseOperation.closeToast();
+                    $(".allenterprise").css("marginTop", '0');
+                }
+                var heightAll = $(".enterform").height();
+                var heightMian = $(".content_enter").height();
+                var heightBom = $(".umar-bgf").height();
+                if (heightMian > (heightAll - heightBom)) {
+                    $(".umar-bgf").css('position', "relative");
+                } else {
+                    $(".umar-bgf").css('position', "absolute");
+                }
+            }
+
+        });
+
+    }
+
+
+    appcan.button("#create", "ani-act", function() {
+        appcan.locStorage.setVal("enterpriseId", "");
+        var isExsit = appcan.locStorage.getVal("chooseenterpriseid");
+        //如果存在表示进行了选中请求后台服务，如果没有则不进行任何操作
+        appcan.locStorage.remove("chooseenterpriseid");
+        if (isExsit == null || isExsit == "") {} else {
+            // setDefaultEnterprise();
+        }
+        //清空企业ID的缓存
+        //document.getElementById("loginenterprise").innerHTML = "";
+        //进行当前页面追加的数据清空
+        //document.getElementById("allenterprise").innerHTML = "";
+        appcan.openWinWithUrl("create-group", "create-group.html");
+    });
+
+    /*
+     * 设置默认企业
+     */
+    function setDefaultEnterprise() {
+        var nojoin = "";
+        var enterpriseId = $("input[name='enterprise']:checked").val();
+        nojoin = $("input[name='enterprise']:checked").attr("id");
+        var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+        if (nojoin != "") {
+            //当前需要设置为默认企业并且该企业未加入
+            var part1 = "cloudlink-core-framework/user/setDefaultEnterpriseAndJoin";
+            jasHttpRequest.jasHttpPost(part1, function(id, state, dbSource) {
+                if (dbSource == "") {
+                    baseOperation.alertToast("网络繁忙，请稍候再试...");
+                    return;
+                }
+                var obj = JSON.parse(dbSource);
+                if (obj.success == 1) {
+                    baseOperation.alertToast("设置成功");
+                    // appcan.window.evaluateScript("myenter", "closeWin()");
+                    return;
+                }
+            }, JSON.stringify({
+                "userId": userBo.objectId,
+                "enterpriseId": enterpriseId
+            }));
+        } else {
+            //当前需要设置为默认企业并且该企业已经加入
+            var part = "cloudlink-core-framework/user/setDefaultEnterprise";
+            jasHttpRequest.jasHttpPost(part, function(id, state, dbSource) {
+                if (dbSource == "") {
+                    baseOperation.alertToast("网络繁忙，请稍候再试...");
+                    return;
+                }
+                var obj = JSON.parse(dbSource);
+                if (obj.success == 1) {
+                    baseOperation.alertToast("设置成功");
+                    // appcan.window.evaluateScript("myenter", "closeWin()");
+                    return;
+                }
+            }, JSON.stringify({
+                "userId": userBo.objectId,
+                "enterpriseId": enterpriseId
+            }));
+        }
+
+    }
+
+    function loginout(_enterpriseId, status) {
+        /*status==1的时候，为默认企业需要退出成功后 返回到登录界面。
+         * isdefault==1  为管理员
+         */
+        var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+        var content = "";
+        if (status == 1) {
+            content = "本操作将会导致您脱离该企业，\r\n是否继续?";
+        } else {
+            content = "本操作将会导致您脱离该企业，\r\n是否继续?";
+        }
+        appcan.window.alert({
+            title: "重要提示",
+            content: content,
+            buttons: ['确定', '取消'],
+            callback: function(err, data, dataType, optId) {
+                if (data == 0) {
+                    //进行企业的退出，如果取消将是没有任何反应的
+                    var part = "cloudlink-core-framework/user/leaveFromEnterprise";
+                    var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+                    jasHttpRequest.jasHttpPost(part, function(id, state, dbSource) {
+                        if (dbSource == "") {
+                            baseOperation.alertToast("网络繁忙，请稍候再试...");
+                            return;
+                        }
+                        var obj = JSON.parse(dbSource);
+                        if (obj.success == 1) {
+                            if (status == 1) {
+                                appcan.locStorage.remove("token");
+                                appcan.locStorage.remove("userBo");
+                                appcan.window.evaluateScript("myenter", "closeWin()");
+                            } else {
+                                baseOperation.alertToast("退出成功");
+                                appcan.locStorage.setVal("enterpriseId", "");
+                                //清空企业ID的缓存
+                                document.getElementById("loginenterprise").innerHTML = "";
+                                //进行当前页面追加的数据清空
+                                document.getElementById("allenterprise").innerHTML = "";
+                                relaodEnterprise();
+                                return;
+                            }
+                        } else {
+                            if (obj.code == 'EL01') {
+                                appcan.window.alert({
+                                    title: "提示",
+                                    content: "您是该企业的系统管理员，\r\n如需退出，请先移交系统管理员权限。",
+                                    buttons: ['确定'],
+                                    callback: function(err, data, dataType, optId) {
+                                        if (data == 0) {
+                                            return;
+                                        }
+                                    }
+                                });
+                                // baseOperation.alertToast("您是该企业的系统管理员，在退出前需要先将管理员权限移交");
+                            }
+
+                        }
+                    }, JSON.stringify({
+                        "objectId": userBo.objectId,
+                        "enterpriseId": _enterpriseId
+                    }));
+                }
+            }
+        });
+
+    }
+</script>
+
+</html>

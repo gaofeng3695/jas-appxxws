@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="resource/css/main.css">
+    </head>
+    <body id="top" ontouchstart>
+        <div class="umar-b0">
+            <!-- 搜索框 begin -->
+            <div id="find" class="searchWrap ub ub-pc ">
+                <div class="ub ub-f1 searchBox ub-ac">
+                    <div class="uinput ub ub-f1 ub-ac">
+                        <input id= "search" placeholder="支持姓名、部门的搜索" type="search" class="search ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}" >
+                    </div>
+                    <div id="" class="searchDelete" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden')"></div>
+                    <div class="searchLine"></div>
+                    <div id="searchImg" class="right searchBtn ulev26 ub ub-ac">搜索</div>
+                </div>
+            </div> 
+            <!-- 搜索框 end -->
+            <!--所有联系人的容器-->
+            <div id="class">
+            </div>
+           <!-- 按条件搜索出的联系人的容器 -->
+            <div id="all">
+            </div>
+            <!--右侧锚点-->
+            <div id="anchor"> 
+                <ul>
+                </ul>
+            </div>
+            <!--部门和姓名的切换-->
+            <div id="department">
+                <img src="resource/css/myImg/bmqh.png"/>
+            </div> 
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../js/pinyin.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+        <script src="resource/js/addressbook.js"></script>
+    </body>
+</html>

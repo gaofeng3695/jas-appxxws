@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="sysconfig_content/css/main.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="ub ub-ver uinn-a3 ub-fv">
+            <div class="ub ub-ver uinn uinn-at1">
+                <form >
+                    <div class="umar-a uba bc-border c-wh">
+                        <div class="ub ub-ac ubb umh5 bc-border ">
+                            <div class=" uinput ub ub-f1">
+                                <div class="uinn fa fa-user sc-text"></div>
+                                <input placeholder="请求协议" type="text" class="ub-f1" id="protocol">
+                            </div>
+                        </div>
+                        <div class="ub ub-ac ubb umh5 bc-border ">
+                            <div class=" uinput ub ub-f1">
+                                <div class="uinn fa fa-user sc-text"></div>
+                                <input placeholder="IP地址或域名" type="text" class="ub-f1" id="ip">
+                            </div>
+                        </div>
+                        <div class="ub ub-ac umh5 bc-border ">
+                            <div class=" uinput ub ub-f1">
+                                <div class="uinn fa fa-lock sc-text"></div>
+                                <input placeholder="端口号" type="text" class="umw4 ub-f1" id="port">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ub ub-ver">
+
+                        <div class="uinn-at1">
+                            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="submit">
+                                保存
+                            </div>
+                        </div>
+                        <div class="uinn-at2 ub sc-text-active ulev-4">
+                           注：<br/>内网测试地址  http://192.168.100.120:8050<br/>外网测试地址   http://106.37.179.154:8050<br/>阿里测试地址 https://apigw.zyax.cn
+                        </div>
+                    </div>
+                    <button type="submit"class="uinvisible"></button>
+                </form>
+            </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="common/js/common_base.js"></script>
+        <script src="common/js/common_database.js"></script>s
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+            initParams();
+        });
+        appcan.button("#submit", "ani-act", function() {
+            var sql4 = "update ipconfig set ip = '"+$("#ip").val()+"',port = '"+$("#port").val()+"',protocol = '"+$("#protocol").val()+"';";
+            var dbOperation = new DataBaseOperation();
+            dbOperation.dbExec(sql4,function(err,data){
+                if(err != null){
+                    //alert("更新数据1失败！");
+                    //alert("失败："+err);
+                }
+                else if(data == 0){
+                    alert("更新IP配置成功！");
+                    appcan.locStorage.setVal('serverProtocol',$("#protocol").val());
+                    appcan.locStorage.setVal('serverIP',$("#ip").val());
+                    appcan.locStorage.setVal('serverPort',$("#port").val());
+                }
+            });
+        });
+
+        function initParams()
+        {
+            $("#protocol").val(appcan.locStorage.getVal('serverProtocol'));
+            $("#ip").val(appcan.locStorage.getVal('serverIP'));
+            $("#port").val(appcan.locStorage.getVal('serverPort'));
+        }
+    </script>
+</html>

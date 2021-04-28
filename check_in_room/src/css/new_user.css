@@ -1,0 +1,80 @@
+/* 字体间距 */
+.word2{
+    letter-spacing: 2em;
+    margin-right: -2em;
+}
+.word3{
+    letter-spacing: .5em;
+    margin-right: -1em;    
+}
+.word25{
+    letter-spacing: 0.15em;
+}
+.sInput{
+    width: 3.5em;
+    padding-right: .7em;
+    padding-left: .7em;
+    background: #f3f3f3;
+}
+.margin20{
+    margin: 0 .8em;
+}
+
+
+
+/* 表单模块 */
+.section{
+    background: #fff;
+    padding: .625em;
+}
+.section .line{
+    margin-bottom: .625em;
+}
+.section .line:nth-last-of-type(1){
+    margin-bottom: 0em;
+}
+.lineTitle{
+    width: 4.5em;
+    height: 2.2em;
+    line-height: 2.2em;
+}
+.rightDiv{
+    background: #f3f3f3;
+    padding: 0 2em 0 .8em;
+    border-right: .8em solid #f3f3f3;
+}
+.bgMustDone{
+    background: #f3f3f3 url(../images/caution.png) no-repeat center right;
+    background-size: 1.4em;
+}
+.bgSelectLoca{
+    background: #f3f3f3 url(../images/map_h.png) no-repeat center right;
+    background-size: 1.3em;
+}
+.bgSelectPeop{
+    background: #f3f3f3 url(../images/people.png) no-repeat center right;
+    background-size: 1.6em;
+}
+.bgSelectDate{
+    background: #f3f3f3 url(../images/icon-date.png) no-repeat center right -0.4em;
+    background-size: 2.6em;
+}
+.ownSelect{
+    background: #f3f3f3;
+    padding: 0 .4em 0 .625em;
+}
+.ownSelect .text{
+    padding: 0;
+}
+.clickIcon{
+    padding-right: .625em;
+    height: 2em;
+    width: 1.4em;
+    background: url(../../../setting/resources/applayapprove_content/css/camera.png) no-repeat center left;
+    background-size: 1.4em;
+}
+.shelter{
+    height: 1.5em;
+    width: .5em;
+    border-left: 1px solid #cfcfcf;
+}

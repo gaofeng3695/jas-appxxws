@@ -1,0 +1,77 @@
+body {
+    background: #fff;
+}
+.top {
+    margin: 0 auto;
+    padding: 1.875em 0 .6em 0;
+    width: 3.6em;
+    height: 3.6em;
+}
+.top img {
+    width: 3.6em;
+    height: 3.6em;
+}
+.ulev0825{
+    font-size:.825em;
+}
+.name {
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+.num {
+    margin-top: .6em;
+
+    font-size: .75em;
+    text-align: center;
+    color: #999;
+}
+.fontstyle {
+    padding: 1em .9375em 1em;
+    text-indent: 1.6em;
+    word-break: normal;
+    color: #666;
+}
+.fontstyle p {
+    font-size: .8125em;
+    line-height: 1.5;
+    word-break: normal;
+    padding-bottom:1.3em;
+    border-bottom:1px solid #e4e4e4;
+}
+
+.barcodeWrapp {
+    padding: 1.3em 0;
+}
+.barcodeWrapp > div {
+    padding: 0 2em;
+}
+.barcodeWrapp img {
+    display: block;
+    margin-bottom: 1em;
+    width: 4.315em;
+    height: 4.315em;
+}
+.barcodeWrapp p {
+    border-radius: 1.2em;
+    width: 6.1em;
+    text-align: center;
+    color: #fff;
+}
+.barcodeWrapp p span {
+    line-height: 2em;
+    font-size: .75em;
+}
+.barcodeWrapp p.shareDownload{
+    background: #84caff;
+    box-shadow: 1px 1px 0px #4C9FED;
+}
+.barcodeWrapp p.shareGZH{
+   background: #FAAE3F; 
+   box-shadow: 1px 1px 0px #F2932E;
+}
+.agreement{
+    text-decoration: none;
+    color:#999;
+}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+    <link rel="stylesheet" href="../index/time/main.css">
+    <link rel="stylesheet" href="../../common/share/css/share.css">
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+<div class="uof">
+<div class="disposal_top"></div>
+<div class="box">
+    <div class="bc-bg uinn-m list_all">
+
+    </div>
+</div>
+<div id="list_task_Views" class="disposal_bottom">
+    
+</div>
+</div>
+
+ <div id="mask" class="up" style="position:fixed;display: none;">
+        <div class="ub ub-ver tableWrapper">
+            <div class="ub ub-ver table">
+                <div class="ub ub-pj line">
+                    <div class="ub ub-ver ub-ac item">
+                        <img src="../../common/share/images/wx.png">
+                        <div>微信好友</div>
+                    </div>
+                    <div class="ub ub-ver ub-ac item">
+                        <img src="../../common/share/images/pyq.png">
+                        <div>朋友圈</div>
+                    </div>
+                    <div class="ub ub-ver ub-ac item">
+                        <img src="../../common/share/images/qq.png">
+                        <div>QQ好友</div>
+                    </div>
+                    <div class="ub ub-ver ub-ac item">
+                        <img src="../../common/share/images/qzone.png">
+                        <div>QQ空间</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ub ub-ac ub-pc ub-ac ulev30 clr666 cancelBtn" onclick="hideShareTools()">取消</div>
+        </div>
+    </div>
+<script src="../../js/appcan.js"></script>
+<script src="../../js/appcan.control.js"></script>
+<script src="../../js/appcan.slider.js"></script>
+<script src="../../common/js/common_bounce.js"></script>
+<script src="../../common/js/common_base.js"></script>
+<script src="../../common/js/common_httprequest.js"></script>
+<script src="../../common/js/linq.min.js"></script>
+<script src="../../common/share/js/common_weixin.js"></script>
+<script src="../../common/share/js/common_qq.js"></script>
+<script src="../../common/share/js/share_event.js"></script>
+<script src="../index/js/eventJson.js"></script>
+</body>
+<script>
+
+
+    var pageSize = 10;
+    var pageNum=1;
+    var bindData = [];
+    var jasHttpRequest = null;
+
+    var option = '';
+    var eventId='';
+    var data_all=null;
+    var isRelation = 0;//判断当前用户是否是干系人的标志位
+    appcan.ready(function () {
+        
+        document.body.addEventListener('touchmove', function(event){
+            if($("#mask").css('display') !== 'none'){
+                event.preventDefault();
+            }
+        }, false);
+    
+        jasHttpRequest = new JasHttpRequest();
+        eventId=appcan.locStorage.getVal("event_Id");
+        refreshBounce(refreshList,more);
+        var tabIndex=appcan.locStorage.getVal("tabIndex_param");
+        if(tabIndex=="1"){
+           initData();
+        }
+//        initData();
+    });
+
+    /*向后台请求数据*/
+    function initData(){
+        bindData=[];
+        baseOperation.londingToast("数据加载中，请稍候...");
+        var partURL = 'cloudlink-inspection-task/dispose/getPageListByEventId';
+        //  partURL=partURL+"?pageNum="+pageNum+"&pageSize="+pageSize+"&taskId="+task_id;
+        partURL=partURL+"?bizId="+eventId;
+        jasHttpRequest.jasHttpGet(partURL,onDataCallback);
+    }
+    /*请求json，遍历返回值*/
+    function onDataCallback(id, state, dbSource){
+        //uexLog.sendLog("456:"+dbSource);
+        if(dbSource.length==0){
+            //baseOperation.alertToast("网络链接异常");
+            baseOperation.alertToast("网络繁忙，请稍候再试...");
+            return ;
+        }
+        var resultData=JSON.parse(dbSource);
+        var tempData = [];
+        if(resultData.success=="1"){
+            data_all=resultData.rows[0].disposeList;//Json对象的数组
+            isRelation = (resultData.rows[0].isRelation==null?"0":resultData.rows[0].isRelation);
+            /*判断是否关闭任务 sf 2016-11-20*/
+            for (var i=0; i < data_all.length; i++) {
+               if(data_all[i].type == "40")
+               {
+                   isRelation = 0;//表示关闭 
+                   break;
+               }
+            };
+            taskActionFooter(isRelation);
+            if(data_all.length==0){
+                $("#list_task_Views").html('<p class="tx-c">暂无数据</p>');
+                baseOperation.closeToast();
+            }else{
+                //$(".no_data").hide();
+                $(".list_all").html("");
+                var tempArry = [];
+                var temp = "";
+                var taskId_param=data_all[0].taskId;
+                appcan.locStorage.setVal("task_only_id",taskId_param);
+                for(var i=0;i<data_all.length;i++){
+                    if(temp !=data_all[i].modifyday )
+                    {
+                        tempArry.push(data_all[i].modifyday);
+                        temp=data_all[i].modifyday;
+                    }
+                }
+                for(var j=0;j<tempArry.length;j++) {
+                    option = '<div class="ub ub-ver">' +
+                            '<h3 class="font1">'+tempArry[j]+'</h3>' +
+                            '<ul class="day'+j+'">' +
+                            '</ul>' +
+                            '</div>';
+                    $(".list_all").append(option);
+                    var queryResult = Enumerable.From(data_all)
+                            .Where(function (x) { return x.modifyday==tempArry[j] })
+                            .ToArray()
+                            .forEach(function (x) {
+                                var optionChild='';
+                                optionChild += '<li class="ub disposal_list" onclick="open_disposal_details(this)">' +
+                                        '<input type="hidden" name="objectId" value="'+ x.objectId+'"/>' +
+                                        '<input type="hidden" name="typeCode" value="'+ x.typeCode+'"/>' +
+                                        '<span class="time ub">'+ x.modifytime+'</span>' +
+                                        '<div class="task ub ub-f1 ub-ver">'+
+                                        '<div class="ub disposal_title">'+
+                                        '<div class="ub-f1 tx-l font4">'+ x.disposeValue+'</div>' +
+                                        '<div class="ub-f1 tx-r pr1 text_people line1 font3">'+ x.modifyUserName+'</div>' +
+                                        '</div>' +
+                                        '<div class="depict pr1 font3 line2 disposal_text">'+ x.content+'</div>' +
+                                        '</div>'+
+                                        '</li>';
+                                $(".day"+j).append(optionChild);
+                            });
+                }
+            }
+            baseOperation.closeToast();
+        }else{
+            baseOperation.alertToast("网络繁忙，请稍候再试...");
+            return ;
+        }
+    }
+    /*向上拉，重新加载*/
+    function refreshList(){
+        pageNum=1;
+        initData();
+    }
+
+    /*向下拉，重新加载*/
+    function more(){
+        pageNum=pageNum+1;
+        initData();
+    }
+
+    /*打开处置详情页面*/
+    function open_disposal_details(e){
+        var parent=$(e).find("input[name='objectId']").val();
+        var codeId=$(e).find("input[name='typeCode']").val();
+        if(codeId == 00 || codeId == 40){
+            baseOperation.alertToast("无处置详情信息");
+        }else{
+            eventObj.disposal(data_all,parent);
+            appcan.openWinWithUrl("disposal_details","../disposal_details.html");
+        }
+    }
+    
+    /*控制footer的显示或隐藏*/
+   function taskActionFooter(isRelation)
+   {
+        appcan.window.evaluateScript("task_details","showNewsFooter("+isRelation+")");
+   }
+   
+   function showShareTools(){
+       $("#mask").show();
+       uexWindow.setBounce(0);//针对处置信息的tab特殊处理
+   }
+
+   function hideShareTools(){
+       $("#mask").hide();
+       uexWindow.setBounce(1);//针对处置信息的tab特殊处理
+   }
+</script>
+</html>

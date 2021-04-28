@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="css/routes.css">
+        
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">个人巡检轨迹</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束-->
+
+            <div id="title" class="ub ub-pc ub-ac">
+                <div class="head-pic">
+                        <img id="head-pic" src="../images/male_head.png" alt="">
+                </div>   
+                <div class="ub-f1">
+                <span class="ulev28 bc-text-head ut-s" id="username">--</span>
+                <b class="bc-text-head ulev30">|</b>
+                <span class="ulev28 bc-text-head" id="dept">--</span>
+                </div>                 
+            </div>
+
+            <!-- 搜索框 begin -->
+            <div id="" class="searchWrap ub ub-pc ">
+                <div class="ub ub-f1 searchBox ub-ac">
+                    <div class="uinput ub ub-f1 ub-ac">
+                        <input id= "inputDom" placeholder="搜日期：20160905" type="search" class="ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}" >
+                    </div>
+                    <div id="" class="searchDelete" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden')"></div>
+                    <div class="searchLine"></div>
+                    <div id="search" class="searchBtn ulev26 ub ub-ac">搜索</div>
+                </div>
+            </div>
+            <!-- 搜索框 end -->
+            <!-- 搜索框 end -->
+
+            <!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../common/js/common_bounce.js"></script>
+        <script>
+            appcan.ready(function() {
+                appcan.window.evaluateScript({
+                    name:'check_control',
+                    scriptContent:'controlObj.closeWin()'
+                });
+                renderUserInfo();
+                openPopover();
+                bindCloseEvent();
+                bindSearchEvent();
+                goBack();                
+            });
+
+            function renderUserInfo(){
+                var userObj = JSON.parse(appcan.locStorage.getVal('currentUser'));
+                if (userObj) {
+                    $('#username').html(userObj.userName);
+                    $('#dept').html(userObj.userDept);
+                    $('#head-pic').prop('src',userObj.userHead);
+
+                }                
+            }
+            function openPopover(){
+                var titHeight = $('#content').offset().top;
+                appcan.frame.open("content", "routes_content.html", 0, titHeight);
+                
+                window.onorientationchange = window.onresize = function() {
+                    appcan.frame.resize("content", 0, titHeight);
+                };
+            }
+            function bindCloseEvent(){
+                appcan.button("#nav-left", "btn-act", function() {
+                    //appcan.openWinWithUrl('check_control','check_control.html');
+                    appcan.window.close(-1);
+                    if(appcan.locStorage.getVal('HistoryRecordFormMap')=="true"){
+                        appcan.openWinWithUrl('check_control','check_control.html');
+                    }
+                    
+                });
+            }
+            function bindSearchEvent(){
+                var input = $('#inputDom');
+                var search = $('#search');
+                appcan.button("#search", "btn-act", function() {
+                    var s = input.val();
+                    if (s.length>0) {
+                        appcan.frame.evaluateScript('','content','routesList.requestDataForSearch("'+ s +'")');
+                        return;
+                    }
+                    appcan.frame.evaluateScript('','content','routesList.requestDataForSearchNone()');
+                });                
+            }
+            
+            function goBack(){ //返回上一级
+                //监听手机物理返回键
+                uexWindow.setReportKey(0,1);  
+                uexWindow.onKeyPressed = function(keyCode){  
+                    appcan.window.close(-1);
+                    if(appcan.locStorage.getVal('HistoryRecordFormMap')=="true"){
+                        appcan.openWinWithUrl('check_control','check_control.html');
+                    }
+                }
+            }
+
+        </script>        
+    </body>
+
+</html>

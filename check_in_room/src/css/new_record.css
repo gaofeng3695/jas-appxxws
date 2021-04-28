@@ -1,0 +1,347 @@
+.footer {
+    height: 3.06em;
+    background-color: white;
+    overflow: hidden;
+}
+
+.animate {
+    transition: all .4s;
+}
+
+.footer .btn_wrapp {
+    height: 3.06em;
+    padding: .5em;
+    box-sizing: border-box;
+}
+
+.btn_active {
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.mid_btn {
+    margin: 0 .5em;
+}
+
+.bg01 {
+    background: #fdb96a;
+}
+
+.bg03 {
+    background: #58d5ad;
+}
+
+/*表单样式*/
+
+* {
+    margin: 0em;
+    padding: 0em;
+}
+
+.tb_bg {
+    background: #f4f4f4;
+}
+
+.new_table, .gastable {
+    background: #fff;
+    margin-bottom: .625em;
+}
+
+.new_table:last-child {
+    margin-bottom: .0em;
+}
+
+.ml5 {
+    margin-left: .5em;
+}
+
+.input_table {
+    padding: .5em;
+}
+
+.table_row {
+    height: 2.2em;
+    line-height: 2.2em;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+
+.row_left {
+    width: 5em; 
+    color: #666;
+}
+.row_leftwidth{
+    width:4.375em;
+    color: #666;
+}
+.rowSize{
+      font-size: 0.8125em;
+}
+.row_right, .rightSize {
+    font-size: 0.875em;
+    color: #333;
+}
+
+.user_input {
+    width: 99%;
+    /*padding: .5em;*/
+    outline: none;
+    border: none;
+}
+
+.timeNote {
+    height: 1.875em;
+    width: 1.875em;
+    background: #f2f2f2 url(../images/caution.png) no-repeat 0px center;
+    background-size: 1.25em;
+}
+
+.radio_home {
+    display: inline-block;
+    float: left;
+    width: 30%;
+}
+
+.radio_right {
+    margin-right: .2em;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.row_right input {
+    background: #f4f4f4;
+}
+
+.rightSize {
+    border: none;
+}
+
+.address_notes {
+    margin-left: 5.5em;
+    color: #fd3224;
+    font-size: .75em;
+    margin-bottom: 0.58em;
+}
+
+.gas_title {
+    text-align: center;
+    font-size: 0.75em;
+    color: #666;
+}
+
+.closegas {
+    margin-top: 0.35em;
+    margin-right: .5em;
+    float: right;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.add {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+}
+
+.addgastable {
+    display: inline-block;
+    vertical-align: middle;
+    color: #54b5ff;
+}
+
+.danger {
+    font-size: 0.8em;
+    color: #333;
+    border-radius: .2em;
+    background: #ececec;
+    text-align: center;
+    height: 2.4em;
+    line-height: 2.4em;
+    border: 1px solid #fff;
+}
+.width1000{
+        width:1000px;
+}
+.ml27 {
+    margin-right: 0.824em;
+}
+
+.w2 {
+    padding: 0em 0.75em;
+}
+
+.w3 {
+    padding: 0em 0.375em;
+}
+
+.w4 {
+    padding: 0em 1.5em;
+}
+
+.photo {
+    display: inline-block;
+    vertical-align: middle;
+    /*width: 2em;*/
+    height: 2em;
+    float: right;
+    margin-left: 0em;
+    margin-top: 0.5em;
+}
+.bleft{
+    border-left:1px solid #ececec;
+}
+.photo_list {
+    background: #fff;
+    margin: .5em;
+}
+
+.picList {
+    width: 32.33%;
+    display: inline-block;
+}
+
+.picListimg {
+    width: 95%;
+    height: 4.3em;
+    margin-right: .5em;
+}
+
+textarea {
+    background: #f4f4f4;
+    border: none;
+    outline: none;
+    padding: .5em;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+}
+
+.dangeron {
+    background: #fff;
+    border: 1px solid #eb9526;
+    color: #eb9526;
+    background: url("../images/yes.png") no-repeat .2em;
+    background-size: .7em .7em;
+}
+
+.numcolor {
+    margin-left: .5em;
+    color: #999;
+    font-size: .825em
+}
+
+/*radio美化*/
+
+.meihuiradio {
+    vertical-align: middle;
+    width: 1.25em;
+    height: 1.25em;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    background: url("../images/radio.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.on {
+    background: url("../images/radioed.png") no-repeat;
+    background-size: 100% 100%;
+    /*width: 1.25em;
+     height: 1.25em;*/
+    cursor: pointer;
+}
+
+.numdesc {
+    width: 4em;
+    font-size: .75em;
+    bottom: 0.2em;
+    right: 0em;
+    position: absolute;
+    color: #999;
+}
+
+// label {
+//     margin-left: 2em;
+//     font-size: .825em;
+//     color: #333;
+// }
+
+// .radioClass {
+//     opacity: 0;
+//     cursor: pointer;
+//     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+//     filter: alpha(opacity=0);
+//     width: 100%;
+//     height: 100%;
+//     display: inline-block;
+// }
+
+.checkbox input[type=checkbox]:checked:before, .radiobox input[type=radio]:checked:before {
+    color: #6090f6;
+}
+
+.checkbox input[type=checkbox], .radiobox input[type=radio] {
+    font-size: .7em !important;
+}
+
+.radio_home input {
+    margin-top: 1em;
+}
+.newgasbtn{
+    height:3em;
+    line-height: 3em;
+}
+/*气泡样式*/
+
+.bubble {
+    top: -2em;
+    position: absolute;
+    border-radius: .3em;
+    height: 2em;
+    line-height: 2em;
+    font-size: 1em;
+    background: #00A1EA;
+    color: #FFFFFF;
+}
+
+.bubble:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-top-color: #00A1EA;
+    border-width: .4em;
+    margin-left: -.2em;
+}
+
+.bubble span {
+    padding: .5em;
+}
+.size2{
+  letter-spacing:2em;  
+  margin-right: -2em;
+}
+.size3{
+   letter-spacing:.5em;  
+   margin-right: -1em;  
+}
+.mrleft{
+    margin-left:-1em;
+}
+.pdleft{
+    padding-left:.5em;
+}
+.marr5{
+    margin-right:.5em;
+}
+.margl5{
+    margin-left:-0.5em
+}

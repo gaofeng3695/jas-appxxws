@@ -1,0 +1,91 @@
+.selfbg {
+    background: url(../images/nav_bg.png) no-repeat 0 0;
+    background-size: cover;
+}
+
+.beginMask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.center_cen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -2.5em;
+    margin-top: -2.5em;
+    width: 5em;
+    height: 5em;
+    line-height: 5em;
+    text-align: center;
+    background: #FFFFFF;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.center_cen span {
+    color: #59B5FC;
+    font-size: .9375em;
+}
+
+.nav_foot {
+    height: 5.9em;
+    background: url(../images/nav_foot.png) no-repeat 0 0;
+    background-size: cover;
+}
+
+@keyframes tobigger {
+    0% {
+        width: 4.5em;
+        height: 4.5em;
+        opacity: 1;
+    }
+    100% {
+        width: 12em;
+        height: 12em;
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes tobigger {
+    0% {
+        width: 4.5em;
+        height: 4.5em;
+        opacity: 1;
+    }
+    100% {
+        width: 12em;
+        height: 12em;
+        opacity: 0;
+    }
+}
+
+.warn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    background: #65affa;
+    height: 4.5em;
+    width: 4.5em;
+    border-radius: 50%;
+}
+
+.ready .warn1 {
+    animation: tobigger linear 3s infinite 2s;
+    -webkit-animation: tobigger linear 3s infinite 2s;
+}
+
+.ready .warn2 {
+    animation: tobigger linear 3s infinite 1s;
+    -webkit-animation: tobigger linear 3s infinite 1s;
+}
+
+.ready .warn3 {
+    animation: tobigger linear 3s infinite 0s;
+    -webkit-animation: tobigger linear 3s infinite 0s;
+}
+

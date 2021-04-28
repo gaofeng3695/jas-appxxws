@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/component/maintenance_list/maintenance_list.component.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div id="app">
+            <!-- 搜索框 begin -->
+            <search-input
+            v-model= "keyword"
+            @dosearch="dosearch"
+            placeholder="搜索原因、期限、维修人、创建人、地址"></search-input>
+            <!-- 搜索框 end -->
+            <div v-if="dataObj.length==0" class="clr666 nodata ulev30">
+                暂无数据
+            </div>
+            <ul class="maintenace_list" id="list_wrapper" >
+                <div v-for="(dataObj,key) in  dataObj">
+
+                    <main-list :dataobj="dataObj" v-if="dataObj" :resource="2"  :maintancechecked="maintancechecked"   @changemaintanceids="changemaintanceids" @clickdetail="clickitem">
+
+                    </main-list>
+                </div>
+            </ul>
+            <num-tip :now="dataObj.length" :total="total" :isfooter="false"></num-tip>
+        </div>
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+        <script src="../../common/js/common_database.js"></script>
+        <script src="../../vue_component/search.component.vue.js"></script>
+        <script src="../src/component/maintenance_list/maintenance_list.component.js"></script>
+         <script src="../../vue_component/num_tip.component.vue.js"></script>
+        <script src="../../common/js/common_database.js"></script>
+        <script src="../src/js/common/local_server.js"></script>
+        <script src="../src/js/trash_list.js"></script>
+    </body>
+</html>

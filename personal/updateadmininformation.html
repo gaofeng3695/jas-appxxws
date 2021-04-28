@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="css/updateadmininformation.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub ub-ac bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x ub ub-ac"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev1 ut-s tx-c" tabindex="0">人员信息</h1>
+
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+                <div class="ub ub-ver">
+                    <div class=" umar-at1">
+                        <div id="listview1" class="ub ub-ac us1">
+                            <div id="left">
+                                <img src="" id="profile">
+                            </div>
+                            <div id="right" class="ub-f1 text">
+                                <span id="name"></span>
+                                <img src="" class="img" id="seximg" >
+                            </div>
+                            <img src="images/direction.png" class="dis-right imgsrc">
+                        </div>
+                        <div id="listview2">
+                            <ul class='ubver us1'>
+                                <li class='ub ub-ac li-bottom' id="age">
+                                    <p class="comment">
+                                        年龄
+                                    </p>
+                                    <p class='right ub-f1'></p>
+                                    <img src="images/direction.png" class="imgsrc">
+                                </li>
+                                <li class='ub ub-ac' id="password">
+                                    <p class="comment">
+                                        修改密码
+                                    </p>
+                                    <p class='right ub-f1'></p>
+                                    <img  src="images/direction.png" class="imgsrc">
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="listview4">
+                            <ul class='ubver us1'>
+                                <li class='ub ub-ac li-bottom' id="dept">
+                                    <p class="comment">
+                                        部门
+                                    </p>
+                                    <p class='right ub-f1'></p>
+                                </li>
+                                <li class='ub ub-ac' id="job">
+                                    <p class="comment">
+                                        职位
+                                    </p>
+                                    <p class='right ub-f1'></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="listview3">
+                            <ul class='ubver us1'>
+                                <li class='ub li-bottom ub-ac' id="tel">
+                                    <p class="comment">
+                                        手机
+                                    </p>
+                                    <p class='right ub-f1'></p>
+                                    <img src="images/direction.png" class="imgsrc">
+                                </li>
+                                <li class='ub li-bottom ub-ac' id="qq">
+                                    <p class="comment">
+                                        QQ
+                                    </p>
+                                    <p class='right ub-f1'></p>
+                                    <img src="images/direction.png" class="imgsrc">
+                                </li>
+                                <li class='ub li-bottom ub-ac' id="weixin">
+                                    <p class="comment">
+                                        微信
+                                    </p>
+                                    <p class='right ub-f1'></p>
+                                    <img src="images/direction.png" class="imgsrc">
+                                </li>
+                                <li class='ub ub-ac' id="email">
+                                    <p class="comment">
+                                        邮箱
+                                    </p>
+                                    <p class='right ub-f1'></p>
+                                    <img src="images/direction.png" class="imgsrc">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--content结束-->
+
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../common/js/common_httprequest.js"></script>
+        <script src="../common/js/common_userprofile.js"></script>
+        <script src="../common/js/formUtil.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            peopleInfo.init();
+        });
+        var peopleInfo = {
+            JasHttpRequest : new JasHttpRequest(),
+            init : function() {
+                this.bindEvent();
+                this.checkout();
+                this.relaodUserInfo();
+            },
+            bindEvent : function() {
+                var that = this;
+                appcan.button("#nav-left", "btn-act", function() {
+                    appcan.window.evaluateScript('personal', 'changelist()');
+                    appcan.window.close(-1);
+                });
+                //进行微信的修改
+                appcan.button("#password", "btn-act", function() {
+                    appcan.openWinWithUrl("updatepassword", "updatepassword.html");
+                });
+                //修改密码
+                appcan.button("#qq", "btn-act", function() {
+                    appcan.openWinWithUrl("editqq", "updatepeople/editqq.html");
+                });
+                //修改QQ
+                appcan.button("#listview1", "btn-act", function() {
+                    appcan.openWinWithUrl("editpersonal", "updatepeople/editpersonal.html");
+                });
+                //修改头像和姓名
+                //修改部门   连接到组织n("#weixin", "btn-act", function () {
+                appcan.button("#weixin", "btn-act", function() {
+                    appcan.openWinWithUrl("editweixin", "updatepeople/editweixin.html");
+                });
+                //修改微信
+                appcan.button("#email", "btn-act", function() {
+                    appcan.openWinWithUrl("editemail", "updatepeople/editemail.html");
+                });
+                //修改邮箱
+                //修改手机号码
+                appcan.button("#tel", "btn-act", function() {
+                    appcan.openWinWithUrl("checkpass", "updatepeople/checkpass.html");
+                });
+
+                appcan.button("#age", "btn-act", function() {
+                    appcan.openWinWithUrl("editage", "updatepeople/editage.html");
+                });
+                appcan.window.on('resume', function() {
+                    that.relaodUserInfo();
+                });
+            },
+            checkout : function() {//退出应用
+                uexWindow.setReportKey(0, 1);
+                uexWindow.onKeyPressed = function(keyCode) {
+                    appcan.window.evaluateScript('personal', 'changelist()');
+                    appcan.window.close(-1);
+                };
+            },
+            relaodUserInfo : function() {
+                var _userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+                /*头像*/
+                this.initProfile(_userBo.sex == null ? "" : _userBo.sex);
+                /*名称*/
+                $("#name").text(_userBo.userName);
+                /*性别图标*/
+                if (_userBo.sex == "女") {
+                    $("#seximg").attr("src", "images/nv.png");
+                } else {
+                    $("#seximg").attr("src", "images/nan.png");
+                }
+                /*年龄*/
+                $("#age").find("p").eq(1).html(_userBo.age == null ? "" : _userBo.age);
+                /*部门*/
+                $("#dept").find("p").eq(1).text(_userBo.orgName == null ? "" : _userBo.orgName);
+                /*职位*/
+                $("#job").find("p").eq(1).text(_userBo.position == null ? "" : _userBo.position);
+                /*手机号*/
+                $("#tel").find("p").eq(1).text(_userBo.mobileNum);
+                /*QQ*/
+                $("#qq").find("p").eq(1).text(_userBo.qq == null ? "" : _userBo.qq);
+                /*微信*/
+                $("#weixin").find("p").eq(1).text(_userBo.wechat == null ? "" : _userBo.wechat);
+                /*邮箱*/
+                $("#email").find("p").eq(1).text(_userBo.email == null ? "" : _userBo.email);
+            },
+            initProfile : function(_sex) {
+                var _path = getUserProfilePath();
+                if (_path != "") {
+                    document.getElementById("profile").src = _path;
+                } else {
+                    if (_sex == "女") {
+                        document.getElementById("profile").src = "images/girl.png";
+                    } else {
+                        document.getElementById("profile").src = "images/nantou.png";
+                    }
+                }
+            }
+        }
+
+    </script>
+</html>

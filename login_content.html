@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="page_resource/login_content/css/main.css">
+        <link rel="stylesheet" href="page_resource/fast_login/css/main.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+
+        <div class="ub ub-ver uinn-a3 ub-fv">
+            <div class="ub ub-ver uinn uinn-at1">
+                <div class="ub ub-pc uinn logo">
+                    <img src="page_resource/login_content/images/login.png" alt="企业logo">
+                </div>
+
+                <div class="umar-a uba bc-border c-wh uc-a" >
+                    <div class="ub ub-ac ubb umh5 bc-border ">
+                        <div class=" uinput ub ub-f1">
+                            <div class="uinn fa fa-user sc-text"></div>
+                            <input placeholder="请输入11位手机号" type="text" class="ub-f1" id="loginname">
+                        </div>
+                    </div>
+                    <div class="ub ub-ac umh5 bc-border ">
+                        <div class=" uinput ub ub-f1">
+                            <div class="uinn fa fa-lock sc-text"></div>
+                            <input placeholder="密码" type="password" class="umw4 ub-f1" id="password">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="ub ub-ver umar-a" style="margin-top: 0;">
+                    <div class="ub uinn-a7 umh2">
+                        <span class="ulev-1  sc-text-warn" id="tip"> </span>
+                    </div>
+                    <div class="ub ub-pc">
+                        <div class="uinn-at2 ub-f1">
+                            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1"  id="submit">
+                                登录
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uinn-at2 ub sc-text-active ulev">
+                        <div class="ub-f1 ulev-1" id="forget">
+                            忘记密码
+                        </div>
+                        <div class="ub-f1 tx-r ulev-1" id="config" style="display: none;">
+                            网络设置
+                        </div>
+                        <div class="ub-f1 tx-r ulev-1" id="regist">
+                            立即注册
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="ub-f1 ub-ae ub ub-pc umar-bgf">
+                <span class="clr999 ulev26" >北京中盈安信技术服务股份有限公司</span>
+            </div>
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/appcan.tab.js"></script>
+        <script src="common/js/common_base.js"></script>
+        <script src="common/js/common_database.js"></script>
+        <script src="common/js/common_httprequest.js"></script>
+        <script src="common/js/common_tianji.js"></script>
+        <script src="common/js/md5.js"></script>
+    </body>
+    <script>
+        var dbOperation = null;
+        var _isLoading = false;
+        var normalLogin = {
+            nameDom : $('.uinput input[type="text"]'),
+            wordDom : $('.uinput input[type="password"]'),
+            tipDom : $('#tip'),
+            submitDom : $('#regist'),
+            tip : '',
+            init : function() {
+                this.showTip(this.tip);
+                this.bindEvent();
+            },
+            bindEvent : function() {
+                var that = this;
+                this.nameDom[0].oninput = function() {
+                    if (that.tipDom.text()) {
+                        that.tipDom.html('');
+                    }
+                    if (that.wordDom.val() === '') {
+                        return false;
+                    }
+                    that.wordDom.val('');
+                };
+                this.wordDom.focus(function() {
+                    that.verifyTel(that.nameDom);
+                });
+                appcan.button("#submit", "ani-act", function() {
+                    if (_isLoading === false) {
+                        _isLoading = true;
+                        that.login();
+                    }
+                });
+                /*
+                 * 快速注册的点击事件
+                 */
+                appcan.button("#regist", "ani-act", function() {
+                    if (tjSwitch == 1) {
+                        try {
+                            var zg_param = {
+                                eventName : "点击立即注册",
+                                info : {}
+                            };
+                            uexTianji.track(zg_param);
+                        } catch(e) {
+                        }
+                    }
+                    jumpRegistPage();
+                });
+                /*
+                 * 忘记密码
+                 */
+                appcan.button("#forget", "ani-act", function() {
+                    appcan.openWinWithUrl("foget-password", "register/forget-password.html");
+                });
+                /*
+                 * 网络配置
+                 */
+                appcan.button("#config", "ani-act", function() {
+                    appcan.openWinWithUrl("ipconfig", "sysconfig.html");
+                });
+            },
+            verifyTel : function(dom) {//验证手机号，并提示（需要传入input对象）
+                this.tip = '';
+                var s = dom.val();
+                myreg = /^1\d{10}$/;
+                if (s.length == 0) {
+                    this.tip = '请输入手机号码';
+                } else if (s.length != 11) {
+                    this.tip = '请输入有效的手机号码';
+                } else if (!myreg.test(s)) {
+                    this.tip = '请输入有效的手机号码';
+                }
+                if (this.tip !== '') {
+                    dom.focus();
+                }
+                this.showTip(this.tip);
+                return false;
+            },
+            showTip : function(s) {//显示提示
+                this.tipDom.html(s);
+                //_isLoading = false;
+            },
+            login : function() {//登录执行以下，验证各输入框并请求，合格请求数据，再次提示
+                var that = this;
+                this.verifyTel(this.nameDom);
+                if (this.tip === '') {
+                    var name = $("#loginname").val();
+                    var tel = appcan.locStorage.setVal("tel", name);
+                    var password = $("#password").val();
+
+                    if (password.length != 32) {
+                        if (password === "") {
+                            this.tip = "请输入密码";
+                            this.showTip(this.tip);
+                            _isLoading = false;
+                            return;
+                        }
+
+                        if (password.length < 6 || password.length > 12) {
+                            this.tip = "用户名和密码不一致";
+                            this.showTip(this.tip);
+                            _isLoading = false;
+                            return;
+                        }
+                        password = MD5(password);
+                    }
+                    baseOperation.alertToast("登录中，请稍候...", 15000);
+                    var partURL1 = "cloudlink-core-framework/login/loginByPassword";
+                    var jasHttpRequest = new JasHttpRequest();
+                    jasHttpRequest.jasHttpPost(partURL1, function(id, state, data) {
+                        if (state == -1) {
+                            baseOperation.closeToast();
+                            alert("当前网络异常，无法请求服务器！\r\n请您检查手机网络。");
+                            _isLoading = false;
+                            return;
+                        }
+                        if (data == "") {
+                            baseOperation.alertToast("网络异常");
+                            _isLoading = false;
+                            return;
+                        }
+                        var obj = JSON.parse(data);
+                        if (obj.success == 1) {
+
+                            appcan.locStorage.setVal("token", obj.token);
+                            appcan.locStorage.setVal("userBo", obj.rows[0]);
+                            //将用户对象放入全局缓存中
+
+                            dbOperation.dbSelect("select * from login_info", function(err, data) {
+                                if (err != null) {
+                                    getDefaultEnterpriseId();
+                                    return;
+                                }
+                                if (err == null && data == "") {
+                                    dbOperation.dbExec("insert into login_info (registNum,pwd,lastLoginDate) values ('" + name + "','" + password + "','" + new Date().Format("yyyy-MM-dd HH:mm:ss.S") + "');", function(err, date) {
+                                        getDefaultEnterpriseId();
+                                        return;
+                                    });
+                                }
+                                if (err == null && data.length > 0) {
+                                    dbOperation.dbExec("update login_info set registNum='" + name + "',pwd='" + password + "',lastLoginDate='" + new Date().Format("yyyy-MM-dd HH:mm:ss.S") + "';", function(err, date) {
+                                        getDefaultEnterpriseId();
+                                        return;
+                                    });
+                                }
+                            });
+                        } else {
+                            baseOperation.closeToast();
+                            _isLoading = false;
+                            if (tjSwitch == 1) {
+                                try {
+                                    var mobileNum = $("#loginname").val();
+                                    var zg_param1 = {
+                                        eventName : "登录失败",
+                                        info : {
+                                            '手机号' : mobileNum,
+                                            code : obj.code
+                                        }
+                                    };
+                                    uexTianji.track(zg_param1);
+                                } catch(e) {
+                                }
+                            }
+                            if (obj.code == "U01") {
+                                that.showTip("用户名和密码不一致");
+                                return;
+                            }
+
+                            if (obj.code == "U02") {
+                                that.showTip("该用户未注册");
+                                return;
+                            }
+
+                            if (obj.code == "U03") {
+                                that.showTip("该用户已注册");
+                                return;
+                            }
+
+                            if (obj.code == "U04") {
+                                that.showTip("该账户已冻结");
+                                return;
+                            }
+
+                            if (obj.code == "400") {
+                                baseOperation.alertToast("代码异常");
+                                return;
+                            }
+
+                            if (obj.code == "401") {
+                                baseOperation.alertToast("参数异常");
+                                return;
+                            }
+
+                        }
+                    }, JSON.stringify({
+                        "loginNum" : name,
+                        "password" : password
+                    }));
+                } else {
+                    _isLoading = false;
+                }
+            }
+        };
+
+        appcan.ready(function() {
+            dbOperation = new DataBaseOperation();
+            normalLogin.init();
+            initRegistNumAndPwd();
+        });
+
+        /*
+         * 初始化用户名及密码
+         */
+        function initRegistNumAndPwd() {
+            dbOperation.dbSelect("select registNum,pwd from login_info", function(err, data) {
+                if (err == null && data.length > 0) {
+                    var loginObj = data[0];
+                    $("#loginname").val(loginObj.registNum);
+                    $("#password").val(loginObj.pwd);
+                    autoLogin();
+                }
+            });
+        }
+        
+        
+        function autoLogin(){
+            try{
+                //表示正在运行
+                if(uexLockScreen.checkServerIsRunning()==1)
+                {
+                    _isLoading = true;
+                    setTimeout(function(){
+                        normalLogin.login();
+                    },700);
+                } 
+            }
+            catch(e){
+                
+            }
+        }
+        
+
+        /*
+         * 诸葛IO 埋点的处理方法
+         */
+        function zhugeLoginBuriedPoint(_userBo) {
+            if (tjSwitch == 1) {
+                try {
+                    var zg_param = {
+                        id : _userBo.objectId,
+                        info : {
+                            objectName : _userBo.userName,
+                            gender : _userBo.sex,
+                            age : _userBo.age,
+                            email : _userBo.email,
+                            qq : _userBo.qq,
+                            weixin : _userBo.wechat,
+                            'mobile' : _userBo.mobileNum,
+                            '企业名称' : _userBo.enterpriseName == null ? "" : _userBo.enterpriseName,
+                            '部门名称' : _userBo.orgName == null ? "" : _userBo.orgName
+                        }
+                    };
+                    uexTianji.identify(zg_param);
+                    var zg_param1 = {
+                        eventName : "登录页登录成功",
+                        info : {}
+                    };
+                    uexTianji.track(zg_param1);
+                } catch(e) {
+                }
+            }
+        }
+
+        /*
+         * 快速注册-跳转页面
+         */
+        function jumpRegistPage() {
+            appcan.locStorage.setVal("enterpriseId", "");
+            appcan.openWinWithUrl("regist", "register/regist.html");
+        }
+
+        /*
+         * 获取当前用户的默认企业
+         */
+        function getDefaultEnterpriseId() {
+            var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var partURL1 = "cloudlink-core-framework/login/getDefaultEnterpriseId";
+            var jasHttpRequest = new JasHttpRequest();
+            jasHttpRequest.jasHttpPost(partURL1, function(id, state, data) {
+                if (data == "") {
+                    baseOperation.alertToast("网关异常");
+                    _isLoading = false;
+                    return;
+                }
+                var obj = JSON.parse(data);
+                if (obj.success == 1) {
+                    if (obj.rows.length > 0) {
+                        var enterpriseid = obj.rows[0].enterpriseId;
+                        joinDefaultEnterprise(enterpriseid);
+                    } else {
+                        baseOperation.closeToast();
+                        _isLoading = false;
+                        appcan.openWinWithUrl("select-enterprise", "login/select-enterprise.html");
+                    }
+                } else {
+                    baseOperation.closeToast();
+                    _isLoading = false;
+                    appcan.openWinWithUrl("select-enterprise", "login/select-enterprise.html");
+                }
+            }, JSON.stringify({
+                userId : userBo.objectId
+            }));
+        }
+
+        /*
+         * 加入默认企业
+         */
+        function joinDefaultEnterprise(_enterpriseId) {
+            var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var partURL1 = "cloudlink-core-framework/login/joinEnterprise";
+            var jasHttpRequest = new JasHttpRequest();
+            jasHttpRequest.jasHttpPost(partURL1, function(id, state, data) {
+                if (data == "") {
+                    baseOperation.alertToast("网关异常");
+                    _isLoading = false;
+                    return;
+                }
+                var obj = JSON.parse(data);
+                if (obj.success == 1) {
+
+                    appcan.locStorage.setVal("token", obj.token);
+                    appcan.locStorage.setVal("userBo", obj.rows[0]);
+                    zhugeLoginBuriedPoint(obj.rows[0]);
+                    appcan.openWinWithUrl("index", "index.html");
+                    baseOperation.closeToast();
+                    _isLoading = false;
+                } else {
+                    baseOperation.closeToast();
+                    _isLoading = false;
+                    switch(obj.code) {
+                    case "400":
+                        baseOperation.alertToast("服务异常");
+                        break;
+                    case "401":
+                        baseOperation.alertToast("参数异常");
+                        break;
+                    case "E01":
+                        baseOperation.alertToast("您的账户以及被该企业冻结");
+                        break;
+                    case "E02":
+                        baseOperation.alertToast("您的账户以及被该企业移除");
+                        break;
+                    case "E03":
+                        baseOperation.alertToast("该企业不存在");
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            }, JSON.stringify({
+                userId : userBo.objectId,
+                enterpriseId : _enterpriseId
+            }));
+        }
+    </script>
+</html>

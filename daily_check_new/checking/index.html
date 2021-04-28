@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+
+    <link rel="stylesheet" href="css/begin.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+
+    </style>
+</head>
+
+<body class="um-vp " ontouchstart>
+    <div id="page_0" class="up ub ub-ver bc-bg bgfff" tabindex="0">
+        <header-common-font title="日常巡检" :font1="voiceFont" @click1="switchVoice"></header-common-font>
+        <div class="ub-f1 tx-l uof linebg ub ub-ver">
+
+            <div class="ub ub-ver ub-f1 beginMask selfbg" v-if="!isDoing">
+                <div class="ulev-1" style="color:#da0606;padding:4px 10px;" @click="showWarn">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <span class="">
+                            重要说明：您在首次使用时，请先进行【应用程序-系统常驻设置】，否则手机可能无法获取巡检里程。详情点击
+                    </span>
+                </div>
+                <div class=" ub-f1 ub ub-ver ub-pc ready">
+                    <div class="center_cen" @click="beginCheck">
+                        <span>开始巡检</span>
+                    </div>
+                    <div class="warn1 warn"></div>
+                    <div class="warn2 warn"></div>
+                    <div class="warn3 warn"></div>
+                </div>
+                <div class="nav_foot">
+                </div>
+            </div>
+            <div class="daily_data ub-f1 ub ub-ver">
+                <div class="data_main ub-pc">
+                    <ul>
+                        <li>
+                            <span>
+                                <i class="fontSizeDsit">{{distance}}</i>公里</span>
+                        </li>
+                        <li>
+                            <span>
+                                <i class="fontSizeTime">{{hour}}</i>小时
+                                <i class="fontSizeTime">{{minute}}</i>分
+                                <i class="fontSizeTime">{{second}}</i>秒</span>
+                        </li>
+                    </ul>
+                    <div class="inspection_finish">
+                        <span @click="complete">
+                            <i>完成巡检</i>
+                        </span>
+                    </div>
+                    <div class="inspection_cancel">
+                        <span @click="cancel">
+                            <i>取消巡检</i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="data_time">
+                <ul>
+                    <li class="time">
+                        <p>
+                            <i>开始时间</i>
+                            <span class="starttime">{{startTime}}</span>
+                        </p>
+                    </li>
+                    <li class="event bor-bottom">
+                        <div class="left">
+                            <p>
+                                <i>事件</i>
+                                <!--  -->
+                                <em @click="enterEvent">
+                                    <span :class="eventNum!=0?'nums':''">{{eventNum}}</span>
+                                </em>
+                            </p>
+                        </div>
+                        <div class="right enter_event_btn">
+                            <p class="br" style=""></p>
+                            <p class="event_btn" @click="uploadEvent">
+                                <span>上报</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="event  bor-bottom">
+                        <div class="left">
+                            <p class="node">
+                                <i>关键点</i>
+                                <em @click="enterList">
+                                    <span :class="nodeNumTotal!=0?'nums':''">{{nodeNum}}/{{nodeNumTotal}}</span>
+                                </em>
+                            </p>
+                        </div>
+                        <div class="right enter_event_btn">
+                            <p class="br" style=""></p>
+                            <p class="event_btn" @click="checkedNode" :class="nodeNumTotal==0?'noclick':''">
+                                <span class="clickNode">打点</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- <div class="enter_event_btn">
+                <p @click="uploadEvent">
+                    <span>事件上报</span>
+                </p>
+            </div> -->
+            <div class="inspection_map" @click="openMap">
+                <span>
+                    <img src="images/map.png" class="mapicon" />
+                </span>
+            </div>
+            <div class="track" @click="openTodayTrack">
+                <span>
+                    <img src="images/list.png" class="trackicon" />
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_device.js"></script>
+    <script src="../../common/js/common_database.js"></script>
+    <script src="../../common/js/common_map.js"></script>
+    <script src="../../common/js/common_httprequest.js"></script>
+    <script src="../../vue_component/header_common.component.vue.js"></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+<script>
+
+
+
+
+</script>
+
+</html>

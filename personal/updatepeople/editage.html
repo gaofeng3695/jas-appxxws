@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="css/edit.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">修改年龄</h1>
+
+                <div class="nav-btn nav-bt" id="nav-right">
+                    确定
+                </div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+                <div class="ub bc-bg1 us1">
+                    <div class="ub ub-ac ub-f1 allstyle">
+                        <div>
+                            年龄
+                        </div>
+                        <div class="uinput ub ub-f1 ub-ac cc">
+                            <input type="number" class="ub-f1 age" placeholder="请输入年龄"  id="age" />
+                            <a class="clear" onclick="clear()"></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--content结束-->
+
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_locStorage.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            ageObj.init();
+        });
+        var ageObj = {
+            jasHttpRequest : new JasHttpRequest(),
+            userBo : JSON.parse(appcan.locStorage.getVal("userBo")),
+            init : function() {
+                this.initInput();
+                this.bindEvent();
+                this.bindInputEvent();
+            },
+            initInput : function() {
+                document.getElementById("age").value = this.userBo.age;
+            },
+            bindEvent : function() {
+                var that = this;
+                appcan.button(".clear", "ani-act", function() {
+                    document.getElementById("age").value = "";
+                });
+                appcan.button("#nav-left", "btn-act", function() {
+                    appcan.window.close(-1);
+                });
+                appcan.button("#nav-right", "btn-act", function() {
+                    that.submit();
+                });
+            },
+            bindInputEvent : function() {
+                $('#age')[0].oninput = function() {
+                    $(this).val($(this).val().replace(/\D/, '').slice(0, 3));
+                };
+            },
+            submit : function() {
+                var that = this;
+                var age = $('#age').val().trim();
+                if (that.judgeAge() == true) {
+                    var partURL = "cloudlink-core-framework/user/update";
+                    /*提交后台修改年龄*/
+                    that.jasHttpRequest.jasHttpPost(partURL, function(id, state, dbSource) {
+                        if (dbSource.length == 0) {
+                            baseOperation.alertToast("网络繁忙，请稍候再试...");
+                            return;
+                        }
+                        var resultData = JSON.parse(dbSource);
+                        if (resultData.success == "1") {
+                            reloadUserBoLocStorage("age", parseInt(age));
+                            appcan.window.close(-1);
+                        } else {
+                            baseOperation.alertToast("网络繁忙，请稍候再试...");
+                            return;
+                        }
+                    }, JSON.stringify({
+                        "objectId" : that.userBo.objectId,
+                        "age" : age
+                    }));
+                }
+            },
+            judgeAge : function() {
+                age = $('#age').val().trim();
+                if (age != "") {
+                    var reg = /^[0-9]*$/;
+                    if (!reg.test(age)) {
+                        document.getElementById("age").value = '';
+                        baseOperation.alertToast('您输入格式不对');
+                        document.getElementById("age").focus();
+                        return false;
+                    } else if (parseInt(age) > 100) {
+                        document.getElementById("age").value = '';
+                        baseOperation.alertToast('您输入年龄不对');
+                        document.getElementById("age").focus();
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    baseOperation.alertToast('请输入年龄');
+                    return false;
+                }
+            }
+        }
+    </script>
+</html>

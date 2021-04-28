@@ -1,0 +1,106 @@
+#index {
+    background: #eee;
+}
+
+
+/* slider */
+#slider .focus{
+    display: none;
+}
+
+#slider .label{
+    display: none !important;
+}
+#slider .label1{
+    background-color:rgba(152, 139, 123, 0) !important;
+    font-size: .6em !important;
+
+}
+#slider .labelzan{
+    right: -.25em !important;
+}
+
+/* module */
+#module {
+    padding: .313em 0;
+
+    background: white;
+}
+#module	.unit {
+    padding: .625em 0;
+}
+
+
+#module	.unit img {
+    display: block;
+
+    margin-bottom: .5556em;
+    width: 3.746em;
+    height: 3.746em;
+}
+#module	.unit .tips {
+    font-size: .875em;
+
+    color: #666;
+}
+
+
+
+/* footer */
+#footer {
+    height: 3.150em;
+
+    background: white;
+}
+#footer>div{
+    width: 33.33%;
+}
+#footer .tab01 {
+    background: url(../images/tab01.png) no-repeat center center;
+    background-size: auto 2.500em;
+}
+#footer .tab02 {
+    background: url(../images/tab02.png) no-repeat center center;
+    background-size: auto 2.500em;
+}
+#footer .active .icon {
+    position: absolute;
+    top: .225em;
+    left: 53%;
+
+    border-radius: 50%;
+    width: .8em;
+    height: .8em;
+
+    color: white;
+    background: red;
+}
+#footer .active .icon span {
+    font-size: .560em;
+}
+
+
+
+#footer .tab03 {
+    background: url(../images/tab03.png) no-repeat center center;
+    background-size: auto 2.500em;
+}
+#footer .tab03 img {
+    visibility: hidden;
+
+    position: relative;
+    top: .135em;
+    left: 52%;
+
+    height: .1.012em;
+}
+
+#footer .offline img {
+    visibility: visible;
+}
+
+
+#footer .tab04 {
+    background: url(../images/contact1.png) no-repeat center center;
+    background-size: auto 2.500em;
+}

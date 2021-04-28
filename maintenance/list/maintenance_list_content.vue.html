@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/component/maintenance_list/maintenance_list.component.css">
+    </head>
+
+    <body class="um-vp bc-bg" ontouchstart >
+        <div style="margin-top:1px" id="app">
+            <div class="clr999 ulev30" style="text-align: center;margin-top:1em" v-show="aDatas.length==0" v-text="nodata">
+
+            </div>
+            <ul class="maintenace_list" id="list_wrapper">
+                <div v-for="dataObj in aDatas">
+                    <main-list :dataobj="dataObj" v-if="dataObj" :resource="1"   @clickdetail="clickitem">
+
+                    </main-list>
+                </div>
+
+                <!-- <li class="sectionMargin sectionShadow ">
+                    <div class="ub ubb sc-border-cor">
+                        <div class="ub-ac ub-f1 clr999  lh78 ulev26 " >
+
+                                                                                              维修编号：2017082876543125
+
+                        </div>
+                        <div class="ub ub-ac" style="width:8em">
+                            <div class="ulim100 ub-f1 ulev26 clr666 pdl5" >
+                                                                                                 网岗南网岗  网岗南网岗
+                            </div>
+                            <div class="ulev26 clrfff bgo  pd5 bor">
+                                                                                                            待维修
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="ub pa20">
+                        <div class="box ub ub-ac check_width js_check">
+                            <div class="checkbox umar-r sc-text-active js_check" >
+                                <input type="checkbox" class="uabs ub-con js_check">
+                            </div>
+                            <img src="../src/images/C17.png"/>
+                        </div>
+                        <div class="ub-f1 pdl">
+                            <div class="address lh50">
+                                <span class="ulev30 clr333 ulim100 ">海淀区面筋罗123打算暗室逢灯阿萨德阿斯蒂芬</span>
+                            </div>
+                            <div class="ub clr666 ulev28  ulim2">
+                                为防止  为防止  为防止  为 防止  为防止  为防止  为防止  为防止  为防止    为防止  为防止  为防止  为 防止  为防止  为防止  为防止  为防止  为防止
+                            </div>
+                            <div class="ub ulev26 clr666 pad2 ub-ac ub-pj">
+                                <div class="">
+                                    维修期限：2017-03-02
+                                </div>
+                                <div class="ulim100 ub-f1 texr" >
+                                    维修人：张三，李四,张三，李四,张三，李四,张三，李四,
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+              -->
+            </ul>
+            <num-tip :now="aDatas.length" :total="total" :isfooter="false"></num-tip>
+        </div>
+
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+
+        <script src="../../common/js/common_bounce.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_jasRequest.js"></script>
+        <script src="../../common/js/common_database.js"></script>
+
+        <script src="../src/js/common/local_server.js"></script>
+        <script src="../src/component/maintenance_list/maintenance_list.component.js"></script>
+        <script src="../../vue_component/num_tip.component.vue.js"></script>
+        <script>
+
+            // window.onerror = function(msg, url, line) {
+            //     alert("erro" + msg + "\n" + url + ":" + line);
+            //     return true;
+            // };
+
+
+            var vm = new Vue({
+                el : '#app',
+                data : {
+                    query : {
+                        startDate : '',
+                        endDate : '',
+                        originTypeCode : '',
+                        status : '',
+                        keywordApp : '',
+                        ids : [],
+                        pageNum : '1',
+                        pageSize : '10',
+                    },
+                    aDatas : [
+    // {
+    //     "objectId": "febf0fad-77f4-4590-ae19-7cbbc0989af6",
+    //     "maintenanceCode": "20190329102813957",
+    //     "originTypeCode": "MO_01",
+    //     "originTypeName": "入户整改",
+    //     "status": "1",
+    //     "reason": "回家",
+    //     "remediationTime": "2019-03-29",
+    //     "relationshipPersonIds": "fcc708f8-2f2a-4cba-9873-e4e941412cc7",
+    //     "relationshipPersonNames": "阿峰",
+    //     "createUserId": "3215dfc2-d380-4c59-a9c4-af2716f6d795",
+    //     "createUserName": "致良�?",
+    //     "address": "河北省秦皇岛市北戴河区东山街道云趣园�?��-1号楼-1单元-103",
+    //     "isTrash": true
+    // }
+],
+                    total : 0,
+                    nodata:'',
+                },
+                methods : {
+                    clickitem : function() {
+                        var obj=JSON.parse(appcan.locStorage.val("maintenanceObj"));
+                        if (obj.status == "2") {
+                            appcan.locStorage.val("maintenanceId", obj.objectId);
+                            appcan.locStorage.val('maintenanceDetailEntrance', 'detail');   //来自详情
+                            appcan.openWinWithUrl('detailmaintance', '../detail/detailmaintance.html');
+                        } else {
+                            if(obj.isUnUp){
+                                appcan.locStorage.val("maintenanceId", obj.objectId);
+                                appcan.locStorage.val('maintenanceDetailEntrance', 'local');
+                                appcan.openWinWithUrl('detailmaintance', '../detail/detailmaintance.html');
+                            }else if(obj.isTrash){
+                               appcan.locStorage.val("maintenanceId", obj.objectId);
+                               appcan.locStorage.val('maintenanceFormEntrance', 'local');
+                               appcan.openWinWithUrl('do_maintenance', '../do_maintenance/do_maintenance.vue.html');
+                            }else{
+                               appcan.locStorage.val("maintenanceId", obj.objectId);
+                               appcan.openWinWithUrl('do_maintenance', '../do_maintenance/do_maintenance.vue.html');
+                            }
+                        }
+                    }
+                },
+                watch : {
+                    query : {
+                        handler : function(newval, oldval) {
+                            operations.requestList(this);
+                        },
+                        deep : true
+                    }
+                },
+                created : function() {
+
+                },
+                mounted : function() {
+                    var that = this;
+
+                    appcan.ready(function() {
+                        operations.setBounce();
+                        operations.getLocalRecord(function(){
+                            operations.requestList();
+                        });
+                    });
+
+                }
+            });
+
+            var operations = {
+                requestList : function() {
+                    var that=this;
+                    var sUrl = "cloudlink-inspection-event/commonData/maintenanceWork/getPageList";
+                    var queryObj = JSON.parse(JSON.stringify(vm.query));
+                    baseOperation.londingToast('数据加载中，请稍后...',99999);
+                    jasRequest.post(sUrl, queryObj, function(data) {
+                        baseOperation.closeToast();
+                        var aItems = data.rows.map(function(item){
+                            if(+item.status !== 1){
+                                return item;
+                            }
+                            var state = that.getLocalStateById(item.objectId); // 0 草稿箱 1 未上传
+                            if (state === 0) {
+                                item.isTrash = true;
+                                return item;
+                            }
+                            if (state === 1) {
+                                item.isUnUp = true;
+                                return item;
+                            }
+                            return item;
+                        });
+                        //alert(JSON.stringify(aItems,null,4))
+                        appcan.logs(JSON.stringify(aItems,null,4))
+                        if (+vm.query.pageNum === 1) {
+                            if (aItems.length < 1) {
+                                vm.nodata='暂无数据';
+                                baseOperation.alertToast('暂无数据');
+                            }
+                            vm.aDatas = aItems;
+                        } else {
+                            if (aItems.length < 1) {
+                                baseOperation.alertToast('没有更多数据了');
+                            } else {
+                                vm.aDatas = vm.aDatas.concat(aItems);
+                                //alert(vm.aDatas.length)
+                            }
+                        }
+                        vm.total = data.total;
+                      //that.renderItemCount(aItems.length, data.total);
+                    });
+                },
+                refreshList : function() {
+                    if (+vm.query.pageNum === 1) {
+                        this.requestList(vm);
+                    } else {
+                        vm.query.pageNum = 1;
+                    }
+                },
+                setBounce : function() {
+                    var that = this;
+                    refreshBounce(function() {
+                        that.refreshList();
+                    }, function() {
+                        vm.query.pageNum++;
+                        //alert(vm.query.pageNum)
+                    });
+                },
+                renderItemCount : function(nNow, nTotal) {
+                    var that = this;
+                    if (+vm.query.pageNum === 1) {
+                        creatNumTip(nNow, nTotal, false, false);
+                    } else {
+                        creatNumTip(nNow, nTotal, true, false);
+                    }
+                },
+                getLocalRecord : function(fn) {
+                    var that = this;
+                    localServer.getAllRecord(function(result) {
+                        //alert(JSON.stringify(result));
+                        that.aLocalIds = result.rows;
+                        if (result.num > 0) {
+                            appcan.window.evaluateScript('maintenance','vm.localCount = '+result.num);
+                            return fn && fn();
+                        }else{
+                            appcan.window.evaluateScript('maintenance','vm.localCount = ""');
+                            return fn && fn();
+                        }
+                    });
+                },
+                getLocalStateById : function(sId){
+                    var aId = this.aLocalIds;
+                    for (var i = 0; i < aId.length; i++) {
+                        var item = aId[i];
+                        if(item.workId === sId){
+                            return +item.state;
+                        }
+                    }
+                },
+            };
+
+        </script>
+
+    </body>
+
+</html>

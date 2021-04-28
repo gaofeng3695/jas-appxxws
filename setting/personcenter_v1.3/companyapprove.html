@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="css/complanylist.css">
+    </head>
+    <body class="um-vp " ontouchstart >
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub ">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">企业认证</h1>
+
+                <div class="nav-btn nav-bt" id="nav-right" style="font-size:1em"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l" style="background-color: white">
+                <div class="ub ub-ver ">
+                    <div class="umar-tcon  ">
+                        <div class="list ub ub-ac  uinn-lrlist ubb bc-border sc-border-cor ">
+                            <div class="ub-f1 ut-s  juz ub-ac">
+                                <img src="image/list.png" class="imgsrc img-h">
+                                <span class="title">1. 什么是企业认证？ </span>
+
+                                <p class="title-text">
+                                    企业认证，是巡线卫士对注册用户的企业身份的合法认证。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="list ub ub-ac  uinn-lrlist ubb bc-border sc-border-cor ">
+                            <div class="ub-f1 ut-s  juz ub-ac">
+                                <img src="image/list.png" class="imgsrc img-h">
+                                <span class=" title">2. 为什么要进行企业认证？ </span>
+
+                                <p class="title-text">
+                                    在巡线卫士中，已完成认证的企业将有权使用巡线卫士平台提供的更多服务，并获得积分，凭借积分可以在巡线卫士相关活动中享受福利。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="list ub ub-ac  uinn-lrlist ubb bc-border sc-border-cor ">
+                            <div class="ub-f1 ut-s  juz ub-ac">
+                                <img src="image/list.png" class="imgsrc img-h">
+                                <span class="title">3. 怎样进行企业认证？ </span>
+
+                                <p class="title-text">
+                                    认证步骤：
+                                </p>
+
+                                <p class="title-text">
+                                    个人中心—企业管理—企业认证—申请认证—提交“认证资料”—等待“认证结果”。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="list ub ub-ac  uinn-lrlist  ">
+                            <div class="ub-f1 ut-s  juz ub-ac">
+                                <p class="title-text">
+                                    说明：
+                                </p>
+
+                                <p class="title-text">
+                                    （1）认证资料包括认证企业的名称、组织机构代码、营业执照扫描件、法人身份证扫描件。
+                                </p>
+
+                                <p class="title-text">
+                                    （2）成功提交认证资料后，用户需等待3个工作日（遇到周六日/节假日，认证审核顺延）。如经审核，用户提供的企业认证资料切实有效，巡线卫士将以消息的形式向用户发送“通过认证”的结果；否则，巡线卫士将向用户发送“驳回认证”的结果。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--content结束-->
+            <div id="footer" class=" ub  uinn">
+
+                <div class="btn ub ub-ac bc-text-head ub-pc  uc-a1 ub-f1" id="btn1">
+                    申请认证
+                </div>
+            </div>
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+  
+    </body>
+    <script>
+        appcan.button("#nav-left", "btn-act", function() {
+           close();
+        });
+        /*点击申请认证，在认证之前，需要先进行判断该企业目前的认证状态*/
+        appcan.button("#btn1", "btn-cat", function() {     
+            appcan.openWinWithUrl("applayapprove", "applayapprove.html");
+           
+        });
+        function close() {
+            appcan.window.close(-1);
+        }
+    </script>
+</html>

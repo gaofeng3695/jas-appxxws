@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+       <style type="text/css">
+           .logo{
+                margin: 0 auto;
+            }
+            .logo img{
+                height:5em;
+                width:5em;
+            }
+       </style>
+    </head>
+    <body class="um-vp" ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">版本更新</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" style="margin-top:0.625em;">
+                <div class="logo"style="background:#fff;margin-left:0.625em;margin-right:0.625em">
+                    <div class="ub ub-pc uinn logo" style="padding:0;padding-top:1.5625em;padding-bottom:0.9625em">
+                        <img src="images/login.png" alt="企业logo">
+                    </div>
+                    <div class="ub ub-pc">
+                        <span style="font-size:0.9375em; color：#333" id="versionTitle">--</span>
+                    </div>
+                    <div class="ubt ub uinn" style="border:none;padding-top:1.5625em;padding-bottom:1.5625em">
+                         <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1 ub-f1" style="min-height: 1.8em;font-size:0.9375em"  id="btn_update">立即更新</div>
+                    </div>
+                </div>
+                <p style="font-size:0.9375em;color:#333;padding-top:1.5625em;padding-left:0.625em" id="versionSubTitle">--</p>  
+            </div>
+            <!--content结束-->    
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../common/js/common_httprequest.js"></script>
+        <script src="../common/js/common_base.js"></script>
+        <script src="../common/js/common_download.js"></script>
+        <script src="../common/js/common_device.js"></script>
+    </body>
+    <script>
+        var isUpdate = 0;
+        var jasHttpRequest = null;
+        var downUrl = "";
+        appcan.ready(function() {
+           jasHttpRequest = new JasHttpRequest();
+           getAppVersionFromServer();
+        });
+        appcan.button("#nav-left", "btn-act", function() {
+            appcan.window.close(-1);
+        });
+        appcan.button("#btn_update", "ani-act", function() {
+            if(isUpdate==1)
+            {
+                isUpdate = 0;
+                downloadRightNow();
+            }
+        });
+        
+        
+        /*
+         * 获取服务端最新的版本
+         */
+        function getAppVersionFromServer()
+        {
+            try{
+                 var partURL1 = "cloudlink-core-framework/appversion/getActiveVersion?productId=pipeline-bodyguard&clientType=Android";
+                 jasHttpRequest.jasHttpGet(partURL1,function(id, state, dbSource){
+                     if(dbSource == ""){
+                         return;
+                     }
+                     var obj = JSON.parse(dbSource);
+                     if(obj.success == 1)
+                     {
+                         if(obj.rows.length>0)
+                         {   
+                             /*
+                              *服务端信息
+                              */
+                             var appServer_Version = obj.rows[0].versionNumber;
+                             var appServer_appVersion = obj.rows[0].appcanVersion;
+                             var appServer_Desc = versionDesc(obj.rows[0].versionDesc);
+                             downUrl = obj.rows[0].url;
+                             /*
+                              * 客户端信息
+                              */
+                             uexWidgetOne.getCurrentWidgetInfo();
+                             uexWidgetOne.cbGetCurrentWidgetInfo = function(opId, dataType, data) {
+                                 var appClient = eval('(' + data + ')');
+                                 var appCliehtVersion = appClient.version;
+                                 if(isExistNewVersion(appCliehtVersion,appServer_appVersion))
+                                 {
+                                     isUpdate = 1;
+                                     $("#versionTitle").text("发现新版本  "+appServer_appVersion);
+                                     $("#versionSubTitle").html(appServer_Desc);
+                                     $("#btn_update").text("立即更新");
+                                 }
+                                 else{
+                                     isUpdate = 0;
+                                     $("#versionTitle").text("已经是最新版 "+appCliehtVersion);
+                                     $("#versionSubTitle").text("");
+                                     $("#btn_update").text("暂无更新");
+                                 }
+                             }
+                         }
+                     }
+                     else{
+                           
+                         uexWidgetOne.getCurrentWidgetInfo();
+                         uexWidgetOne.cbGetCurrentWidgetInfo = function(opId, dataType, data) {
+                             var appClient = eval('(' + data + ')');
+                             var appCliehtVersion = appClient.version;
+                             $("#versionTitle").text("已经是最新版 "+appCliehtVersion);
+                             $("#versionSubTitle").text("");
+                             $("#btn_update").text("暂无更新");
+                         }
+                     }
+                 });
+             }
+             catch(e){
+                 uexWidgetOne.getCurrentWidgetInfo();
+                 uexWidgetOne.cbGetCurrentWidgetInfo = function(opId, dataType, data) {
+                     var appClient = eval('(' + data + ')');
+                     var appCliehtVersion = appClient.version;
+                     $("#versionTitle").text("已经是最新版 "+appCliehtVersion);
+                     $("#versionSubTitle").text("");
+                     $("#btn_update").text("暂无更新");
+                 }
+             }
+        }
+        
+        /*
+         * 立即更新
+         */
+        function downloadRightNow(){
+            JasDevice.getConnectStatus(function(params){
+                if(params==0)
+                {
+                    downLoadNewApp(downUrl);
+                }
+                else if(params==-1)
+                {
+                    alert("您好，当前无网络，无法下载!");
+                }
+                else{
+                    appcan.window.alert({
+                        title : "温馨提示",
+                        content : "您正在使用流量进行下载，是否继续？",
+                        buttons : ['是', '否'],
+                        callback : function(err, data, dataType, optId) {
+                            if (!err && data == "0") {
+                               downLoadNewApp(downUrl);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        
+        function versionDesc(_desc){
+            try{
+                if(_desc!=""){
+                    var list = _desc.split('&');
+                    var tempStr = "";
+                    for (var i=0; i < list.length; i++) {
+                      tempStr+= list[i] + "<br/>";
+                    };
+                    return tempStr;
+                }
+                else{
+                    return "暂无说明";
+                }
+            }
+            catch(e){
+                return "暂无说明";
+            }
+        }
+        
+         //判断是否新版本
+        function isExistNewVersion(_clientVersion,_serverVersion){
+            try{
+                var _client = _clientVersion.replace(/\./g, "");
+                var _server = _serverVersion.replace(/\./g, "");
+
+                if(parseInt(_server)>parseInt(_client)){
+                    return true;
+                }
+                return false;
+            }catch(e){
+                return false;
+            }
+            
+        }
+    </script>
+</html>

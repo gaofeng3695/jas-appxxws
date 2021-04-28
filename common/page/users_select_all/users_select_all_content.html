@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../../css/ui-box.css">
+        <link rel="stylesheet" href="../../../css/ui-base.css">
+        <link rel="stylesheet" href="../../../css/ui-color.css">
+        <link rel="stylesheet" href="../../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../../css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body id="top" ontouchstart>
+        <div class="umar-b0">
+            <!-- 搜索框 begin -->
+            <!-- <div id="find" class="searchWrap ub ub-pc ">
+                <div class="ub ub-f1 searchBox ub-ac">
+                    <div class="uinput ub ub-f1 ub-ac">
+                        <input id= "search" placeholder="搜人名/部门" type="search" class="search ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}" >
+                    </div>
+                    <div id="" class="searchDelete" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden')"></div>
+                    <div class="searchLine"></div>
+                    <div id="searchImg" class="right searchBtn ulev26 ub ub-ac">搜索</div>
+                </div>
+            </div>  -->
+            <!-- 搜索框 end -->
+            <div id="class">
+            </div>
+            <div id="all">
+                <ul>
+                </ul>
+            </div>
+            <div id="anchor">
+                <ul>
+                </ul>
+            </div>
+            <!--<div id="department">
+                <img src="css/myImg/bmqh.png"/>
+            </div>-->
+        </div>
+        <script src="../../../js/appcan.js"></script>
+        <script src="../../../js/appcan.control.js"></script>
+        <script src="../../../js/appcan.listview.js"></script>
+        <script src="../../../js/pinyin.js"></script>
+        <script src="../../../common/js/linq.min.js"></script>
+        <script src="../../../common/js/common_base.js"></script>
+        <script src="../../../common/js/common_database.js"></script>
+        <script src="../../../common/js/common_httprequest.js"></script>
+        
+    </body>
+    <script>
+
+   //调用接口
+   var saveCount = 0;//保存本地数据库专用
+   var requestDataSource = []; //存放所有数据
+   var userDataSource = [];//存放过滤本人后的数据
+   var favContactsSource = [];//存放过滤本人后的数据
+   var jasHttpRequest = null;
+   var selectedUsersListStr = "";//存储已经选择的用户信息
+   var sumCount=0;
+   var checkedCount = 0;
+   appcan.ready(function() {
+       jasHttpRequest = new JasHttpRequest();
+       userLoader(); //初始化加载企业下所有人员的数据
+       selectedUsersListStr= appcan.locStorage.getVal("userSelect");
+   });
+   
+   function userLoader(){
+       var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+       var enterpriseId = userBo.enterpriseId;
+       var userId = userBo.objectId;
+       /*
+        * 请求加载数据
+        */
+       baseOperation.londingToast("数据加载中，请稍候...");
+       var partURL1 = "cloudlink-core-framework/user/queryList?enterpriseId="+enterpriseId+"&status=1";
+       jasHttpRequest.jasHttpGet(partURL1, function(id, state, dbSource) {
+           baseOperation.closeToast();
+           if(dbSource.length==0){
+               baseOperation.alertToast("网络繁忙，请稍候再试...");
+               return ;
+           }
+           requestDataSource = JSON.parse(dbSource).rows;
+           if(requestDataSource.length==0){
+               $("#all").append("<p class='tx-c'>暂无数据</p>");
+           }else{
+          
+                   userDataSource = requestDataSource;
+                   sumCount = userDataSource.length;
+                   refresh(0,userDataSource);
+           }
+       });
+   }
+   
+   /* 加载已经选中的人员*/
+   function loadSelectUsers(){
+       if(selectedUsersListStr=="" || selectedUsersListStr==null || selectedUsersListStr=="undefined"){
+           checkedCount = 0;
+           return;
+       }
+       var selectList=JSON.parse(selectedUsersListStr);
+
+       if(selectList!="" && selectList!=null && selectList!="undefined"){
+           var objList=selectList.peo_data;
+           checkedCount = objList.length;
+           for(var i=0; i<objList.length; i++){
+               $("input[type='hidden']").each(function(){
+                   if($(this).val()==objList[i].userId){
+                       $(this).closest(".CLASS").find(".piaochecked").addClass("on_check");
+                       $(this).closest(".CLASS").find(".checkClass").prop("checked", true);
+                   }
+               })
+           }
+       }
+   }
+   
+   /*
+    * tab页面切换
+    */
+   function tabchange(index){
+      if(index==0){
+          refresh(0,userDataSource);
+          return;
+      }
+      if(index==1){
+            favContactsSource = [];
+            var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var userId = userBo.objectId;
+            var enterpriseId = userBo.enterpriseId;
+            var sql = "select jsonData from favcontacts where enterpriseId = '"+enterpriseId+"' order by usedCount desc;";
+            var dbOperation = new DataBaseOperation();
+            dbOperation.dbSelect(sql,function(err,data2){
+                if(err == null && data2 != "")
+                {
+                    for (var i=0; i < data2.length; i++) {
+                        favContactsSource.push(JSON.parse(data2[i].jsonData));
+                    };
+                    refresh(0,favContactsSource);
+                }
+            });
+          
+          return;
+      }
+   }
+   
+   function refresh(e,data) {
+       /*条件筛选*/
+       var contactObj = {
+           letObj: {},
+           letterObj: {},
+           deptObj: {},
+           nowObj: {},
+           azObj: {},
+           boxDom: $('#class'), //容器
+           ADom: $('#anchor ul'), //锚点容器
+           az: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N','O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '#'],
+           all_headquarters: function(dep) {
+               this.sortData(data, dep);
+               this.render(this.letObj);
+           },
+           Headquarters: function(dep) {
+               this.sortData(data, dep);
+               this.benbu(this.nowObj);
+           },
+           Department: function(dep) {
+               this.sortData(data, "dep");
+               this.bumen(this.deptObj);
+           },
+           sortData: function(arr, str) {
+               this.letterObj = {};
+               this.deptObj = {};
+               for (var i = 0,l = arr.length; i < l; i++) {
+                    var surName = arr[i].userName.substr(0,1); //姓
+                    var dept = arr[i].orgName; //部门
+                    var REX=/\w/i;//匹配字母正则式
+                    if(REX.test(surName)){
+                        var upcase=surName.toUpperCase();//把字母转化成大写
+                         if(!this.letterObj[upcase]){
+                            this.letterObj[upcase] = [];
+                        }
+                        this.letterObj[upcase].push(arr[i]);
+                    }else{
+                        var fl = pinyin.getCamelChars(surName); //首字母
+                        if(!this.letterObj[fl]){
+                            this.letterObj[fl] = [];
+                        }
+                        this.letterObj[fl].push(arr[i]);
+                    }
+                    
+                    
+                    if(!this.deptObj[dept]){
+                        this.deptObj[dept] = [];
+                    }
+                    this.deptObj[dept].push(arr[i]);
+                        if(dept == str){
+                            if(!this.nowObj[dept]){
+                                this.nowObj[dept] = [];
+                            }
+                            this.nowObj[dept].push(arr[i]); 
+                        }
+                }
+            //把 letterObj 的ABCD内容排序，放到 letObj 中 ；
+                for(var i = 0;i<this.az.length;i++){
+                    for(j in this.letterObj){
+                        var Name = this.letterObj[j][0].userName.substr(0,1); //姓
+                        var py = pinyin.getCamelChars(Name).toUpperCase(); //首字母 
+                        if(py == this.az[i]||!REX.test(py)){
+                            this.letObj[py] = this.letterObj[j];
+                        }
+                    }
+                }
+                    // console.log(this.letterObj);
+                    //console.log(this.deptObj);
+                    //console.log(this.nowObj)
+                },
+           render: function(obj) { //渲染页面   全部
+               var sHtml = '';
+               var aHtml = '';
+               var z = '';
+               for (var i in obj) {
+                   var s = '<div class="fenlei fenlei1 ub " id=' + i + '><span class="font1 ub ub-ac">' + i + '</span></div>';
+                   var s2 = '';
+                   var p = obj[i];
+                   var z = "";
+                   for (var j = 0; j < 26; j++) {
+                       if (!this.azObj[this.az[j]]) {
+                           if (i == this.az[j]) {
+                               this.azObj[this.az[j]] = '<a href="#' + this.az[j] + '"><li>' + this.az[j] + '</li></a>';
+                           } else {
+                               this.azObj[this.az[j]] = '<li>' + this.az[j] + '</li>';
+                           }
+                       } else {
+                           if (i == this.az[j]) {
+                               this.azObj[this.az[j]] = '<a href="#' + this.az[j] + '"><li>' + this.az[j] + '</li></a>';
+                           } else {
+                               if (i == this.az.length - 1) {
+                                   this.azObj[this.az[j]] = '<li>' + this.az[j] + '</li>';
+                               }
+                           }
+
+                       }
+                   }
+                   for (var i = 0; i < p.length; i++) {
+
+                       var subP = p[i];
+
+                       s2 += '<div class="CLASS ub"><input type="hidden" name="object_id" value="' + subP.objectId + '" />' +
+                               '<div class="checkbox_wid ub-ac"><div class="piaochecked"><input type="checkbox" class="checkClass" name="event_li" /></div></div>'+
+                               '<div class="IMG"><img src="css/myImg/nantou.png"/></div>' +
+                               '<div class=" NAME ub ub-f1 ub-ver">' +
+                               '<div class="NAME1"><span class="people_name">' + subP.userName + '</span></div>' +
+                               '<div class="NAME2 "><span>' + subP.mobileNum + '</span></div>' +
+                               '</div>' +
+                               '<div class="NUM"><span>' + (subP.orgName == null ? "" : subP.orgName) + '</span></div>' +
+                               '<div class="DEP"><span>' + (subP.roleNames == null ? "" : subP.roleNames) + '</span></div>' +
+                               '</div>';
+                   }
+                   sHtml += s + s2;
+               }
+               for (i in this.azObj) {
+                   z += this.azObj[i]
+               }
+               aHtml = '<a href="#top"><li><img src="css/myImg/jian.png"/></li></a>' + z + '<a href="#"><li></li></a>';
+               this.boxDom.html(sHtml);
+               this.ADom.html(aHtml);
+               loadSelectUsers();//加载完成数据，并选择默认选择项
+           },
+           benbu: function(obj) { //渲染页面   本部
+               var sHtml = '';
+               var s = '';
+               for (var i in obj) {
+                   var x = obj[i];
+                   for (var i = 0; i < x.length; i++) {
+                       var subX = x[i];
+                       s += '<div class="CLASS ub"><input type="hidden" value="' + subX.objectId + '" /><div class="IMG"><img src="css/myImg/nantou.png"/></div><div class=" NAME ub ub-f1 ub-ver"><div class="NAME1 "><span>' + subX.userName + '</span></div><div class="NAME2 "><span>' + subX.mobileNum + '</span></div></div><div class="NUM"><span>' + (subX.orgName == null ? "" : subX.orgName) + '</span></div><div class="DEP"><span>' + (subX.roleNames == null ? "" : subX.roleNames) + '</span></div></div>';
+                   }
+               }
+               sHtml = s;
+               this.boxDom.html('<div class="fenlei3">' + sHtml + '</div>');
+           }
+       };
+
+       //判断e的值  切换全部和本部
+       if (e == 1) {
+           contactObj.Headquarters();
+           $("#department").css({
+               display: "none"
+           });
+           $("#anchor ul").css({
+               display: "none"
+           });
+       } else {
+           contactObj.all_headquarters();
+           $("#department").css({
+               display: "block"
+           });
+           $("#anchor ul").css({
+               display: "block"
+           })
+       }
+
+       $("#department").click(function() {
+           if ($("#department img").attr("src") == "css/myImg/bmqh.png") {
+               $("#department img").attr("src", "css/myImg/xmqh.png")
+               contactObj.Department();
+               $("#anchor ul").css({
+                   display: "none"
+               })
+           } else {
+               $("#department img").attr("src", "css/myImg/bmqh.png")
+               contactObj.all_headquarters();
+               $("#anchor ul").css({
+                   display: "block"
+               })
+           }
+
+       });
+
+
+        //搜索框事件开始
+        // document.getElementById("search").onsearch = function() {
+            // $("#class").css({display:"block"});
+            // $("#all").css({display:"none"});
+        // };
+     
+        $(".right").click(function(){
+            var valu = $("#search").val();
+            if(!valu){
+                $("#class").show();
+                $("#all").hide(); 
+                return;
+            }
+            $("#class").contents().find(".piaochecked").removeClass("on_check");
+            $("#class").find(".checkClass").prop('checked',false); 
+            appcan.window.evaluateScript('users-select','all_check()');
+            $("#class").hide();
+            $("#all").show();
+            $("#all ul").empty();
+            if(e == 1){
+                for(i in contactObj.nowObj){
+                    var x = contactObj.nowObj[i];
+                    for(var i=0;i<x.length;i++){
+                        var num = x[i].orgName;
+                        var name = x[i].userName;
+                        var rex = new RegExp(valu);
+                        if (rex.test(num) || rex.test(name)) {
+                               $('<div class="CLASS ub"><input type="hidden" name="object_id" value="' + subP.objectId + '" />' +
+                                       '<div class="checkbox_wid ub-ac"><div class="piaochecked"><input type="checkbox" class="checkClass" name="event_li" /></div></div>'+
+                                       '<div class="IMG"><img src="css/myImg/nantou.png"/></div>' +
+                                       '<div class=" NAME ub ub-f1 ub-ver">' +
+                                       '<div class="NAME1"><span class="people_name">' + subP.userName + '</span></div>' +
+                                       '<div class="NAME2 "><span>' + subP.mobileNum + '</span></div>' +
+                                       '</div>' +
+                                       '<div class="NUM"><span>' + (subP.orgName == null ? "" : subP.orgName) + '</span></div>' +
+                                       '<div class="DEP"><span>' + (subP.roleNames == null ? "" : subP.roleNames) + '</span></div>' +
+                                       '</div>').appendTo("#all ul");
+                           }
+                    }  
+                }
+            }else{
+                for(var i=0;i<data.length;i++){
+                    var num = data[i].orgName;
+                    var name = data[i].userName;
+                    var rex = new RegExp(valu);
+                    var txt='';
+                     if (rex.test(num) || rex.test(name)) {
+                           txt='<div class="CLASS ub"><input type="hidden" name="object_id" value="' + data[i].objectId + '" />' +
+                           '<div class="checkbox_wid ub-ac"><div class="piaochecked"><input type="checkbox" class="checkClass" name="event_li" /></div></div>'+
+                           '<div class="IMG"><img src="css/myImg/nantou.png"/></div>' +
+                           '<div class=" NAME ub ub-f1 ub-ver">' +
+                           '<div class="NAME1"><span class="people_name">' + data[i].userName + '</span></div>' +
+                           '<div class="NAME2 "><span>' + data[i].mobileNum + '</span></div>' +
+                           '</div>' +
+                           '<div class="NUM"><span>' + (data[i].orgName == null ? "" : data[i].orgName) + '</span></div>' +
+                           '<div class="DEP"><span>' + (data[i].roleNames == null ? "" : data[i].roleNames) + '</span></div>' +
+                           '</div>';
+                       $("#all ul").append(txt);
+                       }
+                }  
+            }
+        });
+
+       //搜索框事件结束
+       //点击搜索框事件
+       /*
+        * 
+        $("#search").focus(function() {
+               $("#class").css({
+                   display: "none"
+               });
+               $("#all").css({
+                   display: "block"
+               })
+           }).on("input propertychange", function() {
+               var val = $(this).val();
+               $("#all ul").empty();
+               if (e == 1) {
+                   for (var i in contactObj.nowObj) {
+                       var x = contactObj.nowObj[i];
+                       for (var i = 0; i < x.length; i++) {
+                           var num = x[i].orgName;
+                           var name = x[i].userName;
+                           var rex = new RegExp(val);
+                           if (rex.test(num) || rex.test(name)) {
+                               $('<div class="CLASS ub"><input type="hidden" name="object_id" value="' + subP.objectId + '" />' +
+                                       '<div class="checkbox_wid ub-ac"><div class="piaochecked"><input type="checkbox" class="checkClass" name="event_li" /></div></div>'+
+                                       '<div class="IMG"><img src="css/myImg/nantou.png"/></div>' +
+                                       '<div class=" NAME ub ub-f1 ub-ver">' +
+                                       '<div class="NAME1"><span class="people_name">' + subP.userName + '</span></div>' +
+                                       '<div class="NAME2 "><span>' + subP.mobileNum + '</span></div>' +
+                                       '</div>' +
+                                       '<div class="NUM"><span>' + (subP.orgName == null ? "" : subP.orgName) + '</span></div>' +
+                                       '<div class="DEP"><span>' + (subP.roleNames == null ? "" : subP.roleNames) + '</span></div>' +
+                                       '</div>').appendTo("#all ul");
+                           }
+                       }
+                   }
+               } else {
+                   for (var i = 0; i < data.length; i++) {
+                       var num = data[i].orgName;
+                       var name = data[i].userName;
+                       var rex = new RegExp(val);
+                       var txt='';
+                       if (rex.test(num) || rex.test(name)) {
+                           txt='<div class="CLASS ub"><input type="hidden" name="object_id" value="' + data[i].objectId + '" />' +
+                           '<div class="checkbox_wid ub-ac"><div class="piaochecked"><input type="checkbox" class="checkClass" name="event_li" /></div></div>'+
+                           '<div class="IMG"><img src="css/myImg/nantou.png"/></div>' +
+                           '<div class=" NAME ub ub-f1 ub-ver">' +
+                           '<div class="NAME1"><span class="people_name">' + data[i].userName + '</span></div>' +
+                           '<div class="NAME2 "><span>' + data[i].mobileNum + '</span></div>' +
+                           '</div>' +
+                           '<div class="NUM"><span>' + (data[i].orgName == null ? "" : data[i].orgName) + '</span></div>' +
+                           '<div class="DEP"><span>' + (data[i].roleNames == null ? "" : data[i].roleNames) + '</span></div>' +
+                           '</div>';
+                       $("#all ul").append(txt);
+                       }
+                   }
+               }
+               if (!val) {
+                   $("#all ul").html("");
+               }
+           }).blur(function() {
+               var val = $(this).val();
+               if (!val) {
+                   $("#class").css({
+                       display: "block"
+                   });
+                   $("#all").css({
+                       display: "none"
+                   });
+               }
+           });
+           */
+       //储存data到本地
+       //appcan.locStorage.setVal("dataObj", data);
+   }
+
+
+
+    /*复选框选择*/
+    $("body").on("click",".piaochecked",function(){
+        if($(this).hasClass("on_check")){
+            /*表示取消选中*/
+            $(this).removeClass("on_check");
+            appcan.window.evaluateScript('users-select','all_check()');
+            //checkedCount--;
+        }else{
+            /*表示选中*/
+            var checkNum = $("input[type='checkbox']:checked").length;
+            var rows = $("input[type='checkbox']").length;
+            $(this).addClass("on_check");
+            var selectUserId=$(this).closest(".CLASS").find("input[type='hidden']").val();
+            saveFavContacts(userDataSource,selectUserId);
+            //checkedCount++;
+            if(checkNum == rows){
+                appcan.window.evaluateScript("users-select","allChecked()");
+            }
+        }
+        //judgeAllChecked(sumCount,checkedCount);
+        
+    });
+    
+    function judgeAllChecked(sum,checkedcount){
+        if(sum==checkedcount)
+        {
+            appcan.window.evaluateScript("users-select","allChecked()");
+        }
+        else{
+            appcan.window.evaluateScript("users-select","allNonChecked()");
+        }
+        
+    }
+    /*全选中*/
+    function open_check(){
+        if($("#class").css("display")=="none"){
+            $("#all").find(".piaochecked").addClass("on_check");
+            $("#all").find(".checkClass").prop("checked", true); 
+        }else{
+           $("#class").find(".piaochecked").addClass("on_check");
+            $("#class").find(".checkClass").prop("checked", true);
+        }
+    }
+    /*取消全选*/
+    function close_check(){
+        if($("#class").css("display")=="none"){
+           $("#all").contents().find(".piaochecked").removeClass("on_check");
+            $("#all").find(".checkClass").prop('checked',false); 
+        }else{
+           $("#class").contents().find(".piaochecked").removeClass("on_check");
+            $("#class").find(".checkClass").prop('checked',false); 
+        }
+    }
+
+    /*保存人员*/
+    function save_peo(){
+        if($("input[type='checkbox']:checked").length==0){
+            appcan.locStorage.setVal("userSelect","");
+            appcan.window.evaluateScript('users-select','live_page()');
+            return;
+        }else{
+            var taskUserMsg=[];
+            var peopleName=[];
+            if($("#class").css("display")=="none"){
+                $('#all .checkClass').each(function(){
+                    if($(this).is(':checked')){
+                        var obj={};
+                        obj.userId=$(this).closest(".CLASS").find("input[type='hidden']").val();
+                        obj.userName=$(this).closest(".CLASS").find(".people_name").text();
+                        taskUserMsg.push(obj);
+                        peopleName.push(obj.userName);
+                    }
+                });
+            }else{
+                $('#class .checkClass').each(function(){
+                    if($(this).is(':checked')){
+                        var obj={};
+                        obj.userId=$(this).closest(".CLASS").find("input[type='hidden']").val();
+                        obj.userName=$(this).closest(".CLASS").find(".people_name").text();
+                        taskUserMsg.push(obj);
+                        peopleName.push(obj.userName);
+                    }
+                });
+            }
+            //储存data到本地
+            var params={
+                peo_data:taskUserMsg,
+                peo_name:peopleName
+            };
+            appcan.locStorage.setVal("userSelect",params);
+            appcan.window.evaluateScript('users-select','live_page()');
+            //saveFavContacts(userDataSource,params);
+        }
+    }
+
+    /*
+     * 常用联系人保存到本地
+     */
+    function saveFavContacts(source,selectUserId)
+    {
+        try{
+            var dbOperation = new DataBaseOperation();
+            var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var userId = userBo.objectId;
+            var enterpriseId = userBo.enterpriseId;
+            var selectUserBo = null;
+            for (var i=0; i < source.length;i++) {
+                if(selectUserId == source[i].objectId)
+                {
+                    selectUserBo = source[i];
+                    var sql = "select * from favcontacts where userId = '"+selectUserId+"' and enterpriseId = '"+enterpriseId+"';";
+                    dbOperation.dbSelect(sql,function(err,data2){
+                        if(err == null)
+                        {
+                            var sqlExce = "";
+                            if(data2 != ""){
+                                var sqlExce = "update favcontacts set usedCount = usedCount+1  where userId = '"+selectUserId+"' and enterpriseId = '"+enterpriseId+"';";
+                            }
+                            else{
+                                var sqlExce = "insert into favcontacts (userId,enterpriseId,jsonData,usedCount) values ('"+selectUserId+"','"+enterpriseId+"','"+JSON.stringify(selectUserBo)+"',0);";
+                            }
+                            dbOperation.dbExec(sqlExce,function(err,date){});
+                        }
+                    });
+                    break;
+                }
+            };
+        }
+        catch(e){
+            
+        }
+    }
+
+    </script>
+</html>

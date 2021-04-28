@@ -1,0 +1,228 @@
+.fontSizeDsit {
+    font-size: 4.5em;
+}
+
+.fontSizeTime {
+    font-size: 3.5em;
+}
+
+.linebg {
+    background: linear-gradient(to bottom, #313a42, #353b51);
+}
+
+.daily_data {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.data_main {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    margin-top: 1em;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    background: url("../images/data_bg.png") no-repeat center 0;
+    background-size: 16em auto;
+}
+
+.data_main ul {
+    padding-top: 3em;
+}
+
+.data_main ul li {
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.data_main ul li:last-child {
+    padding-top: 1.3em;
+}
+
+.data_main ul li span {
+    font-size: .75em;
+}
+
+.data_main ul li span i {
+    font-style: normal;
+    /* font-size: 5em; */
+    font-weight: 900;
+    font-family: sans-serif;
+    margin: 0 3px;
+}
+
+.inspection_finish {
+    text-align: center;
+    padding-top: 2.7em;
+}
+
+.inspection_finish span {
+    display: inline-block;
+    width: 8.78125em;
+    height: 2.875em;
+    line-height: 2.875em;
+    border-radius: 1.4875em;
+    background: #15c38c;
+    color: #FFFFFF;
+}
+
+.inspection_finish span i {
+    font-style: normal;
+    font-size: 1.3125em;
+}
+
+.inspection_cancel {
+    text-align: center;
+    padding-top: 1.25em;
+}
+
+.inspection_cancel span {
+    display: inline-block;
+    width: 5.75em;
+    height: 1.875em;
+    line-height: 1.875em;
+    border-radius: .9375em;
+    background: #3f4b5e;
+    color: #FFFFFF;
+}
+
+.inspection_cancel span i {
+    font-style: normal;
+    font-size: .875em;
+}
+
+.data_time {
+    overflow: hidden;
+}
+
+.data_time ul {
+    padding: 0em 1.25em 0;
+}
+
+.data_time ul li {
+    height: 3.6em;
+    line-height: 3.6em;
+    overflow: hidden;
+}
+.bor-bottom {
+    border-bottom: 1px solid #63666e;
+}
+.data_time ul li.time p {
+    background: url("../images/time.png") no-repeat left center;
+    background-size: 1.125em auto;
+}
+
+.data_time ul li.event .left {
+    width: 50%;
+    float: left
+}
+
+.data_time ul li.event .left p {
+    background: url("../images/event.png") no-repeat left center;
+    background-size: 1.125em auto;
+}
+.data_time ul li.event .left .node {
+    background: url("../images/node.png") no-repeat left center;
+    background-size: 1.125em auto;
+}
+.data_time ul li p {
+    color: #8a93a1;
+    box-sizing: border-box;
+}
+
+.data_time ul li p i {
+    font-style: normal;
+    padding-left: 2em;
+    display: inline-block;
+    font-size: .875em;
+}
+
+.data_time .starttime {
+    float: right;
+    color: #FFFFFF;
+    font-weight: 900;
+}
+
+.data_time ul li .left p em {
+    height: .8em;
+    line-height: .8em;
+    width: 50%;
+    display: inline-block;
+    float: right;
+    text-align: right;
+    /*border-left: 1px solid #63666e;*/
+    color: #FFFFFF;
+    font-style: normal;
+    font-size: 1.5em;
+    margin-top: .8em;
+    font-weight: 900;
+}
+.nums{
+    border-bottom:3px solid #54b6ff;
+    padding-bottom: 2px;
+}
+.data_time ul li.event .right {
+    float: left;
+    width: 50%;
+    /*border-left: 1px solid #63666e;*/
+}
+
+.data_time ul li.event .right .br {
+    border-left: 1px solid #63666e;
+    float: left;
+    margin-left: .5em;
+    margin-top: .625em;
+    height: 2.3125em;
+    line-height: 2.3125em;
+}
+
+.enter_event_btn {
+    text-align: center;
+}
+
+.enter_event_btn .event_btn {
+    float: right;
+    display: inline-block;
+    margin-top: .625em;
+    height: 2.3125em;
+    padding:0px 1em;
+    /*width: 4em;*/
+    line-height: 2.3125em;
+    text-align: center;
+    border-radius: 5px;
+    background: #59B5FC;
+}
+
+ .noclick{
+background: #ddd !important; 
+}
+.enter_event_btn .event_btn span {
+    text-align: center;
+    /*padding: 0em .2em;*/
+    font-size: .9375em;
+    color: #FFFFFF;
+}
+
+.inspection_map {
+    position: absolute;
+    top: .625em;
+    right: .625em;
+}
+
+.track {
+    position: absolute;
+    top: .625em;
+    left: .625em;
+}
+
+.mapicon {
+    height: 2em;
+}
+
+.trackicon {
+    width: 1.38em;
+    height: 1.68em;
+}

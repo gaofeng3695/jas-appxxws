@@ -1,0 +1,53 @@
+
+.bc-bg {
+    background-color: #f4f4f4
+}
+
+#listview3 {
+    border: none;
+    background: #ffffff;
+}
+
+#listview3 ul {
+    list-style: none;
+    padding-left: 0.9em;
+}
+
+#listview3 ul li {
+    width: 98%;
+    height: 2.8125em;
+    font-size:0.875em;
+    color: #333;
+}
+
+#listview3 .personal {
+    width: 2.250em;
+    height:2.250em;
+    border-radius:50%;
+    float: right
+}
+
+.comment {
+    font-size: 0.875em;
+    color: #333;
+}
+
+.right {
+    text-align: right;
+    padding-right: 1.125em;
+    font-size: 0.81em;
+    color: #666;
+}
+
+.footer {
+    margin-top: 1.688em;
+}
+
+img {
+    margin-right: 0.563em;
+    height:0.8125em;
+}
+
+.li-bottom {
+    border-bottom: 1px solid #f6f6f6;
+}

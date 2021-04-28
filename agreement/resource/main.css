@@ -1,0 +1,55 @@
+
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    background:#fff;
+}
+.title{
+    padding:0.5em 0.8em;
+}
+.title h1{
+    word-break : normal;
+    font-size:0.78em;
+    line-height:140%;
+}
+.title p{
+    word-break : normal;
+    font-size:0.78em;
+    color:#333;
+    line-height:140%;
+}
+.text_content{
+    word-break : normal;
+    padding: 0 .8em;
+}
+
+.text_content h1{
+    word-break : normal;
+    padding:0.5em 0;
+    font-size:0.78em;
+    line-height:140%;
+}
+.text_content h2{
+    word-break : normal;
+    padding-bottom:0.5em;
+    font-size:0.72em;
+    line-height:140%;
+}
+.text_content p{
+    word-break : normal;
+    line-height:140%;
+    font-size:0.78em;
+    color:#666;
+    /*font-weight:bold;*/
+}
+/*.one .paragraph1{
+    color:#666;
+    line-height:140%;
+}
+.one .stitle{
+    font-size:0.72em;
+    color:#333;
+    line-height:140%;
+} */

@@ -1,0 +1,28 @@
+@-webkit-keyframes myfirst  {  
+    from{
+        transform: translateX(-50%) rotateZ(0deg);
+        -webkit-transform: translateX(-50%) rotateZ(0deg);
+    }
+    to{
+        transform: translateX(-50%) rotateZ(360deg);
+        -webkit-transform: translateX(-50%) rotateZ(360deg);
+    }  
+}
+@keyframes myfirst  {  
+    from{
+        transform: translateX(-50%) rotateZ(0deg);
+        -webkit-transform: translateX(-50%) rotateZ(0deg);
+    }
+    to{
+        transform: translateX(-50%) rotateZ(360deg);
+        -webkit-transform: translateX(-50%) rotateZ(360deg);
+    }  
+}
+.rotate{
+    display: block !important;
+    position: absolute;
+    top: 0.625em;
+    left: 50%;    
+    animation: myfirst 3s cubic-bezier(0, 0, 0.53, 0.51) 0s infinite;
+    -webkit-animation: myfirst 3s cubic-bezier(0, 0, 0.53, 0.51) 0s infinite;
+}

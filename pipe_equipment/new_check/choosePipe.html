@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/ledger.css">
+    </head>
+
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">选择管网设施</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束-->
+            <div class="sectionShadow" id="ledger">
+                <div id="" class="searchWrap ub ub-pc">
+                    <div class="ub ub-f1 searchBox ub-ac">
+                        <div class="uinput ub ub-f1 ub-ac">
+                            <input id="inputDom" placeholder="搜索设施名称、设施编号、详细位置" type="search" class="ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}">
+                        </div>
+                        <div class="searchDelete" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden');"></div>
+                        <div class="searchLine"></div>
+                        <div id="ledgersearch" class="searchBtn ulev26 ub ub-ac">
+                            搜索
+                        </div>
+                    </div>
+                </div>
+                <div class="select_height bt1 bb1">
+                    <div class="posi_left width50 ub ub-ac ub-pc lh01 bgfff">
+
+                        <div id="select01" class="select clr333">
+                            <div class="text ulev30">
+                                管网类型
+                            </div>
+                            <i class="fa fa-sort-desc ulev24 tran25" aria-hidden="true"></i>
+                            <select selectedindex="" class="pipeOption"></select>
+                        </div>
+                    </div>
+                    <div class=" posi_right width50 ub ub-ac ub-pc lh01 bgfff">
+
+                        <div id="select02" class="select clr333">
+                            <div class="text ulev30">
+                                设施类型
+                            </div>
+                            <i class="fa fa-sort-desc ulev24 tran25" aria-hidden="true"></i>
+                            <select selectedindex="" class="optionFaci">
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+            <div id="footer" class=" ub  uinn">
+
+                <div class="btn ub ub-ac bc-text-head ub-pc  uc-a1 ub-f1" id="btn1">
+                    确认
+                </div>
+            </div>
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_database.js"></script>
+        <script src="../offlinedata/domain.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            obj.init();
+        });
+        var obj = {
+            init : function() {
+                this.loadhtml();
+                this.bindEvent();
+                this.getPipeType();
+                this.getFacility();
+            },
+            loadhtml : function() {
+                var titHeight = $('#header').offset().height + $(".sectionShadow").offset().height;
+                appcan.frame.open("content", "choosePipe_content.html", 0, titHeight);
+                window.onorientationchange = window.onresize = function() {
+                    appcan.frame.resize("content", 0, titHeight);
+                }
+            },
+            bindEvent : function() {
+                appcan.button("#nav-left", "btn-act", function() {
+                    appcan.window.close(-1);
+                });
+                appcan.button("#ledgersearch", function() {
+                    var value = $("#inputDom").val().trim();
+                    appcan.window.evaluatePopoverScript('choosePipe', 'content', 'chooseList.searchLedger("' + value + '")');
+                });
+                appcan.button(".searchDelete", function() {
+                    var value = '';
+                    $("#inputDom").val('');
+                    appcan.window.evaluatePopoverScript('choosePipe', 'content', 'chooseList.searchLedger("' + value + '")');
+                });
+                appcan.select("#select01", function(ele, value) {
+                    appcan.window.evaluatePopoverScript('choosePipe', 'content', 'chooseList.triggerPipeSearch("' + value + '")');
+                });
+                appcan.select("#select02", function(ele, value) {
+                    appcan.window.evaluatePopoverScript('choosePipe', 'content', 'chooseList.triggerEquipSearch("' + value + '")');
+                });
+                appcan.button("#btn1", function() {//选中之后点击确定
+                    appcan.window.evaluatePopoverScript('choosePipe', 'content', 'chooseList.getChoosePipe()');
+                });
+            },
+            getPipeType : function() {
+                var facilityDamin = JSON.parse(appcan.locStorage.getVal("pipelineTypeList"));
+                var s = "<option value=''>全部</option>";
+                facilityDamin.forEach(function(item, index, arr) {
+                    s += "<option value='" + item.domainCode + "'>" + item.domainValue + "</option>"
+                });
+                $(".pipeOption").append(s);
+            },
+            getFacility : function() {
+                var facilityDamin = JSON.parse(appcan.locStorage.getVal("facilityTypeList"));
+                var s = "<option value=''>全部</option>";
+                facilityDamin.forEach(function(item, index, arr) {
+                    s += "<option value='" + item.domainCode + "'>" + item.domainValue + "</option>"
+                });
+                $(".optionFaci").append(s);
+            },
+        }
+
+    </script>
+
+</html>

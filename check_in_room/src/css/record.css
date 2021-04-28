@@ -1,0 +1,68 @@
+.lh01{
+    line-height: 2.1875em;
+}
+.select_height{
+    height: 2.4em;
+}
+.pb625{
+    padding-bottom: .625em;
+}
+.bt1{
+    border-top: 1px solid #ccc;
+}
+.bb1{
+    border-bottom: 1px solid #ccc;
+}
+
+.tran25{
+    transform: translateY(-.25em);
+    -webkit-transform: translateY(-.25em);
+}
+.bgfff{
+    background: white;
+}
+.add{
+    background: url(../images/add.png) no-repeat center center;
+    background-size: 1.4em;
+}
+.local{
+    margin: 0 .9375em;
+    width: 2.9em;
+    text-align: center;
+    color: white;
+    border: 1px solid #9fd3fb;
+    height: 1.65em;
+    line-height: 1.65em;    
+}
+.local div{
+    position: absolute;
+    height: 1.6em;
+    line-height: 1.6em;
+    font-size: .6em;
+    padding: 0 .6em;
+    background-color: #ff625b;
+    border-radius: .8em;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    -webkit-transform: translate(50%, -50%);
+}
+.select .text{
+    padding: 0 .5em;
+}
+.width50{
+    width: 50%;
+}
+.posi_left{
+    position: absolute;
+    left: 0;
+}
+.posi_right{
+    position: absolute;
+    right: 0;
+}
+
+.planTitle{
+    line-height: 2em;
+    height: 2em;
+}

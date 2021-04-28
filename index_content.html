@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/appcan.control.css">
+    <link rel="stylesheet" type="text/css" href="page_resource/index/css/content.css">
+</head>
+
+<body class="um-vp " ontouchstart>
+    <div id="index" class="up ub ub-ver bc-bg" tabindex="0">
+
+        <div class="section sectionShadow tx-l">
+            <div class="title ub ub-ac task">
+                <div class="ub-f1 ">我的任务</div>
+                <div id="moreTasks" class="more ub ub-ac">更多&nbsp;&gt;</div>
+            </div>
+            <div id="listForTasks" class="listview"></div>
+            <div class="noData ub ub-ac ub-pc">
+                <span class="ulev30">数据加载中...</span>
+            </div>
+        </div>
+
+        <div class="section sectionShadow tx-l">
+            <div class="title ub ub-ac event">
+                <div class="ub-f1 ">企业处理中事件</div>
+                <div id="moreEvents" class="more ub ub-ac">更多&nbsp;&gt;</div>
+            </div>
+            <div id="listForEvents" class="listview"></div>
+            <div class="noData ub ub-ac ub-pc">
+                <span class="ulev30">数据加载中...</span>
+            </div>
+        </div>
+    </div>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script src="js/appcan.listview.js"></script>
+    <script src="common/js/common_base.js"></script>
+    <script src="common/js/common_httprequest.js"></script>
+    <script src="common/js/common_database.js"></script>
+    <script src="common/js/common_download.js"></script>
+    <script src="common/js/common_device.js"></script>
+
+</body>
+<script>
+    //最新事件列表对象
+    var listForEvents = {
+        idName: '#listForEvents',
+        moreDom: $('#moreEvents'),
+        listview: null,
+        init: function() {
+            var that = this;
+            this.listview = appcan.listview({
+                selector: that.idName,
+                type: "thinLine",
+                hasIcon: false,
+                hasAngle: false,
+                hasSubTitle: true,
+                multiLine: 1,
+                touchClass: ''
+            });
+            this.bindEvent();
+        },
+        requestData: function(callback) {
+            var that = this;
+            var partURL2 = "cloudlink-inspection-event/eventInfo/getPageList";
+            var queryObj = {
+                "pageSize": "3",
+                "pageNum": "1",
+                "status": "20"
+            };
+            jasHttpRequest.jasHttpPost(partURL2, function(id, state, dbSource) {
+                baseOperation.closeToast();
+                if (dbSource == "") {
+                    baseOperation.alertToast('网络繁忙，请稍候再试...');
+                    that.setList("");
+                    return;
+                }
+                var reObj = JSON.parse(dbSource);
+                if (reObj.success == 1) {
+                    that.setList(reObj.rows);
+                }
+                if (typeof callback == "function") {
+                    callback();
+                }
+                //initDomainEventType();
+            }, JSON.stringify(queryObj));
+        },
+        setList: function(arr) {
+            if (!arr || arr.length === 0) {
+                $(this.idName).html('');
+                $(this.idName + '+div').removeClass('uhide');
+                $(this.idName + '+div').find('span').html('暂无数据');
+                return;
+            }
+            $(this.idName + '+div').addClass('uhide');
+            var aRes = arr.map(function(val) {
+                var tempOccuTime = (val.occurrenceTime == null ? (new Date()).Format("yyyy-MM-dd HH:mm:ss") : val.occurrenceTime);
+                var s = tempOccuTime;
+                return {
+                    title: val.description,
+                    subTitle: s.slice(5, 7) + '月' + s.slice(8, 10) + '日',
+                    id: val.objectId,
+                    disposeTime: tempOccuTime
+                };
+            });
+            this.listview.set(aRes);
+        },
+        bindEvent: function() {
+            appcan.button("#moreEvents", "btn-act", function() {
+                appcan.openWinWithUrl("event", "event_management/event.html");
+            });
+
+            this.listview.on("click", function(ele, obj, curEle) {
+                ele.addClass('active');
+                //alert('事件ID为：' + obj.id);
+                appcan.locStorage.remove("disposeTime_param");
+                appcan.locStorage.setVal("disposeTime_param", obj.disposeTime);
+                appcan.locStorage.setVal("tabIndex_param", "0");
+                appcan.locStorage.setVal("event_Id", obj.id);
+                appcan.openWinWithUrl("task_details", "task/task_details.html");
+            });
+        },
+    };
+    var listForTasks = {
+        idName: '#listForTasks',
+        moreDom: $('#moreTasks'),
+        listview: null,
+        init: function() {
+            var that = this;
+            this.listview = appcan.listview({
+                selector: that.idName,
+                type: "thinLine",
+                hasIcon: false,
+                hasAngle: false,
+                hasSubTitle: true,
+                multiLine: 1,
+                touchClass: ''
+            });
+            this.bindEvent();
+            //this.requestData();
+        },
+        requestData: function(callback) {
+            var that = this;
+            var partURL1 = "cloudlink-inspection-task/task/getPageListForPerson";
+            var queryObj = {
+                "pageSize": "3",
+                "pageNum": "1",
+                "disposeState": 20
+            };
+            jasHttpRequest.jasHttpPost(partURL1, function(id, state, dbSource) {
+                if (dbSource == "") {
+                    baseOperation.alertToast('网络繁忙，请稍候再试...');
+                    that.setList("");
+                    if (typeof callback == "function") {
+                        callback();
+                    }
+                    return;
+                }
+                //listForEvents.requestData();
+                var reObj = JSON.parse(dbSource);
+                if (reObj.success == 1) {
+                    that.setList(reObj.rows);
+                } else if (reObj.success == -1) {
+                    baseOperation.alertToast('获取任务信息失败...');
+                    that.setList(reObj.rows);
+                }
+                if (typeof callback == "function") {
+                    callback();
+                }
+            }, JSON.stringify(queryObj));
+        },
+        setList: function(arr) {
+            if (!arr || arr.length === 0) {
+                $(this.idName).html('');
+                $(this.idName + '+div').removeClass('uhide');
+                $(this.idName + '+div').find('span').html('暂无数据');
+                return;
+            }
+            $(this.idName + '+div').addClass('uhide');
+            var aRes = arr.map(function(val, index) {
+                return {
+                    title: '<div class="ub ub-ver ">' +
+                        '<div class="ub-f1 ub ub-ac clr333 ulev28 umartb">' + val.code + '</div>' +
+                        '<div class="ub-f1 ub ub-ac ulev24 clr666 umartb">' +
+                        '<span class="inlineBlk">最新处置：</span><span class="maxWidth ut-s">&nbsp;' + val.disposeUserName + '&nbsp;&nbsp;</span><span class="inlineBlk">' + val.disposeTime + '</span>' +
+                        '</div>' +
+                        '</div>',
+                    subTitle: '<div class="subBtn bgclr bc-text-head">处置信息</div>',
+                    taskId: val.eventId,
+                    disposeTime: val.disposeTime
+                };
+            });
+            this.listview.set(aRes);
+        },
+        bindEvent: function() {
+            appcan.button("#moreTasks", "btn-act", function() {
+                appcan.openWinWithUrl("task", "task/task.html");
+            });
+            this.listview.on("click", function(ele, obj, curEle) {
+                appcan.locStorage.setVal("event_Id", obj.taskId);
+                appcan.locStorage.remove("disposeTime_param");
+                appcan.locStorage.setVal("disposeTime_param", obj.disposeTime);
+                appcan.locStorage.setVal("tabIndex_param", "1");
+                appcan.openWinWithUrl("task_details", "task/task_details.html");
+            });
+        },
+    };
+    /*初始化参数*/
+    var jasHttpRequest = null;
+    var isUpdateVersion = 1;
+    appcan.ready(function() {
+        isUpdateVersion = 1;
+        jasHttpRequest = new JasHttpRequest();
+        uexWindow.setWindowScrollbarVisible(false);
+        appcan.window.setWindowScrollbarVisible(0)
+
+        /*
+         * 任务数据初始化
+         * sf 2016-11-13 注释
+         * sf 2017-05-09 修改
+         */
+        listForTasks.init();
+        listForEvents.init();
+        initIndexData();
+        //setTimeout('checkVersionState()',5000);
+    });
+
+    /*
+     * 初始化首页的数据
+     */
+    function initIndexData() {
+        listForTasks.requestData(function() {
+            listForEvents.requestData(function() {
+                initDomainFacility();
+            });
+        });
+    }
+
+    //事件和任务界面返回到主界面是刷新列表
+    function refresTasks() {
+        //alert(123);
+        listForTasks.requestData(function() {
+            listForEvents.requestData(function() {
+                appcan.window.evaluateScript("index", 'notReadNews.init()');
+            });
+        });
+    }
+
+    /*
+     * 初始化管网设施的相关域值
+     */
+    function initDomainFacility() {
+        var _partURL1 = "cloudlink-inspection-event/domain/getListByDomainName";
+        var _queryObj = {
+            "domainNameList": ["facility_status", "facility_type", "pipeline_type"]
+        };
+        jasHttpRequest.jasHttpPost(_partURL1, function(id, state, dbSource) {
+            if (state != 1) {
+                initDomainFacilityFromDB();
+                initDomainEventType();
+                return;
+            }
+            var _dbSource = JSON.parse(dbSource);
+            if (_dbSource.success == 1 && _dbSource.rows.length > 0) {
+                var dbOperation = new DataBaseOperation();
+                var sql_del = "delete from domain_table;";
+                dbOperation.dbExec(sql_del, function(err, data) {
+                    initDomainFacilityIntoDB(_dbSource.rows);
+                    initDomainFacilityIntoLocalStorage(_dbSource.rows);
+                });
+            } else {
+                initDomainEventType();
+            }
+        }, JSON.stringify(_queryObj));
+    }
+    /*
+     * 初始化管网设施的相关域值--- 插入数据库
+     */
+    function initDomainFacilityIntoDB(domainList) {
+        var sql = "insert into domain_table(objectId,domainName,domainNameCN,domainValue,domainCode,remark,rowIndex)";
+        for (var i = 0; i < domainList.length; i++) {
+            var obj = domainList[i];
+            var sqlparams = " select '" + obj.objectId + "','" + obj.domainName + "','" + obj.domainNameCn + "','" + obj.value + "','" + obj.code + "','" + obj.desc + "','" + obj.order + "'";
+            if (i == 0) {
+                sql += sqlparams;
+            } else {
+                sql += " union all " + sqlparams;
+            }
+        }
+        var dbOperation = new DataBaseOperation();
+        dbOperation.dbExec(sql, function(err, date) {
+            initDomainEventType();
+        });
+    }
+    /*
+     * 初始化管网设施的相关域值--- 放入缓存
+     */
+    function initDomainFacilityIntoLocalStorage(domainList) {
+        var facilityStatusList = [];
+        var facilityTypeList = [];
+        var pipelineTypeList = [];
+        for (var i = 0; i < domainList.length; i++) {
+            var obj = domainList[i];
+            if (obj.domainName == "facility_status") {
+                facilityStatusList.push({
+                    domainValue: obj.value,
+                    domainCode: obj.code
+                });
+            }
+            if (obj.domainName == "facility_type") {
+                facilityTypeList.push({
+                    domainValue: obj.value,
+                    domainCode: obj.code
+                });
+            }
+            if (obj.domainName == "pipeline_type") {
+                pipelineTypeList.push({
+                    domainValue: obj.value,
+                    domainCode: obj.code
+                });
+            }
+        }
+        appcan.locStorage.setVal("facilityStatusList", facilityStatusList);
+        appcan.locStorage.setVal("facilityTypeList", facilityTypeList);
+        appcan.locStorage.setVal("pipelineTypeList", pipelineTypeList);
+    }
+
+    function initDomainFacilityFromDB() {
+        var dbOperation = new DataBaseOperation();
+        dbOperation.dbSelect("select domainName,domainCode as code,domainValue as value from domain_table where domainName in ('facility_status','facility_type','pipeline_type');", function(err, data) {
+            if (err == null) {
+                initDomainFacilityIntoLocalStorage(data);
+            }
+        });
+    }
+    /*
+     * 增加域值信息(事件类型)
+     */
+    function initDomainEventType() {
+
+        var _partURL1 = "cloudlink-inspection-event/commonData/eventTypeApp/getList";
+        var _queryObj = {};
+        jasHttpRequest.jasHttpPost(_partURL1, function(id, state, dbSource) {
+            if (state != 1) {
+                return;
+            }
+            var _dbSource = JSON.parse(dbSource);
+            if (_dbSource.success == 1 && _dbSource.rows.length > 0) {
+                var dbOperation = new DataBaseOperation();
+                var sql_del = "delete from customEventType;";
+                dbOperation.dbExec(sql_del, function(err, data) {
+                    insertEventTypeDB(_dbSource.rows);
+                    checkVersionState();
+                    appcan.window.evaluateScript("index", 'notReadNews.init()');
+                });
+            } else {
+                checkVersionState();
+                appcan.window.evaluateScript("index", 'notReadNews.init()');
+            }
+        }, JSON.stringify(_queryObj));
+
+        // var dbOperation = new DataBaseOperation();
+        // dbOperation.dbSelect("select * from eventType",function(err,data){
+        // if(err != null)
+        // {
+        // checkVersionState();
+        // appcan.window.evaluateScript("index",'notReadNews.init()');
+        // return;
+        // }
+        // if(err == null && data =="")
+        // {
+        // var partURL1 = "cloudlink-inspection-event/eventType/getList";
+        // jasHttpRequest.jasHttpGet(partURL1,function(id, state, dbSource){
+        // if(dbSource==""){
+        // checkVersionState();
+        // appcan.window.evaluateScript("index",'notReadNews.init()');
+        // baseOperation.alertToast("初始化事件类型异常");
+        // return;
+        // }
+        // var dbList = JSON.parse(dbSource);
+        // if(dbList.success ==1 && dbList.rows.length > 0)
+        // {
+        // insertEventTypeDB(dbList.rows);
+        // checkVersionState();
+        // appcan.window.evaluateScript("index",'notReadNews.init()');
+        // }
+        // });
+        // return;
+        // }
+        // if(err == null && data!=null)
+        // {
+        // checkVersionState();
+        // appcan.window.evaluateScript("index",'notReadNews.init()');
+        // }
+        // });
+    }
+    /*
+     * 插入域值表
+     */
+    function insertEventTypeDB(dbList) {
+        var result = {
+            success: "",
+            msg: "",
+            localid: ""
+        };
+        var sql = "insert into customEventType(parentId,objectId,typeName,parentIndexNum,indexNum,iconName)";
+        for (var i = 0; i < dbList.length; i++) {
+            var obj = dbList[i];
+            var sqlparams = " select '" + obj.parentId + "','" + obj.objectId + "','" + obj.typeName + "','" + obj.parentIndexNum + "','" + obj.indexNum + "','" + obj.iconName + "'";
+            if (i == 0) {
+                sql += sqlparams;
+            } else {
+                sql += " union all " + sqlparams;
+            }
+        }
+        var dbOperation = new DataBaseOperation();
+        dbOperation.dbExec(sql, function(err, date) {});
+    }
+
+    /*
+     * 获取当前最新版本的信息
+     */
+    function checkVersionState() {
+        try {
+            if (isUpdateVersion == 0) {
+                return;
+            }
+            isUpdateVersion = 0;
+            var partURL1 = "cloudlink-core-framework/appversion/getActiveVersion?productId=pipeline-bodyguard&clientType=Android";
+            jasHttpRequest.jasHttpGet(partURL1, function(id, state, dbSource) {
+                if (dbSource == "") {
+                    return;
+                }
+                var obj = JSON.parse(dbSource);
+                if (obj.success == 1) {
+                    if (obj.rows.length > 0) {
+                        /*
+                         *服务端信息
+                         */
+                        var downloadUrl = obj.rows[0].url;
+                        var appServerVersion = obj.rows[0].appcanVersion;
+                        var updateModel = obj.rows[0].updateModel;
+                        var appDesc = obj.rows[0].versionDesc.replace(/&/g, '\r\n');
+                        /*
+                         * 客户端信息
+                         */
+                        var buttonText = (updateModel == 1 ? "下次再说" : "退出");
+                        uexWidgetOne.getCurrentWidgetInfo();
+                        uexWidgetOne.cbGetCurrentWidgetInfo = function(opId, dataType, data) {
+                            var appClient = eval('(' + data + ')');
+                            var appCliehtVersion = appClient.version;
+                            if (isExistNewVersion(appCliehtVersion, appServerVersion)) {
+                                appcan.window.alert({
+                                    title: "升级提示",
+                                    content: appDesc,
+                                    buttons: ['现在更新', buttonText],
+                                    callback: function(err, data, dataType, optId) {
+                                        //此判断标识可以选择更新
+                                        if (updateModel == 1) {
+                                            if (!err && data == "0") {
+                                                //downLoadNewApp(downloadUrl);
+                                                judgePhoneWifiState(downloadUrl, updateModel);
+                                            }
+                                        } else if (updateModel == 2) //此判断标识必须更新
+                                        {
+                                            if (!err && data == "0") {
+                                                judgePhoneWifiState(downloadUrl, updateModel);
+                                                return;
+                                            }
+                                            if (!err && data == "1") {
+                                                uexWidgetOne.exit(0);
+                                                return;
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (e) {
+
+        }
+    }
+
+    /*
+     * 判断手机网络当前状态
+     */
+    function judgePhoneWifiState(downloadUrl, updateModel) {
+        var buttonText = (updateModel == 1 ? "否" : "退出");
+        JasDevice.getConnectStatus(function(params) {
+            if (params == 0) {
+                downLoadNewApp(downloadUrl);
+            } else if (params == -1) {
+                alert("您好，当前无网络，无法下载!");
+                if (updateModel != 1) {
+                    uexWidgetOne.exit(0);
+                }
+            } else {
+                appcan.window.alert({
+                    title: "温馨提示",
+                    content: "您正在使用流量进行下载，是否继续？",
+                    buttons: ['是', buttonText],
+                    callback: function(err, data, dataType, optId) {
+                        //此判断标识可以选择更新
+                        if (updateModel == 1) {
+                            if (!err && data == "0") {
+                                //downLoadNewApp(downloadUrl);
+                                downLoadNewApp(downloadUrl);
+                            }
+                        } else if (updateModel == 2) //此判断标识必须更新
+                        {
+                            if (!err && data == "0") {
+                                downLoadNewApp(downloadUrl);
+                                return;
+                            }
+                            if (!err && data == "1") {
+                                uexWidgetOne.exit(0);
+                                return;
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
+    //判断是否新版本
+    function isExistNewVersion(_clientVersion, _serverVersion) {
+        try {
+            var _client = _clientVersion.replace(/\./g, "");
+            var _server = _serverVersion.replace(/\./g, "");
+
+            if (parseInt(_server) > parseInt(_client)) {
+                return true;
+            }
+            return false;
+        } catch (e) {
+            return false;
+        }
+
+    }
+</script>
+
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+    <link rel="stylesheet" href="../src/css/common_voice.css">
+    <link rel="stylesheet" href="../src/css/new_check.css">
+</head>
+
+<body class="um-vp bc-bg" ontouchstart>
+    <div class="section sectionMargin sectionShadow">
+        <div class="line ub ub-ac">
+            <div class="lineTitle"><span class="ulev26 clr666" >检查时间</span></div>
+            <div class="ub-f1 rightDiv">
+                <span class="ulev28 clr333" id="facilityCheckTime">--</span>
+            </div>
+        </div>     
+        <div class="line ub ub-ac">
+            <div class="lineTitle"><span class="ulev26 clr666" >设施名称</span></div>
+            <div class="ub-f1 rightDiv paddr2 border1 bgf4 bgSelect ut-s" id="selectEquip">
+                <span class="ulev28 clr333 " id="facilityName"><span class="sc-text-active">请点击选择</span></span>
+            </div>
+        </div>          
+        <div class="line ub ub-ac">
+            <div class="lineTitle"><span class="ulev26 clr666">设施类型</span></div>
+            <div class="ub-f1 rightDiv">
+                <span class="ulev28 clr333" id="facilityTypeName"><!-- 调压设备 --></span>
+            </div>
+        </div>      
+        <div class="line ub ub-ac">
+            <div class="lineTitle"><span class="ulev26 clr666">详细位置</span></div>
+            <div id="seefacilityAddress" class="ub-f1 rightDiv ut-s paddr15">
+                <span class="ulev28 clr333 " id="facilityAddress"><!-- 海淀区学院路天工大厦 --></span>
+            </div>
+        </div>              
+    </div>
+    <div id="maskWrapper" class="disableMask">
+        <div class="section sectionMargin sectionShadow noPaddingB">
+            <div class="line ub ub-ac">
+                <div class="lineTitle2"><span class="ulev26 clr666">是否漏气</span></div>
+                <div class="ub-f1 rightDiv_radio ub clr333">
+                    <div class="radiobox labelWH">
+                        <label><input type="radio" value="1" name="isLeakage" class="isLeakage"><span class="ulev28">是</span></label>
+                    </div>
+                    <div class="radiobox labelWH">
+                        <label><input type="radio" value="0" name="isLeakage" class="isLeakage" checked><span class="ulev28">否</span></label>
+                    </div>                
+                </div>
+            </div>
+            <div class="line ub ub-ac mgb20">
+                <div class="lineTitle3"><span class="ulev26 clr666">可燃气体浓度(ppm)</span></div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac  clr333 bgf4 bgMustDone">
+                    <input type="number" class="ulev28" placeholder="范围0.000-9999.999" id="combustibleGasConcentration">
+                </div>
+            </div>
+            <div class="brLine"></div>
+            <div class="line ub ub-ac">
+                <div class="lineTitle2"><span class="ulev26 clr666">设备运行情况</span></div>
+                <div class="ub-f1 rightDiv_radio ub clr333">
+                    <div class="radiobox labelWH">
+                        <label><input class="isFacilityWork" type="radio" value="0" name="isFacilityWork" checked><span class="ulev28">正常</span></label>
+                    </div>
+                    <div class="radiobox labelWH">
+                        <label><input class="isFacilityWork" type="radio" value="1" name="isFacilityWork"><span class="ulev28">异常</span></label>
+                    </div>                
+                </div>
+            </div>
+            <div class="line ub ub-ac mgb20">
+                <div class="lineTitle2"><span class="ulev26 clr666">设备运行描述</span></div>
+                <div class="ub-f1 rightDiv_textarea uinput ub ub-ac  clr333 bgf4 ulev28">
+                    <textarea maxlength="200" cols="30" rows="4" id="facilityWorkDesc"></textarea>
+                </div>
+            </div>
+            <!-- 调压设备  -->
+
+            <div class="press uhide">
+                <div class="brLine"></div>           
+                <div class="line ub ub-ac">
+                    <div class="lineTitle2"><span class="ulev26 clr666">压力情况</span></div>
+                    <div class="ub-f1 rightDiv_radio ub clr333">
+                        <div class="radiobox labelWH">
+                            <label><input class="pressureSituation" type="radio" value="0" name="pressureSituation" checked><span class="ulev28">正常</span></label>
+                        </div>
+                        <div class="radiobox labelWH">
+                            <label><input class="pressureSituation" type="radio" value="1" name="pressureSituation"><span class="ulev28">异常</span></label>
+                        </div>                
+                    </div>
+                </div>              
+                <div class="line ub ub-ac mgb20">
+                    <div class="lineTitle2"><span class="ulev26 clr666">进口压力(kPa)</span></div>
+                    <div class="ub-f1 rightDiv uinput ub ub-ac  clr333 bgf4 bgMustDone">
+                        <input type="number" class="ulev28" placeholder="范围0.000~9999.999" id="pressureIn">
+                    </div>
+                </div>   
+                <div class="line ub ub-ac mgb20">
+                    <div class="lineTitle2"><span class="ulev26 clr666">出口压力(kPa)</span></div>
+                    <div class="ub-f1 rightDiv uinput ub ub-ac clr333 bgf4 bgMustDone">
+                        <input type="number" class="ulev28" placeholder="范围0.000~9999.999" id="pressureOut">
+                    </div>
+                </div>                 
+            </div>
+            <!-- 流量计 -->
+            <div class="flow uhide">       
+                <div class="brLine"></div>           
+                <div class="line ub ub-ac mgb20">
+                    <div class="lineTitle4"><span class="ulev26 clr666">流量计读数(m<sup>3</sup>)</span></div>
+                    <div class="ub-f1 rightDiv uinput ub ub-ac  clr333 bgf4">
+                        <input type="number" class="ulev28" placeholder="范围0.00-9999999.99" id="flowmeterData">
+                    </div>
+                </div>                  
+            </div>
+            <!-- 阀井 -->
+            <div class="well uhide">      
+                <div class="brLine"></div>            
+                <div class="line ub ub-ac">
+                    <div class="lineTitle2"><span class="ulev26 clr666">井内有无积水</span></div>
+                    <div class="ub-f1 rightDiv_radio ub clr333">
+                        <div class="radiobox labelWH">
+                            <label><input class="isSeeper" type="radio" value="1" name="isSeeper" ><span class="ulev28">有</span></label>
+                        </div>
+                        <div class="radiobox labelWH">
+                            <label><input class="isSeeper" type="radio" value="0" name="isSeeper" checked><span class="ulev28">无</span></label>
+                        </div>                
+                    </div>
+                </div>       
+                <div class="line ub ub-ac">
+                    <div class="lineTitle2"><span class="ulev26 clr666">井盖是否损毁</span></div>
+                    <div class="ub-f1 rightDiv_radio ub clr333">
+                        <div class="radiobox labelWH">
+                            <label><input class="isWellCoverDamage" type="radio" value="1" name="isWellCoverDamage" ><span class="ulev28">是</span></label>
+                        </div>
+                        <div class="radiobox labelWH">
+                            <label><input class="isWellCoverDamage" type="radio" value="0" name="isWellCoverDamage" checked><span class="ulev28">否</span></label>
+                        </div>                
+                    </div>
+                </div>   
+                <div class="line ub ub-ac mgb20">
+                    <div class="lineTitle2"><span class="ulev26 clr666">有无占压</span></div>
+                    <div class="ub-f1 rightDiv_radio ub clr333">
+                        <div class="radiobox labelWH">
+                            <label><input class="isOccupy" type="radio" value="1" name="isOccupy" ><span class="ulev28">有</span></label>
+                        </div>
+                        <div class="radiobox labelWH">
+                            <label><input class="isOccupy" type="radio" value="0" name="isOccupy" checked><span class="ulev28">无</span></label>
+                        </div>                
+                    </div>
+                </div>                                  
+            </div>
+            <div class="lineResult ub">
+                <div class="ulev26 clr666 ub-f1 ">检查结果</div>
+                <div id="result" class="ulev28 clr333 ">--</div> <!-- maskWrapper -->
+            </div>
+        </div>        
+        <div class="section">
+      
+
+            <div class="line ub ub-ac mgb20">
+                <div class="lineTitle"><span class="ulev26 clr666">语音描述</span></div>
+                <div class="ub-f1 rightDiv_radio">
+                    <div class="" id="voice">
+                        <input id="speak" class="speakBegin" type="button" value="按住说话" />
+                        <!-- <img src="index/images/voice.png" height="100%" onclick="addVoice()" alt=""/>-->
+                    </div>
+                    <div id="voiceFiles" style="display: none;">
+                        <div id="audio" class="audio" style="left: 2%">
+                            <div class="audio_img" id="audio_img" style="float: left"></div>
+                            <div id="voiceTime" style="float: right;margin-right: .5em;"></div>
+                        </div>
+                        <div class="bgDelete js_voiceDelete" style="float: right;">
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
+            <div class="ub">
+                <div class="lineTitle"><span class="ulev26 clr666">上传图片</span></div>
+                <div class="ub-f1 ub ub-ac ">
+                    <div class="shelter"></div>
+                    <div class="ulev26 clr333" id="pic_count">0</div>
+                    <div class="ulev26 clr333">/</div>
+                    <div class="ub-f1 ulev26 clr333" id="pic_count_max">6</div>
+                    <div class="clickIcon" id="choosephoto"></div>
+                </div>
+            </div>
+            <div class="photo_list clearfloat mgb20">
+                <!-- <div class="picList ufl ub-ac " style="border:.325em solid white; box-sizing:border-box;width:33.3%;" >
+                    <div style="height: 0px;padding-bottom: 100%;"></div>
+                    <div class="uof uabs" style="height: 100%;width: 100%;background:url(../src/images/map_h.png) no-repeat center center;background-size:cover;">
+                        <img src="../src/images/map_h.png" width="100%" style="top: 50%;-webkit-transform: translateY(-50%);opacity: 0;" class="uabs picListimg"/>
+                    </div>
+                </div> -->
+                                        
+            </div>   
+            <div class="line ub ub-ac mgb20">
+                <div class="lineTitle"><span class="ulev26 clr666 word2">备注</span></div>
+                <div class="ub-f1 rightDiv_textarea uinput ub ub-ac  clr333 bgf4 ulev28">
+                    <textarea id="remark" maxlength="200" cols="30" rows="4"></textarea>
+                </div>
+            </div>
+
+        </div>        
+    </div>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <!-- <script src="../../common/mobiscroll/js/jquery-1.12.2.min.js"></script> -->
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_database.js"></script>
+    <script src="../../common/js/common_httprequest.js"></script>
+    <script src="../../common/js/common_imagesObj.js"></script>
+    <script src="../offlinedata/facilityRecordOffline.js"></script>    
+    <!-- <script>
+        window.onerror = function(msg, url, line) {
+            alert("erro" + msg + "\n" + url + ":" + line);
+            return true;
+        };
+    </script>
+    <script src="../src/js/common/zepto.min.js"></script> -->
+    <script src="../src/js/common_voice.js"></script>
+    <script src="../src/js/common/getLocationObj.js"></script>
+    <script src="../src/js/common/uploadFacilityCheck.js"></script>
+    <script src="../src/js/new_equipment_check.js"></script>
+
+</body>
+
+</html>

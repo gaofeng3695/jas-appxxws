@@ -1,0 +1,37 @@
+#mask{
+    background-color: rgba(111,111,111,0.3);
+}
+.tableWrapper{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+#mask>div>div{
+    background-color: white;
+}
+.table{
+    padding: .75em 0;
+}
+.line{
+    padding: .75em 2em; 
+
+}
+.line>div{
+    width: 25%;
+}
+.line>div>img{
+    display: block;
+    height: 3em;
+    width: 3em;
+}
+.line>div>div{
+    margin-top: .7em;
+    font-size: .875em;
+    color: #666;
+}
+
+.cancelBtn{
+    margin-top: .3125em;
+    height: 2.5em;
+}

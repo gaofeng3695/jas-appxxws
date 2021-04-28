@@ -1,0 +1,89 @@
+.bg-ff {
+    background-color: #FFFFFF;
+}
+
+.div_p {
+    text-align: center;
+    margin: 1.688em 0em;
+}
+
+.umh1 {
+    font-weight: bold;
+}
+
+.ub-umt {
+    height: 1.688em;
+    line-height: 1.688em;
+}
+
+.ub-pd {
+    padding: .563em .9em;
+}
+
+.ptb-3 {
+    padding: 3.375em 0 1.125em 0;
+}
+
+.ub-h100 {
+    height: 100%;
+}
+
+.img-wh {
+    width: 3.375em;
+    height: 3.375em;
+}
+
+.umh1 {
+    border-bottom: 1px solid #218DD5;
+}
+
+.tips {
+    font-size: .875em;
+    color: #666;
+}
+#quite {
+    line-height: 2.25em;
+    height: 2.25em;
+}
+.mt {
+    margin-top: 1em;
+}
+.border {
+    border: 1px solid #DDDDDD;
+}
+.note {
+    color: #FC7800;
+    padding-left:1.25em;
+    height:1em;
+    line-height:1em;
+    
+}
+.pl {
+    padding-left: 1.25em;
+    color: #333;
+}
+
+.allStyle {
+
+    background: #fff;
+}
+.list1{
+    margin-top:0.775em;
+}
+.form_main{
+ padding:0.625em;  
+}
+p{
+ font-size:0.8125em !important;   
+}
+.size2 {
+    letter-spacing: 1em;
+    margin-right: -1em;
+}
+
+.marl5{
+    margin-left:.5em;
+}
+.marl8{
+    margin-left:.8em;
+}

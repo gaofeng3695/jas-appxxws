@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+    <link rel="stylesheet" href="../src/css/ledger.css">
+</head>
+
+<body class="um-vp " ontouchstart>
+    <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh bc-text-head ub bc-head">
+            <div class="nav-btn nav-bt" id="nav-left">
+                <div class="fa fa-angle-left fa-2x"></div>
+            </div>
+            <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0"><span id="planName" class="ulev30">设施台账</span></h1>
+            <div class="nav-btn ">
+                <div class=" nav-bt " id="nav-new">
+                    <div class="umw2 umh4 add"></div>
+                </div>
+                <div class=" nav-bt " id="nav-map">
+                    <div class="umw2 umh4 map"></div>
+                </div>
+            </div>
+        </div>
+        <!--选项卡开始-->
+        <div id="tabview" class="uf sc-bg ubb bc-border tabview_nav bottomShadow1">
+        </div>
+        <!--选项卡结束-->
+        <div class="sectionShadow" id="ledger">
+            <div id="" class="searchWrap ub ub-pc">
+                <div class="ub ub-f1 searchBox ub-ac">
+                    <div class="uinput ub ub-f1 ub-ac">
+                        <input id="inputDom" placeholder="搜索设施名称、设施编号、详细位置" type="search" class="ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}">
+                    </div>
+                    <div class="searchDelete" id="searchDeleteLedger" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden');"></div>
+                    <div class="searchLine"></div>
+                    <div id="ledgersearch" class="searchBtn ulev26 ub ub-ac">搜索</div>
+                </div>
+            </div>
+            <div class="select_height bt1 bb1">
+                <div class="posi_left width50 ub ub-ac ub-pc lh01 bgfff">
+
+                    <div id="select01" class="select clr333">
+                        <div class="text ulev30">
+                            管网类型
+                        </div>
+                        <i class="fa fa-sort-desc ulev24 tran25" aria-hidden="true"></i>
+                        <select selectedindex="" class="pipeOption">
+                          </select>
+                    </div>
+                </div>
+                <div class=" posi_right width50 ub ub-ac ub-pc lh01 bgfff ">
+
+                    <div id="select02" class="select clr333">
+                        <div class="text ulev30 ulim100" id="textname" style="min-width:3em;">
+                            设施类型
+                        </div>
+                        <i class="fa fa-sort-desc ulev24 tran25" aria-hidden="true"></i>
+                        <select selectedindex="" class="optionFaci" >
+                                
+                          </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sectionShadow" id="unupledger" style="display:none">
+            <div id="" class="searchWrap ub ub-pc">
+                <div class="ub ub-f1 searchBox ub-ac">
+                    <div class="uinput ub ub-f1 ub-ac">
+                        <input id="unupledgerinputDom" placeholder="搜索设施名称、设施编号、详细位置" type="search" class="ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}">
+                    </div>
+                    <div class="searchDelete" id="searchDeleteTrash" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden');"></div>
+                    <div class="searchLine"></div>
+                    <div id="unupledgersearch" class="searchBtn ulev26 ub ub-ac">搜索</div>
+                </div>
+            </div>
+            <div class="select_height bt1 bb1">
+                <div class="posi_left width50 ub ub-ac ub-pc lh01 bgfff">
+
+                    <div id="select03" class="select clr333">
+                        <div class="text ulev30">
+                            管网类型
+                        </div>
+                        <i class="fa fa-sort-desc ulev24 tran25" aria-hidden="true"></i>
+                        <select selectedindex="" class="pipeOption">
+
+                          </select>
+                    </div>
+                </div>
+                <div class=" posi_right width50 ub ub-ac ub-pc lh01 bgfff">
+
+                    <div id="select04" class="select clr333">
+                        <div class="text ulev30">
+                            设施类型
+                        </div>
+                        <i class="fa fa-sort-desc ulev24 tran25" aria-hidden="true"></i>
+                        <select selectedindex="" class="optionFaci" >
+    
+                          </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="ub-f1 tx-l" style="margin-top:0.001em">
+        </div>
+        <!--footer开始-->
+        <div id="footer" class="footer topShadow">
+            <div class="wrapper">
+                <div class="btn_wrapp ub">
+                    <div class=" marl125 uc-a1 ub-f1 clrfff  ub ub-ac ub-fv">
+                        <div class="checkbox umar-r sc-text-active">
+                            <input id="ledger_allCheck" type="checkbox" class="uabs ub-con">
+                        </div>
+                        <label for="ledger_allCheck" class="clr666 ulev30">全选</label>
+                    </div>
+                    <div id="ledger_delete" class="btn_width uc-a1  clrfff bg_or ulev30 ub ub-ac ub-pc ub-fv mar05">删除</div>
+                </div>
+                <div class="btn_wrapp ub ">
+                    <div class=" marl125 uc-a1 ub-f1 clrfff  ub ub-ac ub-fv">
+                        <div class="checkbox umar-r sc-text-active">
+                            <input id="trash_allCheck" type="checkbox" class="uabs ub-con">
+                        </div>
+                        <label for="trash_allCheck" class="clr666 ulev30">全选</label>
+                    </div>
+                    <div id="trash_delete" class="btn_width uc-a1  clrfff bg_or ulev30 ub ub-ac ub-pc ub-fv mar05">删除</div>
+                    <div id="upload" class="btn_width  uc-a1 clrfff bgclr ulev30 ub ub-ac ub-pc ub-fv mar05">确认提交</div>
+                </div>
+            </div>
+        </div>
+        <!--footer结束-->
+    </div>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../js/appcan.tab.js"></script>
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_database.js"></script>
+    <script src="../offlinedata/domain.js"></script>
+    <script src="../src/js/ledger.template.js"></script>
+    <script src="../src/js/ledger.js"></script>
+</body>
+
+</html>

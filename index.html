@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/appcan.control.css">
+    <link rel="stylesheet" type="text/css" href="page_resource/index/css/main.css">
+    <link rel="stylesheet" type="text/css" href="page_resource/index/css/animation.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+
+    </style>
+</head>
+
+<body class="um-vp ">
+    <div id="index" class="jas-flex-box is-vertical bc-bg">
+        <!--header开始-->
+        <div id="slider" class="slider uof"></div>
+        <!--header结束-->
+        <!-- 模块开始 -->
+        <div id="module" class="ub ub-ver bottomShadow1">
+            <div class="ub-f1 ub ub-pj row1">
+                <div class="ub ub-ver ub-ac ub-f1 unit">
+                    <img src="page_resource/index/images/daily_check1.png" class="ub" alt="" id="begin">
+                    <img src="page_resource/index/images/rotate.png" class="ub uhide " style="" alt=""
+                        id="rcxj_animation_dom">
+                    <div class="ub tips">
+                        日常巡检
+                    </div>
+                </div>
+                <div class="ub ub-ver ub-ac ub-f1 unit">
+                    <img src="page_resource/index/images/check_control1.png" class="ub" alt="" id="check_control">
+                    <div class="ub tips">
+                        巡检监控
+                    </div>
+                </div>
+                <div class="ub ub-ver ub-ac ub-f1 unit">
+                    <img src="page_resource/index/images/event_control1.png" class="ub" alt="" id="event">
+                    <div class="ub tips">
+                        事件管理
+                    </div>
+                </div>
+                <div class="ub ub-ver ub-ac ub-f1 unit">
+                    <img src="page_resource/index/images/task_center1.png" class="ub" alt="" id="task">
+                    <div class="ub tips">
+                        任务中心
+                    </div>
+                </div>
+
+            </div>
+            <!-- 第二排 -->
+            <div class="ub-f1 ub ub-pj row2">
+                <div class="ub ub-ver ub-ac ub-f1 unit">
+                    <img src="page_resource/index/images/check_in_room1.png" class="ub" alt="" id="check_in_room">
+                    <div class="ub tips">
+                        入户安检
+                    </div>
+                </div>
+                <div class="ub ub-ver ub-ac ub-f1 unit">
+                    <img src="page_resource/index/images/pipefacility1.png" class="ub" alt="" id="pipechoose">
+                    <div class="ub tips">
+                        管网设施
+                    </div>
+                </div>
+
+                <div class="ub ub-ver ub-ac ub-f1 unit">
+                    <img src="page_resource/index/images/maintenance1.png" class="ub" alt="" id="maintenance">
+                    <div class="ub tips">
+                        维修维护
+                    </div>
+                </div>
+                <div class="ub ub-ver ub-ac ub-f1 unit">
+                    <img src="page_resource/index/images/analysis1.png" class="ub" alt="" id="statistics">
+                    <div class="ub tips">
+                        统计分析
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--模块结束-->
+        <!--content开始-->
+        <div id="content" class="is-grown tx-l">
+
+        </div>
+        <!--content结束-->
+        <!--footer-->
+        <div id="footer" class="ub ub-pc topShadow1">
+            <div class="tab01 ub-f1"></div>
+            <div class="tab02 active ub-f1">
+                <div id="nuReadMsgDiv" class="icon  ub-pc" style="display: none;">
+                    <span id="nuReadMsg" class="ub-ac ub"></span>
+                </div>
+            </div>
+            <div class="tab04 ub-f1">
+
+            </div>
+            <div class="tab03 ub-f1">
+                <img src="page_resource/index/images/tab03-icon.png" alt="">
+            </div>
+        </div>
+    </div>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script src="js/appcan.slider.min.js"></script>
+    <script src="js/appcan.listview.js"></script>
+    <script src="common/js/common_base.js"></script>
+    <script src="common/js/common_httprequest.js"></script>
+    <script src="common/js/common_database.js"></script>
+    <script src="common/js/common_tianji.js"></script>
+    <script src="common/js/common_business.js"></script>
+</body>
+<script>
+    //轮播图对象
+    var sliderObj = {
+        slider: appcan.slider({
+            selector: '#slider',
+            aspectRatio: 1 / 4,
+            index: 0,
+            auto: 6000,
+            hasCircle: true,
+            hasIndicator: false,
+            canDown: false
+        }),
+        setOption: [{
+            img: "page_resource/index/images/ban1.png",
+        }, {
+            img: "page_resource/index/images/ban2.png",
+        }, {
+            img: "page_resource/index/images/ban3.png",
+        }],
+        init: function () {
+            this.slider.set(this.setOption);
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            //this.slider.on("clickItem",function(index,data){
+            //alert(index,data);
+            //});
+        }
+    };
+
+    //模块导航对象
+    var navObj = {
+        data: [],
+        jasHttpRequest: new JasHttpRequest(),
+        init: function () {
+            //  this.initMenu();
+            this.requestMenu();
+        },
+        initMenu: function () {
+            var menuData = [{
+                id: "11",
+                menuName: "日常巡检",
+                pageUrl: "#",
+                icon: "daily_check",
+                routeUrl: "begin"
+            }, {
+                id: "12",
+                menuName: "巡检监控",
+                pageUrl: "#",
+                icon: "check_control",
+                routeUrl: "check_control"
+
+            }, {
+                id: "13",
+                menuName: "事件管理",
+                pageUrl: "#",
+                icon: "event_control",
+                routeUrl: "event"
+            }, {
+                id: "14",
+                menuName: "任务中心",
+                pageUrl: "#",
+                icon: "task_center",
+                routeUrl: "task"
+
+            }, {
+                id: "15",
+                menuName: "入户安检",
+                pageUrl: "#",
+                icon: "check_in_room",
+                routeUrl: "check_in_room"
+
+            }, {
+                id: "16",
+                menuName: "管网设施",
+                pageUrl: "#",
+                icon: "pipefacility",
+                routeUrl: "pipechoose"
+
+            }, {
+                id: "17",
+                menuName: "维修维护",
+                pageUrl: "#",
+                icon: "maintenance",
+                routeUrl: "maintenance"
+
+            }, {
+                id: "18",
+                menuName: "统计分析",
+                pageUrl: "#",
+                icon: "analysis",
+                routeUrl: "statistics"
+            }];
+            this.renderMenu(menuData);
+        },
+        requestMenu: function () {
+            var that = this;
+            var partURL1 = "cloudlink-core-framework/commonData/payMenu/getTreeData";
+            that.jasHttpRequest.jasHttpPost(partURL1, function (id, state, data) {
+                if (data == "") {
+                    baseOperation.alertToast("网关异常：稍候尝试");
+                    return;
+                }
+                if (JSON.parse(data).success == 1) {
+                    if (JSON.parse(data).rows[0].length != 0) {
+                        that.renderMenu(JSON.parse(data).rows);
+                    }
+                }
+            }, JSON.stringify({
+                clientType: "app"
+            }));
+        },
+        renderMenu: function (menuData) {
+            var that = this;
+            that.data = [];
+            var row = '';
+            menuData.forEach(function (item, index) {
+                var obj = {};
+                obj = {
+                    id: item.routeUrl,
+                    url: item.pageUrl,
+                    name: item.menuName
+                }
+                that.data.push(obj);
+                if (item.pageUrl != "") {
+                    $("#" + item.routeUrl).attr("src", "page_resource/index/images/" + item.icon +
+                        ".png");
+                }
+                // if (index % 4 == 0) {
+                // row += '<div class="ub-f1 ub ub-pj">';
+                // }
+                // row += '<div class="ub ub-ver ub-ac ub-f1 unit">';
+                // if (item.pageUrl.indexOf("#") > -1 || item.pageUrl == "") {
+                //
+                // // row += '<img src="page_resource/index/images/' + item.icon + '1.png" class="ub" alt="">';
+                // } else {
+
+                // row += '<img src="page_resource/index/images/' + item.icon + '.png" class="ub" alt="">';
+                // }
+                // if (item.text == "日常巡检") {
+                // row += ' <img src="page_resource/index/images/rotate.png" class="ub uhide " style="" alt="" id="rcxj_animation_dom">'
+                // }
+                // row += '<div class="ub tips">' + item.menuName + '</div></div>';
+                // if (index % 4 == 3) {
+                // row += '</div>';
+                // }
+            });
+            // $("#module").html("");
+            // $("#module").append(row);
+            openPopover();
+            //打开浮动窗口
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            var that = this;
+            $("#module .unit").each(function (index) {
+                $(this).click(function () {
+                    var obj = that.data[index];
+                    /*
+                     * 诸葛埋点，记录点击各个模块的频率
+                     */
+                    if (tjSwitch == 1) {
+                        try {
+                            var param = {
+                                eventName: "进入" + obj.name,
+                                info: {}
+                            };
+                            uexTianji.track(param);
+                        } catch (e) {}
+                    }
+                    that.goToModule(obj);
+                });
+            });
+
+            appcan.window.on('resume', function () {
+                appcan.locStorage.val('currentModule', '');
+                //alert(appcan.locStorage.val('currentModule'));
+            });
+        },
+        goToModule: function (obj) {
+            if (obj.url === "#" || obj.url == "") {
+                appcan.window.confirm({
+                    title: '提示',
+                    content: '请购买标准版开放功能',
+                    buttons: ['了解详情', '关闭'],
+                    callback: function (err, data, dataType, optId) {
+                        if (data == 0) {
+                            uexDingDing.openUrlByDefaultBrowser("https://xxws.zyax.cn/price.html");
+
+                        }
+                    }
+                });
+
+            } else {
+                judgeUserLastLoginDate(obj);
+            }
+
+            //appcan.locStorage.val('currentModule',obj.id);
+            //appcan.openWinWithUrl(obj.id,obj.url); //继续跳转到目标页面
+        }
+    };
+
+    //footer对象
+    var footerObj = {
+        data: [{
+            id: 'news',
+            url: 'news/news.html',
+            name: '消息'
+        }, {
+            id: 'addressbook',
+            url: 'contacts/addressbook/addressbook.html',
+            name: '通讯录'
+        }, {
+            id: 'personal',
+            url: 'personal/personal.html',
+            name: '个人中心'
+        }],
+        init: function () {
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            var that = this;
+            for (var i = 0; i < 3; i++) {
+                var sClassName = '.tab0' + (i + 2);
+                appcan.button(sClassName, "ani-act", function (e) {
+                    var index = $(this).index() - 1;
+                    var obj = that.data[index];
+                    /*
+                     * 诸葛埋点，记录点击各个模块的频率
+                     */
+                    if (tjSwitch == 1) {
+                        try {
+                            var param = {
+                                eventName: "进入" + obj.name,
+                                info: {}
+                            };
+                            uexTianji.track(param);
+                            // uexTianji.destroyTest("cn.jasgroup.mapserver");
+                            appcan.openWinWithUrl(obj.id, obj.url);
+                            //继续跳转到目标页面
+                        } catch (e) {
+                            appcan.openWinWithUrl(obj.id, obj.url);
+                            //继续跳转到目标页面
+                        }
+                    } else {
+                        appcan.openWinWithUrl(obj.id, obj.url);
+                        //继续跳转到目标页面
+                    }
+                });
+            }
+        }
+    };
+
+    var notReadNews = {
+        init: function () {
+            var partURL1 = "cloudlink-inspection-message/message/getUnReadCount";
+            var jasHttpRequest = new JasHttpRequest();
+            jasHttpRequest.jasHttpGet(partURL1, function (id, state, dbSource) {
+                var resultData = JSON.parse(dbSource);
+                if (resultData.success == "1") {
+                    var number = resultData.rows;
+                    if (parseInt(number) > 0) {
+                        $("#nuReadMsgDiv").addClass('ub');
+                        $("#nuReadMsgDiv").show();
+                        $("#nuReadMsg").html("" + number + "");
+                    } else {
+                        $("#nuReadMsgDiv").removeClass('ub');
+                        $("#nuReadMsgDiv").hide();
+                    }
+                }
+            });
+        }
+    };
+    //sliderObj.init();
+    appcan.ready(function () {
+        //alert(appcan.locStorage.getVal("userBo"));
+        sliderObj.init();
+        navObj.init();
+        footerObj.init();
+        checkOut();
+        //监听手机物理返回键
+        //notReadNews.init();
+        appcan.window.disableBounce();
+        appcan.window.setWindowScrollbarVisible(0)
+
+        // uexWindow.statusBarNotification('title','msg');
+        imgChange();
+        appcan.window.on('resume', function () {
+            imgChange();
+            appcan.window.evaluatePopoverScript('index', 'index_content', 'refresTasks()');
+            //刷新主界面的任务列表
+        });
+
+    });
+
+    function openPopover() {
+        var titHeight = $('#content').offset().top;
+        appcan.frame.open("content", "index_content.html", 0, titHeight, "index_content");
+        window.onorientationchange = window.onresize = function () {
+            appcan.frame.resize("index_content", 0, titHeight);
+        };
+    }
+
+    function checkOut() { //退出应用
+        //监听手机物理返回键
+        uexWindow.setReportKey(0, 1);
+        uexWindow.onKeyPressed = function (keyCode) {
+
+            var _msg = "您是否要退出巡线卫士？";
+
+            try {
+                if (uexLockScreen.checkServerIsRunning() == 1) {
+                    _msg = "尊敬的用户：\r\n您当前正处于巡检状态中，巡检仍未结束，您是否要继续退出巡线卫士？";
+                }
+            } catch (e) {
+                _msg = "您是否要退出巡线卫士？";
+            }
+
+            appcan.window.confirm({
+                title: '提示',
+                content: _msg,
+                buttons: ['确定', '取消'],
+                callback: function (err, data, dataType, optId) {
+                    if (data == 0) {
+                        try {
+                            uexLockScreen.closeLocation();
+                            uexWidgetOne.exit(0);
+                        } catch (e) {
+                            uexWidgetOne.exit(0);
+                        }
+
+                    }
+                }
+            });
+        };
+    }
+
+    function refresNewsNumber() {
+        notReadNews.init();
+    }
+
+    /**
+     * 跳转到登录界面，并关闭本界面
+     */
+    function closeWin() {
+        appcan.openWinWithUrl("login", "login.html");
+        appcan.window.close(5, 100);
+    }
+
+    /*
+     * 检查是否存在未提交的巡检记录的数据
+     */
+    function judgeOfflineData() {
+        try {
+            var sql = "select * from InsRecord where flag = 0;";
+            var dbOperation = new DataBaseOperation();
+            dbOperation.dbSelect(sql, function (err, data) {
+                if (err == null && data.length > 0) {
+                    appcan.window.confirm({
+                        title: '提示',
+                        content: '您存在未提交的巡检记录，是否进行处理？',
+                        buttons: ['开始处理', '暂不处理'],
+                        callback: function (err, data, dataType, optId) {
+                            if (data == 0) {
+                                appcan.openWinWithUrl('daily_offlinelist',
+                                    'daily_check/daily_offlinelist.html');
+                            } else {
+                                appcan.openWinWithUrl('daily_check',
+                                'daily_check/daily_check.html');
+                            }
+                        }
+                    });
+                } else {
+                    appcan.openWinWithUrl('daily_check', 'daily_check/daily_check.html');
+                }
+            });
+        } catch (e) {
+            appcan.openWinWithUrl('daily_check', 'daily_check/daily_check.html');
+        }
+    }
+
+    /*
+     * 检查用户登陆有效期是否超时
+     */
+    function judgeUserLastLoginDate(_obj) {
+        try {
+            if (uexLockScreen.checkServerIsRunning() == 1) {
+                appcan.locStorage.val('currentModule', _obj.id);
+                appcan.openWinWithUrl(_obj.id, _obj.url);
+                //继续跳转到目标页面
+            } else {
+                var sql = "select * from login_info;";
+                var dbOperation = new DataBaseOperation();
+                dbOperation.dbSelect(sql, function (err, data) {
+                    if (err != null) {
+                        appcan.locStorage.val('currentModule', _obj.id);
+                        appcan.openWinWithUrl(_obj.id, _obj.url);
+                        //继续跳转到目标页面
+                        return;
+                    }
+                    if (err == null && data.length > 0) {
+                        var lastDate = data[0].lastLoginDate;
+                        var nowDate = new Date().Format("yyyy-MM-dd HH:mm:ss.S");
+                        var _wholeTime = (new Date(nowDate) - new Date(lastDate)) / (1000 * 3600);
+
+                        if (_wholeTime < 0) {
+                            alert("尊敬的用户：\r\n发现您的手机系统时间异常，为保证数据准确有效，请您校准手机时间并重新登录。\r\n  感谢您的使用( ^_^ )。");
+                            //uexWidgetOne.exit(0);
+                        } else if (_wholeTime >= 0 && _wholeTime < 164) {
+                            appcan.locStorage.val('currentModule', _obj.id);
+                            appcan.openWinWithUrl(_obj.id, _obj.url);
+                            //继续跳转到目标页面
+                        } else {
+                            alert("尊敬的用户：\r\n发现您的用户验证已过期，请您重新登录。\r\n  感谢您的使用( ^_^ )。");
+                            //uexWidgetOne.exit(0);
+                        }
+                    } else {
+                        appcan.locStorage.val('currentModule', _obj.id);
+                        appcan.openWinWithUrl(_obj.id, _obj.url);
+                        //继续跳转到目标页面
+                    }
+                });
+            }
+        } catch (e) {
+            appcan.locStorage.val('currentModule', _obj.id);
+            appcan.openWinWithUrl(_obj.id, _obj.url);
+            //继续跳转到目标页面
+        }
+    }
+
+    function imgChange() {
+        try {
+            if (uexLockScreen.checkServerIsRunning() == 1) {
+                baseOperation.alertToast('巡线卫士持续为您服务', 5000);
+                $("#rcxj_animation_dom").addClass("rotate");
+            } else {
+                $("#rcxj_animation_dom").removeClass("rotate");
+            }
+        } catch (e) {
+            $("#rcxj_animation_dom").removeClass("rotate");
+        }
+
+    }
+</script>
+
+</html>

@@ -1,0 +1,62 @@
+#listview {
+    background: #fff;
+}
+
+#listview .tab_l {
+    height: 3.023em;
+}
+
+#listview .tab_l .item {
+    padding: 1.238em 0;
+}
+
+#listview .bc-head {
+    background-color: #58b5fc;
+}
+
+#listview .userHead {
+    margin-left: .337em;
+    margin-right: .937em;
+    height: 2.749em;
+    width: 2.749em;
+    border-radius: 50%;
+}
+
+#listview .userName {
+    font-size: .875em;
+    max-width: 4em;
+    color: #666;
+    display: block !important;
+}
+
+#listview .userSex {
+    margin-left: .625em;
+    height: .937em;
+    width: .937em;
+}
+
+.width-name {
+    width: 9em;
+}
+
+.width-hist {
+    width: 5.1em;
+}
+
+#listview .userDept {
+    font-size: .875em;
+    margin: 0 1em 0 1em;
+    color: #666;
+}
+
+#listview .userTimer {
+    margin-right: .315em;
+    height: .94em;
+    width: .94em;
+}
+
+#listview .userHist {
+    font-size: .875em;
+    color: #59b5fc;
+    margin-right: .337em;
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="um-vp " ontouchstart>
+    <div id="page_0" class="jas-flex-box is-vertical bc-bg" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh bc-text-head ub bc-head">
+            <div class="nav-btn" id="nav-left">
+                <div class="fa fa-angle-left fa-2x"></div>
+            </div>
+            <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">巡检监控</h1>
+            <div class="nav-btn nav-bt" id="nav-right">
+                <div class="ub-img icon-disk umw2 umh4"></div>
+                <div class="ub-img icon-reload umw2 umh4"></div>
+            </div>
+        </div>
+        <!--header结束-->
+        <!-- 搜索框 begin -->
+        <div class="ub ub-pc  uof ">
+            <div id="" class="searchWrap ub-fh ub ub-pc">
+                <div class="ub ub-f1 searchBox ub-ac">
+                    <div class="uinput ub ub-f1 ub-ac">
+                        <input id="inputDom" placeholder="搜索姓名关键字" type="search" class="ub-f1"
+                            onfocus="$(this).parent().next().css('visibility','visible')"
+                            onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}">
+                    </div>
+                    <div id="" class="searchDelete"
+                        onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden')"></div>
+                    <div class="searchLine"></div>
+                    <div id="search" class="searchBtn ulev26 ub ub-ac">搜索</div>
+                </div>
+            </div>
+
+            <div class="ub ub-ac ub-fh" id="resultBox">
+                <div id="prev" class="iconBtn"></div>
+                <div class="ub-f1 uof ub">
+                    <div class="ub " id="result">
+                        <!-- <div class="nameBox" data-id="1"><span class="ulev26">张三1</span></div>
+                            <div class="nameBox" data-id="2"><span class="ulev26">张三2</span></div>
+                            <div class="nameBox" data-id="3"><span class="ulev26">张三3</span></div>
+                            <div class="nameBox" data-id="4"><span class="ulev26">张三4</span></div>
+                            <div class="nameBox" data-id="5"><span class="ulev26">张三5</span></div>
+                            <div class="nameBox" data-id="6"><span class="ulev26">张三6</span></div> -->
+                    </div>
+                </div>
+                <div id="next" class="iconBtn"></div>
+                <div class="iconBtn" id="returnSearch"></div>
+            </div>
+        </div>
+        <div class="bottomShadow bgfff padd01">
+            <span class="ulev26 clr666 ">总人数：<span id="allPeo" class="mar01">--</span> 今日已巡人数：<span
+                    id="doingPeo">--</span></span>
+            <span class="ulev26 clr666 " style="float:right;color:#00A1EA" id="pipelineSwitch"
+                onclick="pipeLinesObj.setPipeLinesOnOrOff()">隐藏管网</span>
+        </div>
+
+        <!-- 搜索框 end -->
+
+        <!--content开始-->
+        <div id="content" class="is-grown tx-l ">
+        </div>
+        <!--content结束-->
+        <!--footer开始-->
+        <div id="mask" class="ub ub-ver topShadow">
+            <div id="line01" class="ub ub-pc">
+                <div class="ub ub-ver ub-ac " id="user">
+                    <img src="../images/male_head.png" alt="" id="photo">
+                    <div class="clr666 ub ub-ver ub-fh">
+                        <div class="ulev26 umar-t ut-s tx-c" id="userName">--</div>
+                        <div class="ulev26 umar-t ut-s tx-c" id="dept">--</div>
+                    </div>
+                </div>
+
+                <div class="ub ub-f1" id="detail">
+                    <div class="ub-f1 ub">
+                        <div class="ub ub-ver ub-ac ub-f1 umartb">
+                            <div class="ub-f1 ub ub-ac "><span class="ulev26 clr666">巡检里程</span></div>
+                            <div id="distance" class="ub-f1 ub ub-ac  ulev28">-</div>
+                        </div>
+                        <div class="ub ub-ver ub-ac ub-f1 umartb">
+                            <div class="ub-f1 ub ub-ac "><span class="ulev26 clr666">巡检时长</span></div>
+                            <div id="duration" class="ub-f1 ub ub-ac ulev28">-</div>
+                        </div>
+                        <div class="ub ub-ver ub-ac ub-f1 umartb">
+                            <div class="ub-f1 ub ub-ac "><span class="ulev26 clr666">事件数量</span></div>
+                            <div id="quantity" class="ub-f1 ub ub-ac  ulev28 ">-</div>
+                        </div>
+                        <div class="ub ub-ver ub-ac ub-f1 umartb">
+                            <div class="ub-f1 ub ub-ac "><span class="ulev26 clr666">设施检查</span></div>
+                            <div id="facilityQuantity" class="ub-f1 ub ub-ac  ulev28 ">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="switchMask">
+                    <div class="ub ub-ac">
+                        <div class="switchBtn ub ub-ac ub-pc"><span class="fa fa-angle-left fa-2x"></span></div>
+                        <div class="ub-f1"></div>
+                        <div class="switchBtn ub ub-ac ub-pc"><span class="fa fa-angle-right fa-2x"></span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="line02" class="ub ub-pc">
+                <div class=" ub ub-pc">
+                    <div class="icon01 ub"></div>
+                    <div id="tel" class="ulev30 ub ub-ac clr666">- - - - - - - -
+                    </div>
+                </div>
+                <div class=" ub ub-pc">
+                    <div class="icon02 ub "></div>
+                    <div id="history" class="ulev30 ub ub-ac clr666">历史轨迹
+                    </div>
+                </div>
+            </div>
+
+            <div id="loadingMask"></div>
+        </div>
+        <!--footer结束-->
+    </div>
+    <script src="../js/appcan.js"></script>
+    <script src="../js/appcan.control.js"></script>
+    <script src="../common/js/common_httprequest.js"></script>
+    <script src="../common/js/common_base.js"></script>
+    <script src="../common/js/common_tianji.js"></script>
+    <script src="js/check_control.js"></script>
+</body>
+
+</html>

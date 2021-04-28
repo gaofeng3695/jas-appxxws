@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="resource/css/main.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">日常巡检</h1>
+                <div class="nav-btn nav-bt" id="nav-right">
+                    <div class="fa  ulev-list"></div>
+                </div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="mask" class="ub ub-pc">
+                <div class="ub ub-ver ub-ac" id="user">
+                    <img src="resource/images/person.png" alt="">
+                    <div class="clr666"><span class="ulev26px">张三</span>&nbsp;&nbsp;<span class="ulev26px">巡检一部</span></div>
+                </div>
+                <div class="ub ub-ver ub-ac ub-f1 umartb">
+                    <div class="ub-f1 ub ub-ac "><span class="ulev26px clr666">巡检里程</span></div>
+                    <div id="distance" class="ub-f1 ub ub-ac  ulev32px">0m</div>
+                </div>
+                <div class="ub ub-ver ub-ac ub-f1 umartb">
+                    <div class="ub-f1 ub ub-ac "><span class="ulev26px clr666">巡检时长</span></div>
+                    <div id="duration" class="ub-f1 ub ub-ac  ulev32px">00:00:00</div>
+                </div>
+                <div class="ub ub-ver ub-ac ub-f1 umartb">
+                    <div class="ub-f1 ub ub-ac "><span class="ulev26px sc-text-active">事件数量</span></div>
+                    <div id="quantity" class="ub-f1 ub ub-ac  ulev32px sc-text-active">0</div>
+                </div>                                
+            </div>                
+            <div id="content" class="ub-f1 tx-l uof">
+            </div>
+            <!--content结束-->
+            <!--footer开始-->
+         
+            <div id="footer" class="ub  uinn ">
+
+            </div>
+            <!--footer结束-->
+
+
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+
+
+
+
+        var checkObj = {
+            titileDom : $('#header h1'),
+            footerDom : $('#footer'),
+            distDom : $('#distance'),
+            duraDom : $('#duration'),
+            qttyDom : $('#quantity'),
+            nDist : 0,
+            nDura : 0,
+            nQtty : 0,
+            aRoute :[],
+            beginTime : null,
+            endTime : null,
+            timer : null,
+            templateForBegin : {
+                title : '日常巡检',
+                footer : '<div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1 ub-f1" id="btn1">'+
+                            '开始巡检'+
+                         '</div>'
+            },
+            templateForActive : {
+                title : '正在巡检',
+                footer : '<div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1 ub-f1" id="btn2">'+
+                              '事件上报'+
+                          '</div>'+
+                          '<div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1 ub-f1" id="btn3">'+
+                              '取消巡检'+
+                          '</div>'+
+                          '<div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1 ub-f1" id="btn4">'+
+                              '完成巡检'+
+                          '</div>',
+            },        
+
+            init : function (){ //初始化（加载地图、渲染页面）
+                this.render(this.templateForBegin);
+                this.bindInitEvent();     
+                this.loadMap();
+                                        
+
+            },
+            loadMap : function(){ //加载地图
+                var titHeight = $('#content').offset().top;
+                var cHeight = $('#content').offset().height;
+                var cWidth = $('#content').offset().width;
+                appcan.ready(function(){
+                    if(window.uexBaiduMap){
+                        uexBaiduMap.open(0,titHeight,cWidth,cHeight,"116.309","39.977"); //初始化百度地图
+                        uexWidgetOne.cbError = function (opCode, errorCode, errorInfo) { //错误异常执行回调
+                            alert("errorCode:" + errorCode + "\nerrorInfo:" + errorInfo);
+                        }                        
+                    }
+
+                    
+                });
+            },
+            render: function(template){ //渲染页面（头部、底部、蒙版）
+                this.titileDom.html(template.title);               
+                this.footerDom.html(template.footer);
+                if(template === this.templateForBegin){
+                    this.initCheck(0);
+                    this.bindBeginEvent();
+                    //this.ifShowMask(false);
+
+                }
+                if(template === this.templateForActive){
+                    this.bindActiveEvent();
+                    //this.ifShowMask(true);
+                }
+            },
+            initCheck : function(){ //初始化开始巡检
+                this.nDist = 0;
+                this.nDura = 0;
+                this.nQtty = 0;
+                this.aRoute = [];
+                this.beginTime = new Date().getTime();
+                this.endTime = null;
+                this.renderDist(0);
+                this.renderDura(0);
+                this.renderQtty(0);
+            },
+            renderDist : function(n){ //渲染巡检距离
+                this.distDom.html(n + 'm');
+            },
+            renderDura : function(n){ //渲染巡检事件 并 记录与上传数据
+                var s = this.formatTime(n);
+                this.duraDom.html(s);
+            },
+            setTimer : function(){
+                var that = this;
+                clearInterval(this.timer);
+                this.timer = setInterval(function(){
+                    that.nDura += 1;
+                    that.renderDura(that.nDura);
+                },1000);                
+            },  
+            renderQtty : function(n){ //渲染事件数量
+                this.qttyDom.html(n);
+            },
+            /*ifShowMask : function(bol){ //控制蒙版的隐藏与显示
+                if (bol === true) {
+                    $('#mask').removeClass('hdn');
+                    return;                  
+                }
+                if (bol === false) {
+                    $('#mask').addClass('hdn');
+                    return;                    
+                }
+            },*/
+            formatTime : function(n){ //格式化时间
+                var hour = Math.floor(n/3600),
+                    minute = Math.floor((n-(3600*hour))/60),
+                    second = n - 3600*hour - 60*minute;
+                var add0 = function(n){
+                    if( n < 10){
+                        return '0' + n;
+                    }
+                    return n;
+                }    
+
+                return add0(hour) + ':' + add0(minute) + ':' + add0(second);
+            },
+            bindInitEvent : function(){ //绑定返回按钮事件
+                appcan.button(".nav-btn", "btn-act", this.closeWin);
+            },
+            bindBeginEvent : function(){
+                var that = this;
+                appcan.button("#btn1", "ani-act", this.beginCheck(that) );
+            },
+            bindActiveEvent : function(){
+                var that = this;
+                appcan.button("#btn2", "ani-act", this.cancelCheck(that) );
+                appcan.button("#btn3", "ani-act", this.cancelCheck(that) );
+                appcan.button("#btn4", "ani-act", this.completeCheck(that) );
+            },
+            closeWin : function(){
+                uexBaiduMap.close();
+                appcan.window.close(-1);
+            },
+            beginCheck : function(that){ //开始巡检
+                return function (){
+                    that.initCheck();
+                    that.render(that.templateForActive);
+                    that.setTimer();
+                    that.maping();                     
+                    
+                    
+                }
+            },
+            cancelCheck : function(that){
+                return function (){
+                    appcan.window.confirm({
+                        content:'是否取消巡检？',
+                        buttons:['确定','取消'],
+                        callback:function(err,data,dataType,optId){
+                            if (err || data === 1) { //取消或报错
+                                return;
+                            } 
+                            if (data === 0) { //确定
+                                clearInterval(that.timer);
+                                that.render(that.templateForBegin);
+                                uexLocation.closeLocation(); //关闭gps位置监听  
+                                uexLocation.onChange = '';
+                            }
+                        }
+                    });
+                }
+            },
+            completeCheck : function(that){
+                return function(){
+                    appcan.window.confirm({
+                        content:'是否结束巡检？',
+                        buttons:['确定','取消'],
+                        callback:function(err,data,dataType,optId){
+                            if (err || data === 1) { //取消或报错
+                                return;
+                            } 
+                            if (data === 0) { //确定
+                                that.closeWin();
+                            }
+                        }
+                    });                    
+                }
+            },
+            maping : function(){ //打开gps定位，监听位置变化，开始描点
+                    var that = this;
+                    //alert('开始监控');
+                    uexLocation.openLocation("wgs84"); //开启定位
+                    uexLocation.onChange = function (lat, log) {
+                  
+                        if(lat<10 && log<10)
+                        {
+                            return;
+                        };
+
+                        var params1 = {
+                             latitude:lat,
+                             longitude:log,
+                             from:"wgs84",
+                             to:"bd09"
+                        };
+                        var data = uexLocation.convertLocation(JSON.stringify(params1)); //转化成百度坐标
+                        var obj = JSON.parse(data);
+                        that.aRoute.push(obj); // 存储百度坐标
+                        var len =  that.aRoute.length;
+                        if(len > 1){
+                            uexBaiduMap.addPolylineOverlay({
+                                id : len + '',
+                                fillColor : '#00A1EA',
+                                lineWidth : 5,
+                                property : that.aRoute.slice(-2),
+
+                            });
+
+                        }
+
+                        var data1 = [{
+                            id: len+"point",
+                            longitude:obj.longitude,
+                            latitude:obj.latitude,
+                            icon:"resource/images/point03.png"}];
+                        var dataStr = JSON.stringify(data1);
+                        uexBaiduMap.addMarkersOverlay(dataStr);
+                        uexBaiduMap.setCenter(obj.longitude,obj.latitude);
+                    } 
+               
+            },
+
+        }
+        checkObj.init();
+        /*appcan.ready(function() {
+            checkObj.init();
+        });*/   
+
+    </script>
+</html>

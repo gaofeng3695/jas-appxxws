@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/record.css">
+        <style>
+            .nav-btn {
+                min-width: 2.5em;
+            }
+            .width1000{
+                width: 1000px;
+            }
+
+            .downIcon:after{
+                content:'\f0dd';
+                font : normal normal normal 14px/1 FontAwesome; 
+                position: absolute;
+                font-size: 0.75em !important;
+                top: .8em;
+                right: 0;               
+            }
+        </style>
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn nav-bt" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0"><span id="planName" class="ulev30">2017年2月入户安检生产计划</span></h1>
+                <div class="nav-btn ">
+                    <div class=" nav-bt uhide" id="nav-new">
+                        <div class="umw2 umh4 add"></div>
+                    </div>
+                    <div class=" nav-bt uhide" id="nav-local">
+                        <div class="local">
+                            <span class="ulev30">本地</span>
+                            <div id="localCount" class="uhide">12</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 计划title begin -->
+            <div class="  sectionShadow">
+                <!-- <div class="tx-c bgfff bb1 planTitle ulim100">
+                    <span id="planName" class="ulev26 clr666 "> -- </span>
+                </div> -->     
+                <div id="" class="searchWrap ub ub-pc ">
+                    <div class="ub ub-f1 searchBox ub-ac">
+                        <div class="uinput ub ub-f1 ub-ac">
+                            <input id= "inputDom" placeholder="搜索用户名称、地址、安检人、楼号" type="search" class="ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}" >
+                        </div>
+                        <div class="searchDelete" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden');"></div>
+                        <div class="searchLine"></div>
+                        <div id="search" class="searchBtn ulev26 ub ub-ac">搜索</div>
+                    </div>
+                </div>                           
+                <div class="ub select_height bt1 bb1" >
+                    <div class="ub-f1 ub ub-ac ub-pc lh01 bgfff width1000 uof" >
+                        <div id="regionSelector" class="select clr333 ">
+                            <div class="text ulev30 downIcon" style="padding: 0 .8em 0 .5em;">
+                                全部片区
+                            </div>
+                            <select selectedindex="0">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ub-f1 ub ub-ac ub-pc lh01 bgfff width1000 uof">
+                        <div id="communitySelector" class="select clr333" >
+                            <div class="text ulev30 downIcon" style="padding: 0 .8em 0 .5em;">
+                                小区/院/村
+                            </div>
+                            <select selectedindex="" >
+                                <!-- option value=''>全部</option>
+                                <option value='EHS_001'>祥和小区</option>
+                                <option value='EHS_002'>平安小区</option>
+                                <option value='EHS_003'>宏福苑小区</option>  -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ub-f1 ub ub-ac ub-pc lh01 bgfff width1000 uof">
+                        <div id="select02" class="select clr333">
+                            <div class="text ulev30 downIcon" style="padding: 0 .8em 0 .5em;">
+                                入户情况
+                            </div>                        
+                          <!-- <div class="text ulev30">
+                            入户情况
+                          </div>
+                          <i class="fa fa-sort-desc ulev24 tran25" aria-hidden="true"></i> -->
+                          <select selectedindex="">
+                              <option value=''>全部</option>
+                              <option value='EHS_001'>成功入户</option>
+                              <option value='EHS_002'>拒绝检查</option>
+                              <option value='EHS_003'>到访不遇</option>
+                              <option value='EHS_004'>存在隐患</option>
+                          </select>
+                        </div>
+
+                    </div>
+                </div>                
+            </div>
+            <!-- 计划title end -->
+
+            <!-- 搜索框 begin -->
+
+            <!-- 搜索框 end -->   
+            
+
+
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+
+        </div>
+        <script>
+// window.onerror = function(msg, url, line) {
+//     alert("erro" + msg + "\n" + url + ":" + line);
+//     return true;
+// };                
+        </script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_database.js"></script>        
+        <script src="../offline_data/offline.js"></script>
+        <script src="../../common/js/common_base.js"></script>     
+        <script src="../../common/js/common_httprequest.js"></script>           
+        <script src="../src/js/common_selectRegion.js"></script>
+    </body>
+    <script>
+
+
+        appcan.ready(function() {
+            wrapperObj.init();
+            regionSelectObj.init({
+                planId : appcan.locStorage.val('planId'),
+                regionSelector : '#regionSelector',
+                communitySelector : '#communitySelector',
+                cbCommunitySelected : function(sRegionId,sCommunityId){
+                    appcan.window.evaluatePopoverScript('','content','recordList.triggerAddressSearch("'+ sRegionId +'","'+ sCommunityId +'")');                    
+                    //alert('sRegionId:' + sRegionId + '\n' + 'sCommunityId:' + sCommunityId);
+
+                    
+                }              
+            });
+        });
+
+        var wrapperObj = { //依赖数据库查询
+            init: function(){
+
+                this.bindEvent();
+                this.bindSelectEvent();
+                this.initNewRecordBtn();     
+                this.renderPlanName();           
+                this.showPopover();                
+            },
+            renderPlanName : function(){
+                var planName = appcan.locStorage.val('planName');
+                //planName = '2017年2月入户安检生产计划';
+                $('#planName').html(planName);
+            },
+            initNewRecordBtn : function(){
+                var isRelation = appcan.locStorage.val('isrelation');
+                var isclosed = appcan.locStorage.val('isclosed');
+                if (+isRelation) {
+                    if (!(+isclosed)) {
+                        $('#nav-new').removeClass('uhide');
+                    }
+                    $('#nav-local').removeClass('uhide');
+                    this.renderLocalRecordCount();   
+                }
+            },
+
+            showPopover : function(){
+                var titHeight = $('#content').offset().top;
+                appcan.frame.open("content", "record_list.html", 0, titHeight);
+                window.onorientationchange = window.onresize = function() {
+                    appcan.frame.resize("content", 0, titHeight);
+                };
+            },
+            bindEvent : function(){
+                var that = this;
+                /* 关闭 */
+                appcan.button("#nav-left", "btn-act", function() {
+                    appcan.window.close(-1);
+                });
+                /* 打开新建记录页面 */
+                appcan.button("#nav-new", "btn-act", function() {
+                    appcan.locStorage.val('recordEntrance','new');
+                    appcan.openWinWithUrl('useraddresslist','../userfile/useraddresslist.html');     
+                    // appcan.openWinWithUrl('new_record','../new_record/new_record.html'); 
+                });
+                /* 打开本地记录页面 */
+                appcan.button("#nav-local", "btn-act", function() {
+                        appcan.openWinWithUrl('local_list','../local_list/local_list.html'); 
+                });          
+                /* 搜索 */            
+                appcan.button("#search", "btn-act", function() {
+                    var s = $('#inputDom').val().trim();
+                    appcan.window.evaluatePopoverScript('','content','recordList.triggerSearch("'+ s +'")') //在指定的弹出窗内执行相应的脚本
+                });     
+                /* 点击清楚后搜索 */
+                $('body').on('click','.searchDelete',function(){
+                    var s = "";
+                    appcan.window.evaluatePopoverScript('','content','recordList.triggerSearch("'+ s +'")') //在指定的弹出窗内执行相应的脚本                    
+                });
+
+                appcan.window.on('resume',function(){
+                    that.initNewRecordBtn();
+                    var s = $('#inputDom').val().trim();
+                    appcan.window.evaluatePopoverScript('','content','recordList.triggerSearch("'+ s +'")') //在指定的弹出窗内执行相应的脚本                    
+                }); //窗口回到前台时执行回调函数                
+            },
+            setInputVal : function(s){
+                $('#inputDom').val(s);
+            },
+            bindSelectEvent : function(){  
+                appcan.select("#select02",function(ele,value){
+                    appcan.window.evaluatePopoverScript('','content','recordList.triggerResultSearch("'+ value +'")')
+                });                          
+            },
+            renderLocalRecordCount : function(){
+                var that = this;
+                var planId = appcan.locStorage.val('planId');
+                getAllOfflineEhscRecordNum(planId,function(obj){
+                    if(+obj.success === 1){
+                        var c = obj.num;
+                        if (+c > 0) {
+                            $('#localCount').html(c).removeClass('uhide');
+                        }else{
+                            $('#localCount').html(c).addClass('uhide');
+                        }
+                    }else{
+                        that.renderLocalRecordCount();
+                    }
+                });
+            }
+        };
+              
+    </script>
+</html>

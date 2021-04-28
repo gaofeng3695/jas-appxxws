@@ -1,0 +1,122 @@
+.mar5 {
+    margin: 0em .5em;
+}
+.bg {
+    background: #fff;
+}
+.width8 {
+    width: 5em;
+}
+.size2 {
+    letter-spacing: 2em;
+    margin-right: -2em;
+}
+.linh {
+    height: 2.2em;
+    line-height: 2.2em;
+}
+.mal5 {
+    margin-left: .5em;
+}
+.active {
+    border: 1px solid #007AFF;
+    border-radius: .5em;
+}
+.border {
+    border: 1px solid #e5e5e5;
+    border-radius: .5em;
+}
+.texc {
+    text-align: center;
+}
+.marb {
+    margin-bottom: .5em;
+}
+
+.row_right input, .row_right select {
+    background: #f4f4f4;
+}
+
+.rightSize {
+    border: none;
+}
+.user_input {
+    width: 99%;
+    outline: none;
+    border: none;
+}
+.tb_bg {
+    background: #f4f4f4;
+}
+.width {
+    width: 97%;
+}
+/*#footer {
+ box-shadow: 0 -.079em .225em #999;
+ margin-top: .169em;
+ background: white;
+ }
+
+ #footer .btn {
+ margin: 0 .563em;
+ min-height: 2.025em;
+ padding: .225em 0;
+ display: -webkit-box;
+ }
+
+ #btn1 {
+ background: #59b5fc;
+ }*/
+.marl2 {
+    margin-left: 2em;
+}
+
+.martop {
+    position: absolute;
+    margin-top: -0.05em;
+    top: 50%;
+   transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+.bgSelectDate {
+    background: #f3f3f3 url(../images/icon-date.png) no-repeat center right -0.4em;
+    background-size: 2.6em;
+}
+.ownSelect {
+    background: #f3f3f3;
+    padding: 0 .4em 0 .625em;
+}
+.select .text {
+    padding: 0em;
+}
+/* radio美化 */
+.labelWH{
+    display: block;
+    width: 5.3em;
+    height: 100%;
+}
+.labelWH label{
+    padding-left: 1.4em;
+}
+.labelWH label input{
+    margin-top: .05em;    
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform:translateY(-50%);
+    -webkit-transform:translateY(-50%);
+}
+.radiobox input[type=radio]:before {
+    //color: #6090f6;
+    font-size: 1.1em;
+}
+.radiobox input[type=radio]:checked:before {
+    color: #6090f6;
+    font-size: 1.1em;
+}
+.width2{
+    width:2em;
+}
+.marr5{
+    margin-right:.5em;
+}

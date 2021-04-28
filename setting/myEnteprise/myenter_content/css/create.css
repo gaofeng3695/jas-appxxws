@@ -1,0 +1,118 @@
+.b-gra3 {
+    border-color: #d8d8d8;
+}
+
+.uinn-a6 {
+    padding: 1em 0.65em 0 0.65em;
+}
+
+.t-gra4 {
+    color: #8c8c8c;
+}
+
+.uinn-a1 {
+    padding: 0.625em;
+}
+
+.uinn-a7 {
+    padding: 0 0.625em;
+}
+
+.c-wh {
+    background-color: #FFF;
+}
+
+.umar-at1 {
+    margin-top: 0.625em;
+}
+
+.umar-at2 {
+    margin-top: 1.25em;
+}
+
+.uinn-at1 {
+    padding-top: 1em;
+}
+
+.umw65 {
+    min-width: 6.5em;
+}
+.umw55 {
+    padding-right: 1.25em;
+}
+.umw45 {
+    min-width: 4.5em;
+}
+
+.umw30 {
+    min-width: 3em;
+}
+
+.sc-bd-bg {
+    border-color: #EEE;
+}
+
+img#logo {
+    display: block;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    margin-top: -40%;
+}
+
+.umar-bgf {
+    margin-bottom: 3em;
+}
+
+.listWrapper ul {
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: #BABABA;
+    background-color: white;
+}
+
+.listWrapper ul li:last-child {
+    border-bottom: none;
+}
+
+.title {
+    padding-left: .8em;
+    height: 2em;
+}
+
+.title .more {
+    height: 100%;
+    font-size: .6667em;
+    padding-right: 1em;
+}
+
+.uinn-at2 {
+    padding-top: .75em;
+}
+
+/*企业列表显示的渲染*/
+.left {
+    float: left;
+}
+
+.acceptright {
+    float: right;
+    margin-right: 0.5em;
+    color: #59b5fc;
+}
+
+.frozeright {
+    float: right;
+    margin-right: 0.5em;
+    color: #f9ae3e;
+}
+
+.deleteright {
+    float: right;
+    margin-right: 0.5em;
+    color: #ff4b4b;
+}
+.size2 {
+    letter-spacing: 2em;
+    margin-right: -2em;
+}

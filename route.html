@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+
+    </head>
+    <body class="um-vp" ontouchstart>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="common/js/common_database.js"></script>
+        <script src="common/js/init_database.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            try{
+                appcan.locStorage.remove();//施飞 2016-11-10 不能删除
+                initAppDB.initDB();
+                var dbOperation = new DataBaseOperation();
+                //查询表数据
+                var sql = "select * from guidepage;";
+                dbOperation.dbSelect(sql,function(err,data){
+                    if(data==""){
+                        appcan.window.open({     
+                            name:"guide",    
+                            data:"guidepagethree.html",
+                            aniId:5,
+                            animDuration:"1000"
+                        });
+                        return;
+                    }
+                    if(err != null){
+                         appcan.window.open("login","login.html",5);
+                         return;
+                    }
+                    
+                    if(err == null && data.length>0)
+                    {
+                         appcan.window.open("login","login.html",5);
+                         return;
+                    }
+                    
+                    if(err == null && data.length==0)
+                    {
+                        appcan.window.open({     
+                            name:"guide",    
+                            data:"guidepagethree.html",
+                            aniId:5,
+                            animDuration:"2000"
+                        });
+                        
+                    }
+                });
+            }
+            catch(e){
+                  appcan.window.open("login","login.html",5);
+            }
+           
+        });
+    </script>
+</html>

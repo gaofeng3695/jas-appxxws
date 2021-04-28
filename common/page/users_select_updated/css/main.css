@@ -1,0 +1,284 @@
+
+a{
+    text-decoration:none;
+    color:#e4e4e4;
+  }
+#top{
+    background-color:#f4f4f4;
+
+    }
+.umar-b0{
+    padding-top:0.556em;
+    box-sizing:border-box;
+    }
+.font1{font-size:0.667em;}
+.fenlei{
+    height:1.11em;
+    padding-left:0.556em;
+    background:#f4f4f4;
+    color:#999999;
+    }
+.fenlei3{padding-top:1.11em;}
+.fenlei1{
+    height:1.11em;
+    padding-left:0.556em;
+    background:#f4f4f4;
+    color:#999999;
+    }
+   
+.CLASS{
+    height:2.94em;
+    width:100%;
+    background:#ffffff
+    }
+.CLASS~.CLASS{
+    border-top:1px solid #ececec;
+    }
+.IMG{
+    width:2.776em;
+    height:2.942em;
+    }
+.IMG img{
+    width:2.22em;
+    height:2.22em;
+    border-radius:50%;
+    margin-top:0.361em;
+    padding-left:0.556em;
+    }
+.NAME{
+    height:2.94em;
+    line-height:2.94em;
+    font-size:1em;
+    color:#333333;
+    padding-left:0.556em;
+    }
+.NAME1{
+    height:1.47em;
+    line-height:2.2em;
+    font-size:1em;
+    color:#333333;
+    padding-left:0.556em;
+    }
+.NAME1 span{
+    font-size:0.78em;color:#333333;
+}
+.NAME2{
+    height:1.47em;
+    line-height:1.2em;
+    font-size:1em;
+    color:#333333;
+    padding-left:0.556em;
+    }
+.NAME2 span{font-size:0.72em;color:#666666}
+.NUM:last-child{
+    border-bottom:none
+    }
+/*.NUM{
+    width:4em;
+    height:2.94em;
+    line-height:2.94em;
+    text-align:center;
+    }
+.NUM span{width:100%;
+    height:100%;display:block;font-size:0.78em;color:#666666;overflow:hidden}
+  
+.DEP{
+    width:3em;
+    height:2.94em;
+    line-height:2.94em;
+    text-align:center;
+    margin-right:0.83em;
+    margin-left:1.389em;
+    }
+.DEP span{font-size:0.72em;color:#666666;}*/
+.NUM{
+    margin-right:0.5em;
+    width:5em;
+    height:3.3125em;
+    line-height:3.3125em;
+    text-align:center;
+    }
+.NUM span{
+    width:100%;
+    height:100%;
+    font-size:0.875em;
+    color:#666666;
+}
+/*显示人员信息的角色样式*/  
+.DEP{
+    width:5em;
+    height:3.3125em;
+    line-height:3.3125em;
+    text-align:center;
+    margin-right:1.5625em;
+    }
+.DEP span{
+    font-size:0.8125em;
+    color:#666666;
+}
+
+.letter{
+    border-bottom:1px solid #888888;
+    width:90%
+    }
+#tab_change ul li{
+    height:2.33em;
+    line-height:2.53em;
+    }
+.event_nav{
+    background: #ffffff;
+}
+.event_nav li{
+    height: 3em;
+    line-height: 3em;
+}
+.event_nav li.selected_A{
+    color:#59b6fc;
+    border-bottom: 2px solid #59b6fc;
+}
+/*#find{
+      width:100%;
+      height:1.67em;
+      }
+#search{
+      width:80%;
+      height:100%;
+      margin-left:10%;
+      outline:none;
+      border-radius:1.67em;
+      border:1px solid #ffffff;
+      font-size:0.722em;
+      text-align:center;
+      color:#999999;
+      background-size:1em;
+}*/
+#anchor{
+    width:1em;
+    text-align:center;
+    top:1em;
+    right:0em;
+    position:fixed;
+    margin-top:-0.5em;
+    }
+#anchor ul{
+    width:1em;
+    }
+#anchor ul li{
+    color:#666;
+    font-size:0.75em;
+    margin-right:0.625em;
+    }
+#anchor ul li img{
+    height:1em;
+    }
+#all{
+    width:100%;
+    display:none;
+    }
+#all ul{
+    width:100%
+    }
+#all ul li{
+    width:100%;
+    height:2.94em;line-height:2.94em;border-bottom:1px solid #ececec;padding-left:0.556em}
+
+#department{
+    width:3em;
+    height:3em;
+    border-radius:3em;
+    position:fixed;
+    right:1.67em;
+    bottom:1.67em;
+    }
+#department img{
+    width:3em;
+    height:3em;
+    border-radius:3em;
+    }
+
+/*footer*/
+.us_top{
+    -webkit-box-shadow: 0 -.07em .2em #999;
+    box-shadow: 0 -.07em .2em #999;
+    margin-top: 5px;
+}
+.event_btn{
+    padding: .4em .625em;
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+.event_btn span{
+    display: inline-block;
+    /*padding: .4em 1.5em;*/
+    border-radius: .25em;
+    color: #FFFFFF;
+    margin: 0 1em;
+    width: 5.625em;
+    height: 2.1875em;
+    line-height: 2.1875em;
+    font-size: .9375em;
+}
+/*.event_btn span.event_delete{
+    background: #59b5fc;
+}*/
+.event_btn span.event_delete{
+    background: #f9ae3e;
+}
+.event_btn span.report_submit{
+    width: 15.9375em;
+    background: #59b5fc;
+}
+#event_check{
+    display: none;
+}
+.for_check{
+    background: url("myImg/select.png") no-repeat;
+    background-size: 1.25em 1.25em;
+    line-height: 1.25em;
+    padding-left: 1.8em;
+    float: left;
+}
+.for_check.for_on_check{
+    background: url("myImg/selected.png") no-repeat;
+    background-size: 1.25em 1.25em;
+}
+
+
+/*check美化样式*/
+.piaochecked {
+    width: 1.25em;
+    height: 1.25em;
+    cursor: pointer;
+    display: inline-block;
+    background: url("myImg/select.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.on_check {
+    background: url("myImg/selected.png") no-repeat;
+    background-size: 100% 100%;
+}
+.checkClass {
+    opacity: 0;
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+.checkbox_wid{
+    padding-left: 0.556em;
+    height:2.942em;
+    display: -webkit-box;
+}
+
+.CLASS span{
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+
+

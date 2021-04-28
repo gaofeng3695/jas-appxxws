@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../common/mobiscroll/css/mobiscroll.custom-3.0.0-beta2.min.css" />        
+        <link rel="stylesheet" href="css/index.css">
+
+    </head>
+    <body class="um-vp " ontouchstart >
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">统计分析</h1>
+                <div class="nav-btn nav-bt" id="nav-right">
+                    <div class="ub-img umw2 umh4 icon-company"></div>
+                </div>
+            </div>
+            <!--header结束-->
+
+            <div class="subtitle ub ub-ver">
+                <div class="typeWrapper ub ub-pc">
+                    <div id="type" class="ub ub-ac "><span class="ulev28 clr666">按里程</span></div>
+                    <div class="subMask hide">
+                        <div>
+                            <div class=" item clr666 iconActive"><span class="ulev28">按里程</span></div>
+                            <div class=" item clr666"><span class="ulev28">按事件</span></div>                        
+                        </div>
+                    </div>
+                </div>
+                <div class="btnWrapper ub ub-pc">
+                    <div class="userWrapper">
+                        <div class="user circleBtn" id="user"><img src="../images/male_head.png" alt=""></div>
+                        <div class="username" ><span class="ulev20 clr999 ut-s" id="username">-</span></div>
+                    </div>
+                    <div class="dateWrapper ub ub-ver ub-f1">
+                        <div class="dateSubWrapper ub ub-pc">
+                            <div data-index="0" class="dateItem activeBg"><span class="ulev28 ">今日</span></div>
+                            <div data-index="1" class="dateItem"><span class="ulev28">本周</span></div>
+                            <div data-index="2" class="dateItem"><span class="ulev28">本月</span></div>
+                        </div>
+                        <div class="date" >
+                            <span id="date" class="ulev20 clr999">--</span>
+                        </div>
+                    </div>
+                    <div class="dateBtnWrapper">
+                        <div data-index="3" class="dateBtn circleBtn  dateItem" id="dateBtn"></div>
+                        <div class="pickTimeWrap" ><span class="ulev20 clr999 pickTime ut-s">选时间</span></div>
+                    </div>
+                </div>
+            </div>                
+
+
+            <!-- 表头 -->
+            <div class="bg-w">            
+            <div class="chartTitle ub ub-ver clr666">
+                <div class="ub ub-pc">
+                    <div class="ub-f1 ulev22">
+                        <span id="usersQtty" class="hide">总人数：0人</span><span id="itemSumQtty">总里程：0公里</span>
+                    </div >
+                    <div class="unitBox ulev22">单位：公里</div>                    
+                </div>
+                <div class="">
+                    <span class="ulev18 tips clr999">
+                        注：由于手机GPS定位精度问题，距离统计可能存在偏差
+                    </span>
+                </div>
+            </div>
+            </div>            
+            <!-- 表头结束 -->
+            <!--content开始-->
+            <div id="content" style="font-size: 1em;" class="ub-f1 tx-l">
+                <div id="chartBox"></div>
+                <!-- <div id="mask"></div> -->
+            </div>
+            <!--content结束-->
+
+        </div>
+        <script src="../common/mobiscroll/js/jquery-1.12.2.min.js"></script>
+        <script src="../common/mobiscroll/js/mobiscroll.custom-3.0.0-beta2.min.js"></script>        
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../common/js/common_base.js"></script>
+        <script src="../common/js/common_httprequest.js"></script>
+        <script src="js/echarts.min.js"></script>
+        <script src="js/iscroll.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,77 @@
+.borderBottom{
+    border-bottom: 1px solid #ececec;
+}
+.p06{
+    padding: .6em 0;
+}
+.pl04{
+    padding-left: 4em;
+}
+.pr02{
+    padding-right: 2em;
+}
+.leftStyle{
+    padding-right: .625em;
+}
+.borderLeft {
+    border-left: 1px solid #ececec;
+    padding-left: 1.25em;
+}
+.lineHeight {
+    line-height: 1.472;
+}
+.gastitle{
+    height: 2em;
+    text-align: center;
+    line-height: 2em;
+}
+.modify_icon{
+    height: 2em;
+    width: 2.5em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: url(../images/modify.png) no-repeat center center;
+    background-size: 1.2em;
+}
+.noMB{
+    margin-bottom: 0 !important;
+}
+.noPB{
+    padding-bottom: 0 !important;
+}
+.noPT{
+    padding-top: 0 !important;
+}
+.clr_red{
+    color: #ff3129;
+}
+.bgSelectDate {
+    background: #f3f3f3 url(../images/icon-date.png) no-repeat center right ;
+    background-size: 2.6em;
+}        
+/* radio美化 */
+.labelWH{
+    display: block;
+    width: 5.3em;
+    height: 100%;
+}
+.labelWH label{
+    padding-left: 1.4em;
+}
+.labelWH label input{
+    margin-top: .05em;    
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform:translateY(-50%);
+    -webkit-transform:translateY(-50%);
+}
+.radiobox input[type=radio]:before {
+    /*color: #6090f6;*/
+    font-size: 1.6em;
+}
+.radiobox input[type=radio]:checked:before {
+    color: #6090f6;
+    font-size: 1.6em;
+}

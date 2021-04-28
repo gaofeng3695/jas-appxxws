@@ -1,0 +1,92 @@
+.maintenace_list {
+    /*border-top:1px solid #ccc;*/
+}
+.maintenace_list li {
+    background: white;
+    padding: 0 .625em;
+}
+
+
+.lin4{
+    height:1.7em;
+    line-height: 1.7em;
+}
+.bgstate{
+  width:4em;
+  height:1.625em;
+  background-size: 4em 1.625em;    
+}
+.lh78 {
+    height: 2.475em;
+    line-height: 2.475em;
+}
+.bgo {
+    background: #fea235;
+}
+.lh48 {
+    height: 1.5em;
+    line-height: 1.5em;
+}
+.pd5 {
+    padding: .3125em;
+}
+.bor {
+    border-radius: .3em;
+}
+.pdl {
+    padding-left: 1em;
+}
+
+img {
+    width: 2.8125em;
+    height: 2.8125em;
+}
+.lh50 {
+    height: 1.562em;
+    line-height: 1.562em;
+}
+.pa20 {
+    padding: 0.625em 0em;
+}
+.pad2 {
+    padding: .2em 0em;
+}
+.ulim2 {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.unhid {
+    display: none;
+}
+/*check美化样式*/
+.checkbox, .radiobox {
+    width: 1.1em;
+    height: 0.95em;
+}
+.checkbox input[type=checkbox], .radiobox input[type=radio] {
+    font-size: .7em !important;
+}
+.checkbox input[type=checkbox]:checked:before {
+    font-size: 1.65em !important;
+    content: "\f14a";
+}
+.checkbox input[type=checkbox]:checked:before, .radiobox input[type=radio]:checked:before {
+    color: #59b6fc;
+}
+.checkbox input[type=checkbox]:before, .radiobox input[type=radio]:before {
+    color: #59b6fc;
+}
+.nodata {
+    text-align: center;
+}
+.texr {
+    text-align: right;
+    padding-left: .5em;
+}
+.pdl5{
+    padding-right: .5em;
+}

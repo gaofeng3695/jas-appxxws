@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/useraddresslist.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left   fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">用户列表</h1>
+                <div class="nav-btn adduser">
+
+                </div>
+            </div>
+            <!--选项卡结束-->
+            <div class="sectionShadow ubb  sc-border-cor" id="checkrecord">
+                <div id="" class="searchWrap ub ub-pc ">
+                    <div class="ub ub-f1 searchBox ub-ac">
+                        <div class="uinput ub ub-f1 ub-ac">
+                            <input id="inputCheck" placeholder="搜索用户名称、门牌号、楼号" type="search" class="ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}">
+                        </div>
+                        <div class="searchDelete" style="width:2em"id="searchDeleteCheck" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden');"></div>
+                        <div class="searchLine"></div>
+                        <div id="inputCheckSearch" class="searchBtn ulev26 ub ub-ac">
+                            搜索
+                        </div>
+                    </div>
+                </div>
+                <div class="ub select_height bt1 bb1 " style="height:2.4em">
+                    <div class="ub-f1   ub ub-ac ub-pc lh01 bgfff width1000 uof" >
+                        <div id="select01" class="select clr333">
+                            <div class="text ulev30 downIcon " style="padding: 0 .8em 0 .5em;">
+                                全部片区
+                            </div>
+                            <select selectedindex="" >
+                                <!-- <option value=''>全部</option>
+                                <option value='EHS_001'>二里庄</option>
+                                <option value='EHS_002'>海淀区</option>
+                                <option value='EHS_003'>无</option> -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ub-f1   ub ub-ac ub-pc lh01 bgfff width1000 uof">
+                        <div id="select02" class="select clr333" >
+                            <div class="text ulev30 downIcon " style="padding: 0 .8em 0 .5em;">
+                                小区/院/村
+                            </div>
+                            <select selectedindex="">
+                                <!-- option value=''>全部</option>
+                                <option value='EHS_001'>祥和小区</option>
+                                <option value='EHS_002'>平安小区</option>
+                                <option value='EHS_003'>宏福苑小区</option>  -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--content开始-->
+            <div id="content" class="ub-f1 tx-l"></div>
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../js/appcan.tab.js"></script>
+        <script src="../../common/js/common_database.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_tianji.js"></script>        
+        <script src="../src/js/common_selectRegion.js"></script>
+
+        <script>
+            appcan.ready(function() {
+                obj.init();
+            });
+            // window.onerror = function(msg, url, line) {
+            //     alert("erro" + msg + "\n" + url + ":" + line);
+            //     return true;
+            // };
+            var obj = {
+                init : function() {
+                    this.getSelect();
+                    this.bindEvent();
+                    this.loadhtml();
+
+                },
+                loadhtml : function() {
+                    var titHeight = $('#header').offset().height + $(".sectionShadow").offset().height;
+                    appcan.frame.open("content", "useraddresslist_content.html", 0, titHeight);
+                    window.onorientationchange = window.onresize = function() {
+                        appcan.frame.resize("content", 0, titHeight);
+                    }
+                },
+                bindEvent : function() {
+                    var that = this;
+                    appcan.button("#nav-left", "btn-act", function() {
+                        appcan.window.close(-1);
+                    });
+                    appcan.button("#inputCheckSearch", function() {
+                        var value = $("#inputCheck").val().trim();
+                        appcan.window.evaluatePopoverScript('useraddresslist', 'content', 'userAddressObj.searchAddress("' + value + '")');
+                    });
+                    appcan.button(".searchDelete", function() {
+                        var value = '';
+                        $("#inputCheck").val('');
+                        appcan.window.evaluatePopoverScript('useraddresslist', 'content', 'userAddressObj.searchAddress("' + value + '")');
+                    });
+                    appcan.button(".adduser", "btn-act", function() {//新增用户
+                                                
+                        appcan.openWinWithUrl('new_user', 'new_user.html');
+                        if (tjSwitch == 1) {
+                            try {
+                                var param = {
+                                    eventName: "入户安检-点击新增用户",
+                                    info: {}
+                                };
+                                uexTianji.track(param);
+                            } catch (e) {}
+                        }
+                    });
+                    appcan.window.on('resume', function() {
+                        if (that.notFirst) {
+                            regionSelectObj.requestCommunity(regionSelectObj.sRegionId,function(){
+                                regionSelectObj.communityDom.find('select').val(regionSelectObj.sCommunityId||'');
+                            });
+                        }
+                        that.notFirst = true;
+                        appcan.window.evaluatePopoverScript('useraddresslist', 'content', 'userAddressObj.changePage()');
+                        
+                        // 
+                        // // appcan.on('communityRendered',function(){ //注册事件，在regionSelect模块会触发此事件
+                        // //     regionSelectObj.communityDom.find('select').val(regionSelectObj.sCommunityId||'').trigger('change');                            
+                        // // });                        
+                    });
+                },
+                getSelect : function() {
+                    regionSelectObj.init({
+                        regionSelector : '#select01',
+                        communitySelector : '#select02',
+                        planId:appcan.locStorage.val("planId"),
+                        cbCommunitySelected : function(sRegionId,sCommunityId) {
+                            appcan.window.evaluatePopoverScript('useraddresslist', 'content', 'userAddressObj.selectcommunity("'+sRegionId+'","'+sCommunityId+'")');
+                        }
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>

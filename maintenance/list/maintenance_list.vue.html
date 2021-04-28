@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <!-- <link rel="stylesheet" href="../src/css/record.css"> -->
+        <style>
+            .width1000{
+                width : 1000px;
+            }
+        </style>
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="app" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <header-local 
+                :localcount="localCount"
+                @clickplus="clickPlus"
+                @clicklocal="clickLocal"
+                title="维修维护">                
+            </header-local>
+
+            <!-- 计划title begin -->
+            <div class=" sectionShadow">
+
+                <!-- 搜索框 begin -->
+                <search-input 
+                    v-model= "keyword"
+                    @dosearch="dosearch"
+                    placeholder="搜索维修原因、期限、维修人、创建人、地址">
+                </search-input>
+                <!-- 搜索框 end -->        
+
+                <select-search-group
+                    title1="维修状态"
+                    :value1="status"
+                    @change1 = "status = arguments[0]"
+                    :valuename1="statusName"
+                    :options1="selectOptions.status"
+
+                    title2="维修来源"
+                    :value2="originTypeCode"
+                    @change2= "originTypeCode= arguments[0]"
+                    :valuename2="originTypeName"
+                    :options2="selectOptions.originType"      
+
+                    title3="维修期限"
+                    :value3="date"
+                    @change3= "date= arguments[0]"
+                    :valuename3="date"
+                    :options3="selectOptions.date"                                   
+                ></select-search-group>
+             
+            </div>
+            <!-- 计划title end -->
+
+
+            
+
+
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+
+            <!-- <footer-common
+            :btns="[{color:'#fbc484',name:'修改记录'},{color:'#59bcf6',name:'修改录'}]"
+            @click1="click1"
+            @click2="click2">
+            </footer-common> -->
+
+        </div>
+        <script>
+               
+        </script>
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>   
+        <script src="../../common/js/common_database.js"></script>        
+        <script src="../../common/js/common_base.js"></script>     
+        <script src="../../common/js/common_jasRequest.js"></script>
+        <script src="../../vue_component/header_local.component.vue.js"></script>
+        <script src="../../vue_component/search.component.vue.js"></script>
+        <script src="../../vue_component/select_search.component.vue.js"></script>
+        <script src="../../vue_component/footer_common.component.vue.js"></script>
+
+
+        <script src="../src/js/maintenance_list.vue.js"></script>
+
+    </body>
+
+</html>

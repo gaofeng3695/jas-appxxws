@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+         <link rel="stylesheet" href="css/edit.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">修改姓名</h1>
+
+                <div class="nav-btn nav-bt" id="nav-right">
+                    确定
+                </div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+                <div class="ub-ac bc-bg1 us1">
+                    <div class="ub ub-ac ub-f1 allstyle">
+                        <div>
+                            姓名
+                        </div>
+                        <div class="uinput ub ub-f1 ub-ac cc">
+                            <input type="text" class="ub-f1 name" placeholder="请输入姓名" id="name" >
+                            <a class="clear" onclick="clear()"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--content结束-->
+
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_locStorage.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            nameObj.init();
+        });
+        var nameObj = {
+            userBo : JSON.parse(appcan.locStorage.getVal("userBo")),
+            jasHttpRequest:new JasHttpRequest(),
+            init : function() {
+                this.initInput();
+                this.bindEvent();
+            },
+            initInput : function() {
+                $("#name").val(this.userBo.userName);
+            },
+            bindEvent : function() {
+                var that = this;
+                appcan.button(".clear", "ani-act", function() {
+                    $("#name").val("");
+                });
+                appcan.button("#nav-left", "btn-act", function() {
+                    appcan.window.close(-1);
+                });
+                appcan.button("#nav-right", "btn-act", function() {
+                    that.submit();
+                });
+            },
+            submit : function() {
+                if (this.check()) {
+                    this.submitToService();
+                }
+            },
+            submitToService : function() {
+                var that = this;
+                var name = document.getElementById("name").value.trim();
+                //replace(/(^\s*)|(\s*$)/g, "") 和trim()用于去掉前后空格
+                var partURL = "cloudlink-core-framework/user/update";
+                that.jasHttpRequest.jasHttpPost(partURL, function(id, state, data) {
+                    var obj = JSON.parse(data);
+                    if (obj.success == 1) {
+                        reloadUserBoLocStorage("userName", name);
+                        appcan.window.close(-1);
+                        appcan.window.evaluatePopoverScript("editpersonal", "content", 'initUser()');
+                      
+                    } else {
+                        baseOperation.alertToast('名称修改未成功');
+                    }
+                }, JSON.stringify({
+                    "objectId" : that.userBo.objectId,
+                    "userName" : name
+                }));
+            },
+            check : function() {
+                var name = $('#name').val().trim();           
+                var reg = /^[a-zA-Z\u4e00-\u9fa5]/g;
+                if (name == null || name == "") {
+                    baseOperation.alertToast('请输入姓名');
+                    return false;
+                } else if (name.length >= 16) {
+                    baseOperation.alertToast('姓名不能超过15个字');
+                    return false;
+                } else if (!reg.test(name)) {
+                    baseOperation.alertToast('您输入格式不对');
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+
+    </script>
+</html>

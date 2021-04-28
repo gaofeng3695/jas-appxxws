@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="page_resource/login/css/main.css">
+
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="ub ub-ver uh bc-text-head bc-head">
+                <div class="title ub ub-ac ub-pc ">
+                    <span class="ulev-3">巡线卫士</span>
+                </div>
+                <div id="tabview" class="uf sc-bg ubb bc-border">
+                </div>                
+            </div>
+            <div id="tabview" class="uf sc-bg ubb bc-border">
+
+            </div>
+            <!--header结束-->
+            <!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+                
+            </div>
+            <!--content结束-->
+        </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="common/js/common_base.js"></script>
+        <script src="common/js/common_database.js"></script>
+        <script src="common/js/common_httprequest.js"></script>
+        <script src="common/js/init_database.js"></script>
+    </body>
+    <script>
+       appcan.ready(function() {
+            var top = $('#header').offset().height;
+            //创建多浮动窗口
+            appcan.frame.open({ 
+                id : "login",
+                url : [
+                    {
+                        "inPageName" : "common",
+                        "inUrl" : "login_content.html"
+                    }
+                ],
+                top : top,
+                left : 0,
+            });
+            window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("login", 0, top);
+            };
+
+            checkOut();
+            uexLockScreen.baiDuSDKInitializer();
+        });
+        
+        function checkOut(){ //退出应用
+            //监听手机物理返回键
+            uexWindow.setReportKey(0,1);  
+            uexWindow.onKeyPressed = function(keyCode){  
+                appcan.window.confirm({
+                    title:'提示',
+                    content:'您是否要退出巡线卫士？',
+                    buttons:['确定','取消'],
+                    callback:function(err,data,dataType,optId){
+                        if(data==0)
+                        {
+                            try{
+                                uexLockScreen.closeLocation();
+                                uexWidgetOne.exit(0);
+                            }
+                            catch(e){
+                                uexWidgetOne.exit(0);
+                            }
+                        }
+                    }
+                });
+            }; 
+        } 
+    </script>
+</html>

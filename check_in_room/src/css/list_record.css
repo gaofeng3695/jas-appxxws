@@ -1,0 +1,82 @@
+.clr_succ{
+    background: #59b6fc;
+}
+.clr_out{
+    background: #fea137;
+}
+.clr_fail{
+    background: #fc473c;
+}
+.lh24{
+    line-height: 2.4em;
+}
+.minh24{
+    min-height: 2.4em;
+}
+.umar-l2{
+    margin-left: 1em;
+}
+.uinn3{
+    padding: .3em;
+}
+.uc-a0{
+    border-radius: .3em;
+}
+.record_list li{
+    background: white;
+    padding: 0 .625em;
+}
+.name{
+    padding: 0 1em;
+}
+.border{
+    border-bottom: 1px solid #ececec;
+}
+.redclr{
+    color : #e73e43;
+}
+.housename{
+    padding: 0 1.5em;
+    width: 6em;
+}
+.address{
+    padding: .5em 0 0.2em 0;
+    line-height: 1.4;
+}
+.check_width{
+    width: 1.64em;
+}
+.passMask{
+    position: relative;
+}
+.passMask:after{
+    content : '';
+    height : 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background:  url(../images/pass.png) no-repeat right .6em bottom -1em;
+    background-size: 4.4em;
+}
+
+
+
+/*check美化样式*/
+.checkbox, .radiobox {
+    width: 1.1em;
+    height: 0.95em;
+}
+.checkbox input[type=checkbox], .radiobox input[type=radio] {
+    font-size: .7em !important;
+}
+.checkbox input[type=checkbox]:checked:before {
+    font-size: 1.65em !important;
+    content: "\f14a";
+}
+.checkbox input[type=checkbox]:checked:before, .radiobox input[type=radio]:checked:before {
+    color: #59b6fc;
+}
+.checkbox input[type=checkbox]:before, .radiobox input[type=radio]:before {
+    color: #59b6fc;
+}

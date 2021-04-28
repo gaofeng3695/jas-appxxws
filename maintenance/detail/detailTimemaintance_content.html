@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/detailTimemaintance.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart style="background: #fff" >
+        <div id="page">
+            <div class="ulev30 clr666" style="margin-top: 1em;text-align:center" v-if="dataTime.length==0">
+                暂无数据
+            </div>
+           <div class="box">
+                <div class=" uinn-m list_all" v-for="item in dataTime">
+                    <div class="ub ub-ver" style="margin-top: 1em;">
+                        <h3 class="ulev28 clr333"  v-text="item.time"></h3>
+                        <ul class="day">
+                            <li class="ub "  v-for="time in item.timeList">
+                                <span class="time ub ulev26 linh2" v-text="time.createTime.substring(10,16)" ></span>
+                                <div class="task"></div>
+                                <div class=" ub ub-f1 ulev26 linh2" >
+                                    <span class=" clr999" v-text="time.createUserName">
+                                    </span>
+                                    <span class="pl20 clr666" v-text="time.operateTypeName">
+                                    </span>
+                                    <span class="pl20 clr999" v-text="time.operateContent" v-if="time.operateContent">
+                                    </span>
+                                </div>
+                            </li>                                
+                        </ul>
+                    </div>
+                    <hr class="borstyle">
+                </div>
+            </div>
+            <!-- <div class="box">
+                <div class=" uinn-m list_all" v-for="item in dataTime">
+                    <div class="ub ub-ver" style="margin-top: 1em;">
+                        <h3 class="ulev28 clr333" v-text="item.time"></h3>
+                        <ul class="day">
+                            <li class="ub linh2" v-for="time in item.timeList">
+                                <span class="time ub ulev26" v-text="time.createTime.substring(10,16)"></span>
+                                <div class="task"></div>
+                                <div class=" ub ub-f1 ulev26" >
+                                    <div class="ub clr999" v-text="time.createUserName">
+
+                                    </div>
+                                    <div class="pl20 clr666" v-text="time.operateTypeName">
+
+                                    </div>
+                                    <div class="pl20 clr999" v-text="time.operateContent">
+
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr class="borstyle">
+                </div> -->
+            </div>
+        <!-- </div> -->
+        <div class="time_bottom"></div>
+       <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_bounce.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_jasRequest.js"></script>
+ 
+        <script src="../src/js/time.js"></script>
+    </body>
+
+</html>

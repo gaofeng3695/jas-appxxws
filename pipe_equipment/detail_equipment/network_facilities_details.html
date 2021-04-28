@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <style>
+            .footer .btn_wrapp {
+                box-sizing: border-box;
+            }
+
+            .m025 {
+                margin: 0 .5em;
+            }
+
+            .bg_or {
+                background: #ee9127;
+            }
+            .bg_clr {
+                background: #15C48D;
+            }
+            #edit, #inspection_record, #measurement_curve {
+                width: 5em;
+            }
+        </style>
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">管网设施详情</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+            <!--footer开始-->
+            <div id="footer" class="footer topShadow">
+                <div class="btn_wrapp ub ub-fv uinn">
+                    <div id="edit" class="m025 uc-a1 ub-f1 clrfff bg_or ulev30 ub ub-ac ub-pc ub-fv">
+                        编辑
+                    </div>
+                    <div id="inspection_record" class="m025 uc-a1 ub-f1 clrfff bgclr ulev30 ub ub-ac ub-pc ub-fv">
+                        历史检查
+                    </div>
+                    <div id="measurement_curve" class="m025 uc-a1 ub-f1 clrfff bg_clr ulev30 ub ub-ac ub-pc ub-fv">
+                        测量统计
+                    </div>
+                </div>
+            </div>
+            <!--footer结束-->
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            wrapperObj.init();
+        });
+        var wrapperObj = {
+            //isPostReady : true,//禁止多次点击鼠标
+            init : function() {
+                this.initHeaderAndFooter();
+                this.showPopover();
+                this.bindEvent();
+                this.isEdit();
+            },
+            initHeaderAndFooter : function(){
+                var islistOrMap = appcan.locStorage.val('facilitiesDetailsEntrance'); // 设施详情入口 'list' ,'map'
+                //alert(islistOrMap)
+              
+                if(islistOrMap === 'list' || islistOrMap === 'map'){
+                   $('#header h1').html('管网设施详情');
+                   $('#footer').removeClass('uhide');                    
+                }else{
+                  $('#header h1').html('管网设施信息');
+                   $('#footer').addClass('uhide');
+                }
+            },
+            //是否可以编辑
+           isEdit : function() {
+                var ledgerPrivilege = appcan.locStorage.val('ledgerPrivilege');
+                appcan.locStorage.remove('ledgerPrivilege');
+                if (ledgerPrivilege==='true'){
+                    $('#edit').removeClass('uhide');
+                }else { 
+                   $('#edit').addClass('uhide');
+                }
+            },
+            showPopover : function() {
+                var titHeight = $('#header').offset().height;
+                appcan.frame.open("content", "network_facilities_details_content.html", 0, titHeight);
+                window.onorientationchange = window.onresize = function() {
+                    appcan.frame.resize("content", 0, titHeight);
+                }
+            },
+            bindEvent : function() {
+                var that = this;
+                /* 关闭 */
+                appcan.button("#nav-left", "btn-act", function() {
+                    appcan.window.close(-1);
+                });
+                /* 编辑 */
+                appcan.button("#edit", "btn-act", function() {
+                    appcan.locStorage.val('equipmentEntrance', 'modify');
+                    //进入设施表单入口 'new','local','modify'
+                    appcan.openWinWithUrl('new_equipment', '../new_equipment/new_equipment.html');
+                });
+                /*历史检查 */
+                appcan.button("#inspection_record", "btn-act", function() {
+                    appcan.openWinWithUrl('checkrecoured', '../list_check/checkrecord.html');
+                });
+                /* 测量曲线 */
+                appcan.button("#measurement_curve", "btn-act", function() {
+                    appcan.openWinWithUrl('measurementcurve', '../list_check/measurecurve.html');
+                });
+
+                appcan.window.on('resume', function() {
+                     appcan.window.evaluatePopoverScript('network_facilities_details','content','facilityObj.requestDetail()'); 
+                });
+                //窗口回到前台时执行回调函数
+
+            }
+        };
+
+    </script>
+</html>

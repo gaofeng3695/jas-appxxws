@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../../../../event_management/index/css/organization.css"/>
+        <link rel="stylesheet" href="css/applayapprove.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <form method="post" id="appalyapprove">
+            <div class="c-wh ">
+                <div class="uba uc-a1 bc-border us1 applay_main">
+                    <div class="ub bc-border ubb applay_list">
+                        <div class="ub ub-ac uw-reg ulev-app1 ulev26 clr666">
+                            企业全称
+                        </div>
+                        <div class="ub ub-ac ub-f1">
+                            <div class="uinput ub ub-f1">
+                                <input type="text" placeholder="请输入企业全称" class="ub-f1 ulev26" id="text" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ub b-d8 applay_list">
+                        <div class="ub ub-ac uw-reg ulev-app1 ulev26 clr666">
+                            社会统一信用代码
+                        </div>
+                        <div class="ub ub-ac ub-f1">
+                            <div class="uinput ub ub-f1">
+                                <input placeholder="请输入社会统一信用代码" class="ub-f1 ulev26" type="text" id="registerNum">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ub b-d8 ">
+                        <div class="ub ub-ac uw-reg ulev-app1 ulev26 clr666"></div>
+                        <div class="ub ub-ac ub-f1">
+                            <div class="ub ub-f1 applay_title ulev26">
+                                <p>
+                                    或填写组织机构代码
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <form method="post" id="appalyapprove_photo">
+            <!--进行营业执照和身份证的上传解析-->
+            <div class="photo us1">
+                <div class="ub ub-ac ubb  sc-border-cor u-padding">
+                    <div class="ub-f1 ub-fv ">
+                        <span class="photo_text ulev26 clr666">
+                            营业执照
+                        </span>
+                        <span class=" mun sc-border-cor ubl ulev26"> <span class="img_mun img_mun_bus padl1">0</span><span class="img_all">/3（必填）</span> </span>
+                    </div>
+                    <span class="photonum addphoto"> <img src="image/camera.png" height="100%" pictype='pic_business'/> </span>
+                </div>
+
+                <div class="photo_list clearfloat pic_business" pictype='pic_business'>
+
+                </div>
+
+               <div class="ub ub-ac ubb  sc-border-cor u-padding">
+                    <div class="ub-f1 ub-fv ">
+                        <span class="photo_text ulev26 clr666">
+                            法人身份证
+                        </span>
+                        <span class=" mun sc-border-cor ubl ulev26"> <span class="img_mun img_mun_iden padl1">0</span><span class="img_all">/2（选填）</span> </span>
+                    </div>
+                    <span class="photonum addphoto " > <img src="image/camera.png" height="100%" pictype='pic_identity'/> </span>
+                </div>
+                <div class="photo_list clearfloat pic_identity" pictype='pic_identity'>
+
+                </div>
+                <div class="ub ub-ac ubb  sc-border-cor u-padding">
+                    <div class="ub-f1 ub-fv ">
+                        <span class="photo_text ulev26 clr666">
+                           企业人员花名册
+                        </span>
+                        <span class=" mun sc-border-cor ubl ulev26"> <span class="img_mun img_mun_rose padl1">0</span><span class="img_all">/6（选填）</span> </span>
+                    </div>
+                    <span class="photonum addphoto" > <img src="image/camera.png" height="100%" class="pic" pictype='pic_roster'/> </span>
+                </div>
+                <div class="photo_list clearfloat pic_roster" pictype='pic_roster'>
+
+                </div>
+            </div>
+        </form>
+    </body>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_httprequest.js"></script>
+    <script src="js/common_imagesObj.js"></script>
+    <script src="js/applayapprove.js"></script>
+    </body>
+</html>

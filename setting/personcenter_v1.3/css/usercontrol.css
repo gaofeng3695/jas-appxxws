@@ -1,0 +1,93 @@
+.bg{
+    background:#fff;
+}
+/*check美化样式*/
+
+.checkbox,
+.radiobox {
+    width: 1.15em;
+    height: 1.05em;
+}
+
+.checkbox input[type=checkbox],
+.radiobox input[type=radio] {
+    font-size: .7em !important;
+}
+
+.checkbox input[type=checkbox]:checked:before {
+    font-size: 1.65em !important;
+    content: "\f14a";
+}
+
+.checkbox input[type=checkbox]:checked:before,
+.radiobox input[type=radio]:checked:before {
+    color: #59b6fc;
+}
+
+.checkbox input[type=checkbox]:before,
+.radiobox input[type=radio]:before {
+    color: #59b6fc;
+}
+.pdd14{
+    padding:0.45em 0em;
+}
+.line1{
+    height:1.5em;
+    line-height:1.5em;
+}
+.mar5{
+    margin:0em .5em;
+}
+.marl5{
+    margin-left:.5em;
+}
+.width150{
+    width:10em;
+}
+.width8{
+    max-width:8em;
+}
+.width14{
+    width:14em;
+}
+.width5{
+    width:5em;
+}
+.width3{
+    width:3em;
+}
+.directionsize{
+    width: 0.5858em;
+height: 1.083em;
+}
+/*footer*/
+#footer {
+    -webkit-box-shadow: 0 -.07em .2em #999;
+    box-shadow: 0 -.07em .2em #999;
+    background-color: #fff;
+    padding:0.4em;
+}
+#delete {
+    margin:0em 3em;
+}
+.deletebtn{
+    line-height:2.1875em;
+    height:2.1875em;
+}
+.hidd{
+    display:none;
+}
+.marr{
+    margin-right:.5em;
+}
+.status {
+    display: inline;
+    font-size: 0.625em;
+    color: #666;
+}
+.status_color{
+    color:#ff3f3f;
+}
+.width1000{
+    width:1000px;
+}

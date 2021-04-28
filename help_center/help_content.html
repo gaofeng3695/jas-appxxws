@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../setting/personcenter_v1.3/css/manager.css">
+    </head>
+    <body class="um-vp bc-bg " ontouchstart>
+        <div class="ub ub-ver ">
+            <div class="umar-tcon  ">
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="problem">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">常见问题</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="configure">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">手机配置</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../common/js/common_httprequest.js"></script>
+        <script src="../js/appcan.listview.js"></script>
+    </body>
+    <script src="../js/appcan.js"></script>
+    <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.button("#problem", "btn-act", function() {
+                appcan.openWinWithUrl("problem", "../personal/commonproblem.html");
+            });
+            appcan.button("#configure", "btn-act", function() {
+                appcan.openWinWithUrl("configure", "configure.html");
+            });      
+        });
+        
+    </script>
+</html>

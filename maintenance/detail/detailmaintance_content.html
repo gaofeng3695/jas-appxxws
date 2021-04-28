@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+    <link rel="stylesheet" href="../src/css/detailmaintance.css">
+    <style>
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+    </style>
+</head>
+
+<body class="um-vp bc-bg" ontouchstart>
+    <div id="app">
+
+        <div class="sectionMargin sectionShadow bgfff">
+            <item-detail name="维修编号" :value="maintanceObj.maintenanceCode" :borderbottom="true"></item-detail>
+            <item-detail name="维修来源" :value="maintanceObj.originTypeName" :borderbottom="true"></item-detail>
+            <item-detail name="创建人" :value="maintanceObj.createUserName" :borderbottom="true"></item-detail>
+            <item-detail name="维修期限" :value="maintanceObj.remediationTime.substring(0,10)" :borderbottom="true"></item-detail>
+            <item-detail name="维修状态" :value="maintanceObj.status=='1'?'待维修':'已完成'" :borderbottom="true"></item-detail>
+            <item-detail name="维修时间" :value="maintanceObj.maintenanceRecordTime" :borderbottom="true"></item-detail>
+
+            <div v-if="maintanceObj.originTypeCode == 'MO_01'">
+                <item-detail name="用户姓名" :value="maintanceObj.maintenanceName" :borderbottom="true"></item-detail>
+                <item-detail name="联系方式" :value="maintanceObj.contactPhone" :borderbottom="true"></item-detail>
+                <item-detail name="用户地址" :value="maintanceObj.address" :borderbottom="true"></item-detail>
+            </div>
+               <div v-if="maintanceObj.originTypeCode == 'MO_02'">
+                <item-detail name="设施名称" :value="maintanceObj.maintenanceName" :borderbottom="true"></item-detail>
+                <item-detail name="设施类型" :value="maintanceObj.typeName" :borderbottom="true"></item-detail>
+                <item-detail name="用户地址" :value="maintanceObj.address" :borderbottom="true"></item-detail>
+            </div>
+            <div v-if="maintanceObj.originTypeCode == 'MO_03'">
+                <item-detail name="事件编号" :value="maintanceObj.maintenanceName" :borderbottom="true"></item-detail>
+                <item-detail name="事件类型" :value="maintanceObj.typeName" :borderbottom="true"></item-detail>
+                <item-detail name="事件位置" :value="maintanceObj.address" :borderbottom="true"></item-detail>
+            </div>        
+            <div v-if="maintanceObj.originTypeCode == 'MO_99'">
+                <item-detail name="联系人" :value="maintanceObj.maintenanceName" :borderbottom="true"></item-detail>
+                <item-detail name="联系方式" :value="maintanceObj.contactPhone" :borderbottom="true"></item-detail>
+                <item-detail name="地址" :value="maintanceObj.address" :borderbottom="true"></item-detail>
+            </div>
+            <item-detail name="维修人" :value="maintanceObj.relationshipPersonNames" :borderbottom="true"></item-detail>
+            <item-detail name="维修原因" :value="maintanceObj.reason" :borderbottom="true"></item-detail>
+        </div>
+
+        <div class="sectionMargin sectionShadow bgfff">
+            <div v-for="(item,key) in maintanceObj.workRecordCost" v-cloak>
+                <div class="cost clr666 ub ub-pc border1 " style="padding:.5em 0em">
+                    <span class="ulev28">维修费用表-{{key+1}}</span>
+                </div>
+                <item-detail name="名称" :value="item.name" :borderbottom="true"></item-detail>
+                <item-detail name="单价" :value="item.price" :borderbottom="true"></item-detail>
+                <item-detail name="数量" :value="item.amount" :borderbottom="true"></item-detail>
+            </div>
+            <item-detail name="费用总计" :value="maintanceObj.totalCost | pliceNumber" :borderbottom="true"></item-detail>
+            <item-detail name="费用大写" :value="maintanceObj.captialTotalCost" :borderbottom="true"></item-detail>
+        </div>
+        <div class="sectionMargin sectionShadow bgfff">
+
+            <item-detail name="维修记录" :value="maintanceObj.content" :borderbottom="true"></item-detail>
+
+            <item-photo v-model="picUrl" :bigvalue="picUrlForPreview" :isoperate="false"></item-photo>
+
+            <item-sign :src="signatureUrl" :bigsrc="signatureUrlForPreview" v-if="maintanceObj.originTypeCode==='MO_01'"></item-sign>
+            <item-rate :rate="maintanceObj.satisfaction || 0" v-if="maintanceObj.originTypeCode==='MO_01'"></item-rate>
+        </div>
+    </div>
+
+</body>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/appcan.js"></script>
+<script src="../../js/appcan.control.js"></script>
+
+<script src="../../common/js/common_base.js"></script>
+<script src="../../common/js/common_jasRequest.js"></script>
+<script src="../../common/js/common_database.js"></script>
+
+<script src="../../vue_component/item_detail.component.vue.js"></script>
+<script src="../../vue_component/item_photo.component.vue.js"></script>
+<script src="../../vue_component/item_sign.component.vue.js"></script>
+<script src="../../vue_component/item_rate.component.vue.js"></script>
+
+<script src="../src/js/common/local_server.js"></script>
+<script src="../src/js/common/uploadRecord.js"></script>
+<!-- <script src="../src/js/detailmaintance.js"></script> -->
+<script>
+    // window.onerror = function(msg, url, line) {
+    //     alert("erro" + msg + "\n" + url + ":" + line);
+    //     return true;
+    // };
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            maintanceId: appcan.locStorage.val('maintenanceId'), //工单id
+            maintanceObj: {
+                "objectId": baseOperation.createuuid(), // 维修记录ID
+                "workId": "", // 维修维护工单id，继承于详情的objectid
+                "maintenanceCode": new Date().Format("yyyyMMddHHmmssS"),
+                "originTypeName": "", //来源类型（maintenance_orgin）MO_01（入户整改）、MO_02（管道设施）、MO_03（巡检事件）、MO_99（其他维修）
+                "originTypeCode": "", //来源类型（maintenance_orgin）MO_01（入户整改）、MO_02（管道设施）、MO_03（巡检事件）、MO_99（其他维修）
+                "createUserName": "", //创建人
+                "typeCode": "", //设施类型（管道设施）、事件类型（日常巡检）
+                "typeName": "", //设施类型（管道设施）、事件类型（日常巡检）
+                "maintenanceName": "", //用户名称（入户整改）、设施名称（管道设施）、事件编号（巡检事件）、联系人（其他维修）
+                "contactPhone": "", //联系方式（入户整改）、联系电话（其他维修）
+                "address": "", // 用户地址（入户整改）、设施位置（管道设施）、事件地点（巡检事件）、地址（其他维修）
+                "relationshipPersonNames": "", //维修人名称
+                "relationshipPersonIds": "", //维修人
+                "remediationTime": "", // 维修期限
+                "maintenanceRecordTime": '', // 维修（完成）时间
+                "status": '', // 维修状态（1：待维修，2：已完成）默认值 1
+                "reason": "", // 维修原因
+                "workRecordId": "", // 维修工单整改记录id
+                "workRecordCost": [],
+                "totalCost": '',
+                "captialTotalCost": "", //
+                "content": "",
+                "satisfaction": "",
+                "pic": [], //照片id的数组
+                "picUrl": [], //照片url的数组
+                "signature": [], ////签名图片id的数组
+                "signatureUrl": [], //签名图片url的数组
+            },
+            picUrl: [],
+            picUrlForPreview: [],
+            signatureUrl: [],
+            signatureUrlForPreview: [],
+        },
+        computed: {
+            _signatureUrl: function() {
+                return this.maintanceObj.signatureUrl;
+            }
+        },
+        filters: {
+            pliceNumber: function(value, thousand, decimal) {
+                if (value === "" || value === null || value === undefined) {
+                    return "";
+                } else {
+                    thousand = thousand || ",";
+                    decimal = decimal || ".";
+                    var negative = value < 0 ? "-" : "",
+                        i = parseInt(value = Math.abs(+value || 0).toFixed(2), 10) + "",
+                        j = (j = i.length) > 3 ? j % 3 : 0;
+                    return negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (2 ? decimal + Math.abs(value - i).toFixed(2).slice(2) : "");
+                }
+            }
+        },
+        methods: {
+
+        },
+        watch: {
+            _signatureUrl: function() {
+                this.signatureUrl = this._signatureUrl;
+            }
+        },
+        mounted: function() {
+            var that = this;
+
+            appcan.ready(function() {
+                var enterance = appcan.locStorage.val('maintenanceDetailEntrance'); //来自本地
+                //appcan.locStorage.remove('maintenanceDetailEntrance');
+                //alert('local:'+ (+enterance == 'local' || enterance == 'form'))
+                if (enterance == 'local' || enterance == 'form') {
+                    operations.requestDetailFromLocal();
+                } else {
+                    operations.requestDetailFromServer();
+                }
+
+            });
+        }
+    });
+
+    var operations = {
+        formatPicUrl: function() {
+            var handleObj = {
+                picUrl: function() {
+                    if (this.maintanceObj.pic.length > 0) {
+                        return this.maintanceObj.pic.map(function(item, index) {
+                            return jasRequest.serverURL + "cloudlink-core-file/file/getImageBySize?fileId=" + item + "&viewModel=fill&width=182&hight=182";
+                        });
+                    }
+                    return this.maintanceObj.picUrl;
+                },
+                picUrlForPreview: function() {
+                    if (this.maintanceObj.pic.length > 0) {
+                        return this.maintanceObj.pic.map(function(item, index) {
+                            return jasRequest.serverURL + "cloudlink-core-file/file/downLoad?fileId=" + item;
+                        });
+                    }
+                    return this.maintanceObj.picUrl;
+                },
+                signatureUrl: function() {
+                    if (this.maintanceObj.signature.length > 0) {
+                        return this.maintanceObj.signature.map(function(item, index) {
+                            return jasRequest.serverURL + "cloudlink-core-file/file/getImageBySize?fileId=" + item + "&viewModel=lfit&width=282&hight=282";
+                        });
+                    }
+                    return this.maintanceObj.signatureUrl;
+                },
+                signatureUrlForPreview: function() {
+                    if (this.maintanceObj.signature.length > 0) {
+                        return this.maintanceObj.signature.map(function(item, index) {
+                            return jasRequest.serverURL + "cloudlink-core-file/file/downLoad?fileId=" + item;
+                        });
+                    }
+                    return this.maintanceObj.signatureUrl;
+                },
+            };
+            for (var key in handleObj) {
+                if (handleObj.hasOwnProperty(key)) {
+                    vm[key] = handleObj[key].call(vm);
+                }
+            }
+        },
+
+        requestDetailFromServer: function() {
+            var that = this;
+            var partURL = "cloudlink-inspection-event/commonData/maintenanceWork/get";
+            var queryObj = {
+                objectId: 　vm.maintanceId, //工单id
+            };
+            jasRequest.get(partURL, queryObj, function(oData) {
+                var obj = oData.rows[0];
+                if (obj.workRecordCost == "" || obj.workRecordCost == null) {
+                    obj.workRecordCost.push({
+                        name: "",
+                        price: "",
+                        amount: "",
+                    });
+                }
+                $.extend(vm.maintanceObj, obj, true);
+                that.formatPicUrl();
+                // vm.$set(vm.maintanceObj)
+            });
+        },
+        requestDetailFromLocal: function() {
+            var that = this;
+            localServer.get(vm.maintanceId, function(result) { //记录id
+                if (result.success == "1") {
+                    if (result.data.workRecordCost == "" || result.data.workRecordCost == null) {
+                        result.data.workRecordCost.push({
+                            name: "",
+                            price: "",
+                            amount: "",
+                        });
+                    }
+                    $.extend(vm.maintanceObj, result.data, true);
+                    vm.maintanceObj.maintenanceRecordTime = new Date().Format("yyyy-MM-dd");
+                    that.formatPicUrl();
+
+                    // baseOperation.alertToast("查询成功", 2000);
+                }
+            });
+        },
+        saveDataFromDraft: function() {
+            var that = this;
+            var workRecordCost = [];
+            var obj = JSON.parse(JSON.stringify(vm.maintanceObj));
+            if(!obj.workId){
+                return;
+            }
+           obj.workRecordCost.forEach(function(item) {
+                if (item.name.trim()) {
+                    workRecordCost.push(item);
+                }
+            });
+            obj.workRecordCost = workRecordCost;
+            localServer.save(obj, "1", function(result) {
+                if (result.success == 1) {
+                    baseOperation.alertToast("数据保存成功");
+                    appcan.window.evaluateScript('detailmaintance', 'operations.close()');
+                } else {
+                    baseOperation.alertToast("数据保存未成功");
+                }
+            });
+
+        },
+        uploadRecord: function() {
+            var that = this;
+            baseOperation.londingToast('正在上传，请稍后', 999999);
+            appcan.window.evaluateScript('detailmaintance', 'vm.disabled=true');
+            var workRecordCost = [];
+            vm.maintanceObj.workRecordCost.forEach(function(item) {
+                if (item.name.trim()) {
+                    workRecordCost.push(item);
+                }
+            });
+            vm.maintanceObj.workRecordCost = workRecordCost;
+            uploadRecord(vm.maintanceObj, function() {
+                baseOperation.alertToast('上传成功');
+                that.delete();
+            }, function(data) {
+                if (data.code === 'XE05002') {
+                    baseOperation.alertToast('此维修项目已被维修，无需再次维修', 4000);
+                } else {
+                    baseOperation.alertToast('上传失败', 4000);
+                }
+                appcan.window.evaluateScript('detailmaintance', 'vm.disabled=false');
+            });
+        },
+        delete: function() {
+            var that = this;
+            localServer.delete(vm.maintanceObj.workId, function(result) {
+                if (result.success == 1) {
+                    baseOperation.closeToast();
+                    appcan.window.evaluateScript('detailmaintance', 'vm.disabled=false');
+                    appcan.window.evaluateScript('detailmaintance', 'operations.close()');
+                }
+            });
+        },
+    };
+</script>
+
+</body>
+
+</html>

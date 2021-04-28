@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../index/css/main.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div id="searchMdl" class="searchWrap ub ub-pc ">
+            <div class="ub ub-f1 searchBox ub-ac">
+                <div class="uinput ub ub-f1 ub-ac">
+                    <input id= "queryParam" placeholder="搜索" type="search" class="ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}" >
+                </div>
+                <div id="" class="searchDelete" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden')"></div>
+                <div class="searchLine"></div>
+                <div id="search" class="searchBtn ulev26 ub ub-ac">搜索</div>
+            </div>
+        </div>
+        <div id="unsentNewsList">
+        </div>
+    </body>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_database.js"></script>
+    <script src="../../common/js/common_httprequest.js"></script>
+    <script src="../../common/js/common_device.js"></script>
+    <script src="../../js/appcan.listview.js"></script>
+    <script src="js/localNew.js"></script>
+    <script src="js/unsentnews_content.js"></script>
+</html>

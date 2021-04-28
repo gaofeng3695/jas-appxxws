@@ -1,0 +1,380 @@
+.list {
+    min-height: 2em;
+}
+
+.ulev-1 {
+    font-size: 2.136em;
+}
+
+.b-dfd {
+    border-color: #dfdfdf;
+}
+
+.umar-lrlist {
+    margin: 0 .890em;
+}
+
+.uinn-lrlist {
+    padding: 0 .625em;
+}
+
+.umwh-micons {
+    min-height: 2.847em;
+    min-width: 2.847em;
+}
+
+.t-c2c {
+    color: #c2c2c2;
+}
+
+.t-6b9 {
+    color: #6b9fc2;
+}
+
+.res-feedback {
+    font-weight: blod;
+}
+
+.res-night {
+    font-weight: small;
+}
+
+.uinn-3 {
+    height:2.8125em;
+    vertical-align: middle;
+}
+
+.uinn-l3 {
+    padding-left: .426em;
+}
+
+.c-wh {
+    background-color: white;
+}
+
+.header1 {
+    display: block;
+    padding-left: -1.139em;
+    font-weight: bold;
+}
+
+.u-1 {
+    margin-left: -0.569em;
+}
+
+.u-2 {
+    color: #000000;
+}
+
+.u-3 {
+    padding-top: 2.136em;
+}
+
+.uinn-at1 {
+    padding-top: 1.424em;
+    margin: 0 0.712em;
+}
+
+#a_href {
+    text-decoration: none;
+    cursor: hand;
+}
+
+.left {
+    float: left;
+    border-right: solid 1px #BABABA;
+    width: 48%;
+    height: 2.847em;
+
+}
+.maxwidth{
+    max-width: 80%;
+}
+.right {
+    float: right;
+    width: 50%;
+    height: 2.847em;
+    text-align: center;
+}
+
+.text {
+    margin: 0em 1.424em 2.847em 1.424em;
+
+}
+
+.fontcolor {
+    color: #333333;
+
+}
+
+.ub-ver1 {
+    border: solid 1px #BABABA;
+    margin: 7.119em;
+    text-align: center;
+    display: none;
+}
+
+.fotter {
+    border-top: solid 1px #BABABA;
+}
+
+.u-button {
+    color: #C2C2C2;
+    line-height: 2.847em;
+    text-align: center;
+}
+
+.hiddendiv {
+    display: none;
+}
+
+.title {
+    word-break:normal;
+    color: #333333;
+    display:block;
+    margin-top:0.625em;
+    font-size:0.85em;
+    margin-left:0em;
+}
+
+.title-text {
+    line-height:140%;
+    padding-left:1.25em;
+    color: #333;
+    font-size: 0.81em;
+    text-align: left;
+    word-break:normal;
+}
+
+.juz {
+    word-break: break-all;
+}
+
+/*进行上面背景图的编辑*/
+.header {
+    background-image: url("../images/bg.png");
+    width: 100%;
+    margin-top:-0.1em;
+    text-align: center;
+    background-size: 100% 100%;
+}
+
+.peropel_center {
+    text-align: center;
+    margin-top: 3.561em;
+}
+
+.picright {
+    margin-top: -8.543em;
+    margin-left: 35.596em;
+    background: red;
+    width: 11.391em;
+}
+
+span {
+    margin-left: 0.935em;
+    color: #666666;
+    font-size:0.87em;
+}
+
+.jifen {
+    margin-left: 0.5em;
+    color: #fff;
+    font-size:0.75em;
+}
+
+.imgsrc {
+    width:1.31em;
+    height:1.31em;
+    vertical-align: middle;
+    float: left;
+}
+
+.img-right {
+    background: url(../images/jifen.png) no-repeat 0.396em center #fb7760;
+    background-size: 1em 1em;
+    width:5em;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    margin-left: 3.9em;
+    margin-top: -1em;
+    line-height: 1.5em;
+    padding-left: 0.712em;
+}
+
+.right-picture {
+    -webkit-vertical-align: middle;
+    -mz-vertical-align: middle;
+    -o-vertical-align: middle;
+    -moz-vertical-align: middle;
+}
+
+.label {
+    position: relative;
+
+}
+
+
+.u-2 {
+    color: #999999;
+    font-size: 2.278em;
+}
+
+.umar-tcon {
+    background: #fff;
+}
+
+.ut-s {
+
+    white-space: normal !important;
+
+}
+#textList ul{
+    padding-left:2em;
+}
+#textList ul li{ 
+    list-style:disc;  
+    line-height:140%;
+    font-size:0.81em;
+    color:#666;
+    word-break:normal;
+}
+.border{
+    border-top:1px solid #ececec;
+    margin-top:0.625em;
+}
+.me{
+    margin-top:0.625em;
+}
+/*个人中心样式设置*/
+h1 {
+    color: #ffffff;
+    font-size: 1.424em;
+}
+
+.editimg {
+    margin-top: .8em;
+    
+}
+
+.editimg img {
+    width:4em;
+    height:4em;
+    border-radius: 50%;
+}
+
+
+#userName {
+    font-size: 0.87em;
+    color: #fff;
+    /*margin: 0.285em 0em;*/
+}
+
+#enterprisename,#userorg{
+    font-size:0.685em;
+    color:#fff;
+    display:inline-block;
+}
+.directionsize{
+  width:0.5858em;
+  height:01.083em; 
+}
+.contenttop{
+    margin-top:0.5em;
+}
+.hidden{
+   display:none !important;
+}
+.direction {
+    float: right;
+    line-height: normal;
+    overflow: hidden;
+}
+.direction_img{
+    float: right;
+}
+.version {
+    float: left;
+    padding-right: 1em;
+    font-size: 0.8125em;
+    color: #999999;
+}
+
+.version-new{
+    margin-left:0.625em;
+    display:inline-block;
+    background-color: red;
+    font-size: 0.7em;
+    color:#fff;
+    padding:0.12em 0.15em;
+    border-radius: 0.3em;
+    line-height: 1em;
+    
+}
+.loginout{
+    
+    margin:.625em 1.25em 0em 1.25em;
+}
+/*个人中心页面修改*/
+.mar5{
+    margin:0em 1.125em;
+}
+.linh{
+    height:1.7em;
+    line-height: 1.7em;
+}
+.pd25{
+    padding:0.78em 0em;
+}
+.marl25{
+    margin-left:0.78em;
+    margin-top:.7em;
+}
+.padd25{
+    padding-left:0.78em;
+}
+
+.mart{
+    margin-top:.5em;
+}
+
+.sc-border-fff{
+    border-left:2px solid #fff;
+  
+}
+.padtop{
+    padding:.78em 0em;
+}
+.textleft{
+    text-align: left;
+}
+.padb55{
+    padding-bottom: 0.72em;
+}
+.padd{
+ padding:0em 1.28em .72em 1.28em;   
+}
+.marl20{
+    margin-left:.875em;
+}
+.width50{
+    width:3.8em;
+}
+.marr30{
+    margin-right:0.9375em;
+}
+.width150{
+    width:15em
+}
+.status{
+     background: url(../images/nocertified.png) no-repeat center ;
+     background-size: 2.875em 1.375em;
+}
+.texc{
+    text-align: left;
+}
+.linhm{
+    height:5.6em;
+    line-height: 5.6em;
+}

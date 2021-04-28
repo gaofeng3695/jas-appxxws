@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="../setting/personcenter_v1.3/css/manager.css">
+    </head>
+    <body class="um-vp bc-bg " ontouchstart>
+        <div class="ub ub-ver ">
+            <div class="umar-tcon  ">
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="huawei">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">华为</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="xiaomi">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">小米</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="meizu">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">魅族</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="vivo">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">vivo</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="oppo">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">OPPO</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="sanxing">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">三星</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="leshi">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">乐视</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="360">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">360手机卫士</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+                <div class="list ub ub-ac uinn-lrlist  ubb bc-border sc-border-cor " id="tengxun">
+                    <div class="ub-f1 ut-s ">
+                        <span class="manspan">腾讯手机管家</span>
+                    </div>
+                    <div class="ulev-1 t-6b9 u-2">
+                        <img src="../setting/personcenter_v1.3/image/direction.png" class="directionsize">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../common/js/common_httprequest.js"></script>
+        <script src="../js/appcan.listview.js"></script>
+    </body>
+    <script src="../js/appcan.js"></script>
+    <script src="../js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.button("#huawei", "btn-act", function() {
+                appcan.openWinWithUrl("confi_huawei", "configure_page/huawei.html");
+            });
+            appcan.button("#xiaomi", "btn-act", function() {
+                appcan.openWinWithUrl("confi_xiaomi", "configure_page/xiaomi.html");
+            });
+            appcan.button("#meizu", "btn-act", function() {
+                appcan.openWinWithUrl("confi_meizu", "configure_page/meizu.html");
+            });
+            appcan.button("#vivo", "btn-act", function() {
+                appcan.openWinWithUrl("confi_vivo", "configure_page/vivo.html");
+            });
+            appcan.button("#oppo", "btn-act", function() {
+                appcan.openWinWithUrl("confi_oppo", "configure_page/oppo.html");
+            });
+            appcan.button("#huawei", "btn-act", function() {
+                appcan.openWinWithUrl("confi_huawei", "configure_page/huawei.html");
+            });
+            appcan.button("#sanxing", "btn-act", function() {
+                appcan.openWinWithUrl("confi_sanxing", "configure_page/sanxing.html");
+            });
+            appcan.button("#leshi", "btn-act", function() {
+                appcan.openWinWithUrl("confi_leshi", "configure_page/leshi.html");
+            });
+            appcan.button("#360", "btn-act", function() {
+                appcan.openWinWithUrl("confi_360", "configure_page/360.html");
+            });
+            appcan.button("#tengxun", "btn-act", function() {
+                appcan.openWinWithUrl("confi_tengxun", "configure_page/tengxun.html");
+            });
+        });
+
+    </script>
+</html>

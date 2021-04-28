@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="myenter_content/css/create.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="ub ub-ver uinn-a1">
+            <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1">
+                <div class="ulev-app1 umw55">
+                    企业名称
+                </div>
+                <div class="ub ub-ac umh5 ub-f1">
+                    <div class="uinput ub ub-f1">
+                        <input placeholder="请输入企业名称" type="text" class="ub-f1" id="enterpriseName">
+                    </div>
+                </div>
+            </div>
+            <div class="uba b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1 umh5">
+                <div class="ulev-app1 umw55">
+                    企业规模
+                </div>
+                <div class="select ub ub-ac bc-text  ub-f1" style="padding: 0;">
+                    <div class="text" style="padding: 0;">
+                        请选择
+                    </div>
+                    <div class="icon"></div>
+                    <select selectedindex="0" name="enterpriseScale" id="selectVal">
+                        <option value="0">请选择</option>
+                        <option value="1">50人以下</option>
+                        <option value="2">50 - 100</option>
+                        <option value="3">100 - 200</option>
+                        <option value="4">200 - 500</option>
+                        <option value="5">500人以上</option>
+                    </select>
+                </div>
+            </div>
+            <div class="uba b-gra3 uc-a1 c-wh umh5 ub uinn-a7 ub-ac umar-at1">
+                <div class="ulev-app1 umw55 size2">
+                    角色
+
+                </div>
+
+                <div class="select ub ub-ac  bc-text  ub-f1" style="padding: 0;">
+                    <div class="text" style="padding: 0;">
+                        请选择
+                    </div>
+                    <div class="icon"></div>
+                    <select id="roleIds" name="roleIds">
+
+                    </select>
+                </div>
+            </div>
+            <div class="ub umar-at1 uinn-a7 umh2">
+                <span class="ulev-1  sc-text-warn" id="reminder"> </span>
+            </div>
+            <div class="ub ub-pc">
+                <div class="uinn-at1 ub-f1">
+                    <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="next">
+                        创建
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../js/appcan.listview.js"></script>
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_httprequest.js"></script>
+    <script src="../../common/js/common_tianji.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            enterpriseObj.init();
+        });
+        var enterpriseObj = {
+            jasHttpRequest : new JasHttpRequest(),
+            enterpriseName : "",
+            enterpriseScale : "",
+            roleIds : "",
+            createenterpriseId : "",
+            isReadyOnly : true,
+            init : function() {
+                this.getRolesList();
+                this.bindEvent();
+            },
+            getRolesList : function() {
+                var that = this;
+                var url = "cloudlink-core-framework/role/queryList?roleType=2";
+                that.jasHttpRequest.jasHttpGet(url, function(id, state, data) {
+                    if (data == "") {
+                        baseOperation.alertToast("网络繁忙，请稍候再试...");
+                        return;
+                    }
+                    var dbObj = JSON.parse(data);
+                    if (dbObj.success == 1) {
+                        that.loadOptionList(dbObj);
+                    } else {
+                        baseOperation.alertToast("获取角色列表：请求失败");
+                        return;
+                    }
+                });
+            },
+            loadOptionList : function(optionList) {
+                $("#roleIds").html("");
+                var txt = '<option value="0">请选择</option>';
+                for (var i in optionList.rows) {
+                    txt += '<option value="' + optionList.rows[i].objectId + '">' + optionList.rows[i].roleName + '</option>';
+                }
+                $("#roleIds").append(txt);
+            },
+            bindEvent : function() {
+                var that = this;
+                appcan.button("#next", "ani-act", function() {
+                    if (that.isReadyOnly) {
+                        that.isReadyOnly = false;
+                        that.checkInput();
+                    }
+                });
+
+                appcan.select(".select", function(ele, value) {
+                    if ($("#reminder").html() === '请选择企业规模') {
+                        $("#reminder").html("");
+                    }
+                });
+            },
+            checkInput : function() {
+                var that = this;
+                that.enterpriseName = $("#enterpriseName").val().trim();
+                that.enterpriseScale = $("#selectVal").val();
+                that.roleIds = $("#roleIds").val();
+                /*本页面进行信息输入的时候的验证*/
+                if (that.enterpriseName.length === 0) {
+                    that.changeBtn();
+                    $("#reminder").html("请输入企业名称");
+                    return;
+                }
+                if (/[^(A-z\（/）\(/)\u4e00-\u9fa5)]/.test(that.enterpriseName) === true) {
+                    that.changeBtn();
+                    $("#reminder").html("企业名称只能由汉字、字母、括号组成");
+                    return;
+                }
+                if (that.enterpriseName.length < 2) {
+                    that.changeBtn();
+                    $("#reminder").html("您输入的企业名称过短");
+                    return;
+                }
+                if (that.enterpriseName.length > 30) {
+                    that.changeBtn();
+                    $("#reminder").html("您输入的企业名称过长，不能超过30个字");
+                    return;
+                }
+                if (that.enterpriseScale === '0') {
+                    that.changeBtn();
+                    $("#reminder").html("请选择企业规模");
+                    return;
+                }
+                if (that.roleIds === '0') {
+                    that.changeBtn();
+                    $("#reminder").html("请选择角色名称");
+                    return false;
+                }
+                $("#reminder").html("");
+                that.saveToService();
+            },
+            changeBtn : function() {
+                this.isReadyOnly = true;
+            },
+            saveToService : function() {
+                var that = this;
+                var url = "cloudlink-core-framework/enterprise/isExist";
+                that.jasHttpRequest.jasHttpPost(url, function(id, state, data) {
+                    if (data == "") {
+                        that.changeBtn();
+                        baseOperation.alertToast("网络繁忙，请稍候再试...");
+                        return;
+                    }
+                    var dbObj = JSON.parse(data);
+                    if (dbObj.success == 1) {
+                        if (dbObj.rows[0].isExist == 1) {
+                            that.changeBtn();
+                            $("#reminder").html("您好，该企业已注册！");
+                            $("#enterpriseName").focus();
+                        } else {//直接调用登录注册方法 实现登录注册
+                            that.createNewEnterprise();
+
+                        }
+                    } else {
+                        that.changeBtn();
+                        baseOperation.alertToast("企业是否存在：请求失败");
+                        return;
+                    }
+                }, JSON.stringify({
+                    "enterpriseName" : that.enterpriseName
+                }));
+            },
+            createNewEnterprise : function() {
+                var that = this;
+                var token = appcan.locStorage.getVal("token");
+                var URL = "cloudlink-core-framework/enterprise/add";
+                that.jasHttpRequest.jasHttpPost(URL, function(id, state, data) {
+                    if (data == "") {
+                        that.changeBtn();
+                        baseOperation.alertToast("网络繁忙，请稍候再试...");
+                        return;
+                    }
+                    var obj = JSON.parse(data);
+                    if (obj.success == 1) {
+                        that.createenterpriseId = obj.rows[0].objectId;
+                        that.addrole();
+                    } else {
+                        that.changeBtn();
+                        $("#reminder").html("创建未成功");
+                        if (tjSwitch == 1) {
+                            try {
+                                var zg_param = {
+                                    eventName : "用户创建新企业失败",
+                                    info : {}
+                                };
+                                uexTianji.track(zg_param);
+                            } catch (e) {
+                            }
+                        }
+                    }
+                }, JSON.stringify({
+                    "token" : token,
+                    "enterpriseName" : that.enterpriseName,
+                    "enterpriseScale" : that.enterpriseScale
+                }));
+            },
+            addrole : function() {
+                var that = this;
+                var tempUserBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+                var roleIds = $("#roleIds").val();
+                var URL = "cloudlink-core-framework/user/assignRoles";
+                that.jasHttpRequest.jasHttpPost(URL, function(id, state, data) {
+                    if (data == "") {
+                        that.changeBtn();
+                        baseOperation.alertToast("网络繁忙，请稍候再试...");
+                        return;
+                    }
+                    var dbObj = JSON.parse(data);
+                    if (dbObj.success == 1) {
+                        that.registSeccuss();
+                    }
+
+                }, JSON.stringify({
+                    "roleIds" : roleIds,
+                    "objectId" : tempUserBo.objectId,
+                    "enterpriseId" : that.createenterpriseId
+                }));
+            },
+            registSeccuss : function() {
+                var that = this;
+                if (tjSwitch == 1) {
+                    try {
+                        var zg_param = {
+                            eventName : "用户创建新企业成功",
+                            info : {}
+                        };
+                        uexTianji.track(zg_param);
+                        that.changeBtn();
+                        appcan.window.evaluateScript('create-group', 'close()');
+
+                    } catch (e) {
+                        that.changeBtn();
+                        appcan.window.evaluateScript('create-group', 'close()');
+                    }
+                } else {
+                    that.changeBtn();
+                    appcan.window.evaluateScript('create-group', 'close()');
+                }
+            }
+        }
+
+    </script>
+</html>

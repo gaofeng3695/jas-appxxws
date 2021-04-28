@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="app" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+
+            <header-common
+            title="维修维护"
+            icon1="../src/images/people2.png"
+            icon2="../src/images/time.png"
+            @click1 = "openPoeplePage"
+            @click2="openTimeline"
+            ></header-common>
+
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+
+            <footer-common
+            :btns="[{color:'#ed9028',name:'保存草稿'},{color:'#59bcf6',name:'下一步'}]"
+            @click1="saveToLocal"
+            @click2="goToNext"></footer-common>
+
+        </div>
+
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+
+        <script src="../../common/js/common_base.js"></script>
+
+        <script src="../../vue_component/header_common.component.vue.js"></script>
+        <script src="../../vue_component/footer_common.component.vue.js"></script>
+    </body>
+    <script>
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                disabled : false
+            },
+            methods : {
+                openPoeplePage : function() {                 
+                  appcan.window.evaluatePopoverScript('', 'content', 'operations.openPeople()');  
+                },
+                openTimeline : function() {
+                    appcan.openWinWithUrl('detailTimemaintance', '../detail/detailTimemaintance.html');
+                },
+                saveToLocal : function() {
+                    appcan.window.evaluatePopoverScript('', 'content', 'operations.saveToTrash()');
+                },
+                goToNext : function() {
+                   appcan.window.evaluatePopoverScript('', 'content', 'operations.saveToNext()');      
+                },
+            },
+            mounted : function() {
+                var that = this;
+                appcan.ready(function() {
+                    operations.openPopover();
+                    operations.bindResumeEvent();
+                });
+            }
+        });
+
+        var operations = {
+            openPopover : function() {
+                var titHeight = $('#content').offset().top;
+                appcan.frame.open("content", "do_maintenance_content.vue.html", 0, titHeight);
+                window.onorientationchange = window.onresize = function() {
+                    appcan.frame.resize("content", 0, titHeight);
+                };
+            },
+            bindResumeEvent : function() {
+                appcan.window.on('resume', function() {//窗口回到前台时执行回调函数
+                    appcan.window.evaluatePopoverScript('', 'content', 'operations.changePeopleData()');
+                    //在指定的弹出窗内执行相应的脚本
+                });
+            },
+        };
+    </script>
+</html>

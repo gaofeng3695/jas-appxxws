@@ -1,0 +1,30 @@
+
+.configure_main{
+    padding: .5em .625em;
+    background: #ffffff;
+    color: #333;
+}
+.configure_list{
+    border-color: #bbbbbb;
+}
+.configure_list p{
+    font-size: .785em;
+    line-height: 130%;
+    padding: .5em 0;
+}
+.img_main{
+    overflow: hidden;
+    padding-bottom: .5em;
+}
+.floatL{
+    float: left;
+    width: 48%;
+}
+.floatR{
+    float: right;
+    width: 48%;
+}
+.floatN{
+    width: 48%;
+    display: inline-block;
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <!-- <link rel="stylesheet" href="../css/ui-color.css"> -->
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="resource/regist-password_content/css/main.css">
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+<div class="ub ub-ver um um-vp">
+    <div class="ub ub-ver ">
+
+        <div class="listWrapper joinlist">
+            <div class="title ub ub-ac">
+                <div class="ub-f1 uhide des" id="join">
+                    选择进入企业：
+                </div>
+            </div>
+            <div id="grounpJoined"></div>
+        </div>
+
+        <div class="listWrapper  nojoinlist">
+            <div class="title ub ub-ac">
+                <div class="ub-f1 uhide des" id="nojoin">
+                    你已无法进入以下企业：
+                </div>
+            </div>
+            <div id="grounpInvited"></div>
+        </div>
+    </div>
+    <div class="ub-f1 ub-ae ub ub-pc umar-bgf">
+        <span class="sc-text-active create_border" id="create">我要创建新企业</span>
+    </div>
+</div>
+
+</body>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/appcan.listview.js"></script>
+<script src="../common/js/common_base.js"></script>
+<script src="../common/js/common_httprequest.js"></script>
+<script src="../common/js/common_tianji.js"></script>
+</body>
+<script>
+    var grounpJoined = { //已经加入的
+        titleDom: $('#join'),
+        listview: appcan.listview({
+            selector: '#grounpJoined',
+            type: "thinLine",
+            hasIcon: true,
+            hasAngle: true,
+            hasSubTitle: false,
+            multiLine: 1,
+        }),
+        data: null,
+        init: function () {
+            this.titleDom.removeClass('uhide');
+            this.listview.set(this.data);
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            /*
+             * 选择已经加入的企业
+             *
+             */
+            this.listview.on("click", function (ele, obj, curEle) {
+                if (obj.status == 0) {
+                    //受邀请进入
+                    appcan.locStorage.setVal("enterpriseId", obj.id);//企业id；
+                    appcan.openWinWithUrl("regist-info", "regist-info_name.html");
+                } else {
+                    var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+                    var partURL1 = "cloudlink-core-framework/login/joinEnterprise"; //cloudlink-core-framework/
+                    jasHttpRequest.jasHttpPost(partURL1, function (id, state, dbSource) {
+                        if (dbSource == "") {
+                            baseOperation.alertToast("选择企业：网关异常");
+                            if (tjSwitch == 1) {
+                                var param={eventName:"选择企业登录失败：网关异常",info:{}};
+                                uexTianji.track(param);
+                            }
+                        } else {
+                            var dbObj = JSON.parse(dbSource);
+                            if (dbObj.success == 1) {
+                                appcan.locStorage.setVal("token", dbObj.token);
+                                appcan.locStorage.setVal("userBo", dbObj.rows[0]); //存储全部的userbo
+                                if (tjSwitch == 1) {
+                                    try {
+                                          var param={eventName:"选择企业登录成功",info:{}};
+                                          uexTianji.track(param);
+                                          appcan.openWinWithUrl("index", "../index.html");
+                                          appcan.window.evaluateScript("select-group", "closeWindow()");
+                                    }
+                                    catch (e) {
+                                        appcan.openWinWithUrl("index", "../index.html");
+                                        appcan.window.evaluateScript("select-group", "closeWindow()");
+                                    }
+                                }
+                                else {
+                                    appcan.openWinWithUrl("index", "../index.html");
+                                    appcan.window.evaluateScript("select-group", "closeWindow()");
+                                }
+                            }
+                        }
+                    }, JSON.stringify({userId: userBo.objectId, enterpriseId: obj.id}));
+                }
+            });
+        },
+    };
+    //
+    var grounpInvited = { //无法进入的企业
+        titleDom: $('#nojoin'),
+        listview: appcan.listview({
+            selector: '#grounpInvited',
+            type: "thinLine",
+            hasIcon: true,
+            hasAngle: false,
+            hasSubTitle: false,
+            multiLine: 1,
+        }),
+        data: null,
+        init: function () {
+            this.titleDom.removeClass('uhide');
+            this.listview.set(this.data);
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            this.listview.on("click", function (ele, obj, curEle) {
+                if (obj.status == -1) {
+                    baseOperation.alertToast("您已经被该企业冻结账户");
+                }
+                if (obj.status == -2) {
+                    baseOperation.alertToast("您已经被该企业移除账户");
+                }
+            });
+        },
+    };
+    var jasHttpRequest =null;
+    var nojoinArray = [];//无法进入的企业
+    var joinArray = [];//选择可以进入的企业
+    appcan.ready(function () { 
+        baseOperation.londingToast('数据加载中，请稍候...',3000);           
+        var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+        var parturl = "cloudlink-core-framework/login/getEnterpriseList?registNum=" + userBo.mobileNum;
+            jasHttpRequest = new JasHttpRequest();
+         jasHttpRequest.jasHttpGet(parturl, function (id, state, dbSource) {
+            if(dbSource==""){
+              baseOperation.alertToast("获取企业列表失败：网关异常");   
+              return;
+            }
+             //根据获取到的status  设定不同状态 目前0：受邀  1：已存在； 2：冻结 3：移除
+            var data = JSON.parse(dbSource);
+            if(data.success==1){
+            var datalist = data.rows;
+            for (var i = 0; i < datalist.length; i++) {
+                if (datalist[i].status == 0) {
+                    joinArray.push({
+                        title: '<div class="content ub ub-f1"><div class="left ub ub-f1 line1 textwidth">'+ datalist[i].enterpriseName+'</div><div class="acceptright">被邀请</div></div>',
+                        id: datalist[i].objectId,
+                        status: 0,
+                    });
+
+                }
+                if (datalist[i].status == 1) {
+                    joinArray.push({
+                    title: '<div class="content ub ub-f1"><div class="left ub ub-f1 line1 textwidth">'+ datalist[i].enterpriseName+'</div></div>',
+                    id: datalist[i].objectId,
+                    status:1,
+                   });
+                }
+                if (datalist[i].status == -1) {
+                    nojoinArray.push({
+                        title: '<div class="content ub ub-f1"><div class="left ub ub-f1 line1 textwidth">'+ datalist[i].enterpriseName + '</div><div class="frozeright">被冻结</div></div>',
+                        id: datalist[i].objectId,
+                        status: -1,
+                    });
+                }
+                if (datalist[i].status == -2) {
+                    nojoinArray.push({
+                        title: '<div class="content ub ub-f1"><div class="left ub ub-f1 line1 textwidth">' + datalist[i].enterpriseName + '</div><div class="deleteright">被移除</div></div>',
+                        id: datalist[i].objectId,
+                        status: -2,
+                    });
+                }
+
+            }
+            if (joinArray.length == 0) {
+                $(".joinlist").css({
+                    display: "none"
+                });
+            } else {
+                grounpJoined.data = joinArray;
+                grounpJoined.init();
+            }
+
+            if (nojoinArray.length == 0) {
+                $(".nojoinlist").css({
+                    display: "none"
+                });
+            } else {
+                grounpInvited.data = nojoinArray;
+                grounpInvited.init();
+            }
+            }else{
+                if(data.code=="400"){
+                      baseOperation.alertToast("代码异常");   
+                }
+                 if(data.code=="400"){
+                      baseOperation.alertToast("参数异常");   
+                }
+            }
+        });
+            baseOperation.closeToast();
+    });
+    appcan.button("#create", "ani-act", function () {
+        appcan.locStorage.setVal("enterpriseId", "");//清空企业ID的缓存
+      //  appcan.locStorage.setVal("isExistandcreate", "1"); //已经存在企业，但是还要进行新企业的创建
+        appcan.openWinWithUrl("regist-group", "create-group.html");
+    });
+
+</script>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/gas.css">
+    </head>
+    <body class="um-vp bc-bg bg"  >
+        <div class="mar5">
+            <div class="ub linh marb" style="padding-top:.5em">
+                <div class="clr666 ulev26 width8 ">
+                    <span class="size2">类型</span>
+                </div>
+                <div class="select ub-f1  ownSelect" id="usertype" >
+                    <div class="text ulev26 " >
+                        请选择燃气表类型（必填）
+                    </div>
+                    <div class="icon clr666"></div>
+                    <select selectedindex="0" id="chooseusertype">
+                        <!-- <option value=''>请选择</option> -->
+                        <option value='GMT_01'>机械表</option>
+                        <option value='GMT_02'>IC卡表</option>
+                        <option value='GMT_03'>远传表</option>
+                        <option value='GMT_99'>其他</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ub linh marb">
+                <div class="clr666 ulev26 width8 ">
+                    进气方向
+                </div>
+                <div class="ub-f1 rightDiv_radio ub clr333">
+                    <div class="radiobox labelWH">
+                        <label>
+                            <input type="radio" value="左进" name="isLeakage" class="isLeakage" checked>
+                            <span class="ulev26">左进</span></label>
+                    </div>
+                    <div class="radiobox labelWH">
+                        <label>
+                            <input type="radio" value="右进" name="isLeakage" class="isLeakage" >
+                            <span class="ulev26 ">右进</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="ub linh marb">
+                <div class="clr666 ulev26 width8 ">
+                    使用状态
+                </div>
+                <div class="select ub-f1  ownSelect" id="userstatus" >
+                    <div class="text ulev26 " >
+                        请选择燃气表使用状态（必填）
+                    </div>
+                    <div class="icon clr666"></div>
+                    <select selectedindex="0" class="chooseuserstatus">
+                        <option value='GMUS_01'>在用</option>
+                        <option value='GMUS_02'>停用</option>
+                        <option value='GMUS_03'>已拆卸</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ub linh marb">
+                <div class="clr666 ulev26 width8 ">
+                    <span class="size2">编号</span>
+                </div>
+                <div class="ub ub-f1 row_right ub-fv tb_bg">
+                    <div class="mal5 width">
+                        <input type="text" id="gasmeterCode" class="user_input ulev26" placeholder="请填写编号（选填）">
+                    </div>
+                </div>
+            </div>
+            <div class="ub linh marb">
+                <div class="clr666 ulev26 width8 ">
+                    安装日期
+                </div>
+                <div class="ub ub-f1 row_right ub-fv tb_bg selectDate">
+                    <div class="mal5  ub-f1">
+                        <input type="text" id="manufactureDate"  disabled class="user_input ulev26 clr333"   placeholder="请选择安装日期（选填）" >
+                    </div>
+                    <div class="bgSelectDate width2 marr5"></div>
+                </div>
+            </div>
+            <div class="ub linh marb">
+                <div class="clr666 ulev26 width8 ">
+                    使用年限
+                </div>
+                <div class="ub ub-f1 row_right ub-fv tb_bg">
+                    <div class="mal5 width">
+                        <input type="text" id="serviceLife" class="user_input ulev26" placeholder="请输入使用年限（选填）">
+                    </div>
+                </div>
+            </div>
+            <div class="ub linh marb">
+                <div class="clr666 ulev26 width8 ">
+                    生产厂家
+                </div>
+                <div class="ub ub-f1 row_right ub-fv tb_bg">
+                    <div class="mal5 width">
+                        <input type="text" id="manufacturer" class="user_input ulev26" placeholder="请输入生产厂家（选填）">
+                    </div>
+                </div>
+            </div>
+            <div class="ub linh marb">
+                <div class="clr666 ulev26 width8 ">
+                    <span class="size2">型号</span>
+                </div>
+                <div class="ub ub-f1 row_right ub-fv tb_bg">
+                    <div class="mal5 width">
+                        <input type="text" id="gasmeterMode" class="user_input ulev26" placeholder="请输入型号（选填）">
+                    </div>
+                </div>
+            </div>
+            <div class="ub linh marb">
+                <div class="clr666 ulev26 width8 ">
+                    <span class="size2">规格</span>
+                </div>
+                <div class="ub ub-f1 row_right ub-fv tb_bg">
+                    <div class="mal5 width">
+                        <input type="text" id="specifications" class="user_input ulev26" placeholder="请输入规格（选填）">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_database.js"></script>
+    <script src="../../common/js/common_device.js"></script>
+    <script src="../../common/js/common_httprequest.js"></script>
+    <script src="../src/js/newgas.js"></script>
+    </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <!-- <link rel="stylesheet" href="../src/css/record.css"> -->
+
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="app" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+
+            <header-common
+            title="新建维修"
+            ></header-common>
+
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+
+            <footer-common
+            :btns="[{color:'#59bcf6',name:'新建',disabled:disabled}]"
+            @click1="click1"></footer-common>
+
+        </div>
+
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+        <script src="../../vue_component/header_common.component.vue.js"></script>
+        <script src="../../vue_component/footer_common.component.vue.js"></script>
+    </body>
+    <script>
+        // window.onerror = function(msg, url, line) {
+            // alert("erro" + msg + "\n" + url + ":" + line);
+            // return true;
+        // };
+
+        var vm = new Vue({
+            el : '#app',
+            data : {
+              disabled:false,
+            },
+            methods : {
+                click1 : function() {                            
+                   appcan.window.evaluatePopoverScript('', 'content', 'operations.savetoservice()'); 
+                }
+            },
+            mounted : function() {
+                var that = this;
+                appcan.ready(function() {
+                    appcan.locStorage.remove("userSelect");
+                    operations.openPopover();
+                    operations.bindResumeEvent();
+                });
+            }
+        });
+
+        var operations = {
+            openPopover : function() {
+                var titHeight = $('#content').offset().top;
+                appcan.frame.open("content", "new_maintenance_content.vue.html", 0, titHeight);
+                window.onorientationchange = window.onresize = function() {
+                    appcan.frame.resize("content", 0, titHeight);
+                   
+                };
+            },
+            bindResumeEvent : function() {
+                appcan.window.on('resume', function() {//窗口回到前台时执行回调函数
+                    appcan.window.evaluatePopoverScript('', 'content', 'operations.refreshData()');
+                    //在指定的弹出窗内执行相应的脚本
+                });
+            },
+            close:function(){
+                appcan.window.close(-1);
+            }           
+        };
+
+    </script>
+</html>

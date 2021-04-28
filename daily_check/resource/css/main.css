@@ -1,0 +1,52 @@
+#footer{
+	background: white;
+}
+#footer .btn{
+	margin: 0 .25em;
+	min-height: 1.8em;
+	padding: .2em 0;
+}
+.bgGreen{
+	background: #16c38d;
+}
+.bgOrange{
+	background: #ed9028;
+}
+.bgGrey{
+	background: #e37373;
+}
+.bgRed{
+	background: #e37373;
+}
+
+
+#content{
+	/* background: url(../images/map.png) no-repeat;
+	background-size: cover; */
+}
+#mask{
+	background: white;
+	box-sizing: border-box;
+	padding: .5em 0;
+}
+
+#user{
+	width: 6.8em;
+	border-right: 1px solid #eee;
+}
+#user img{
+	display: block;
+	height: 2.475em;
+	width: 2.475em;
+	border-radius: 50%;
+}
+.umartb{
+	margin:.55em 0;
+}
+
+.clr666{
+	color: #666;
+}
+
+
+

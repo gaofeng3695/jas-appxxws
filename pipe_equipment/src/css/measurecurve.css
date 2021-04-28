@@ -1,0 +1,53 @@
+.bgcolor {
+    background-color: #fff;
+}
+
+.margin5 {
+    margin: .0em .5em;
+}
+
+.linh {
+    height: 1.56em;
+    line-height: 1.56em;
+}
+
+.lipich {
+    height: 2.125em;
+    line-height: 2.125em;
+}
+
+.padd10 {
+    padding: .5em 0em;
+}
+
+.lipicgash {
+    height: 12.5em;
+    line-height: 12.5em;
+}
+
+.leftstyle {
+    width: 4.9375em;
+    border-right: 1px solid #ececec;
+}
+
+.marl44 {
+    margin-left: 1.375em;
+}
+
+.textcen {
+    text-align: center;
+}
+
+.linpic {
+    height: 14em;
+    line-height: 14em;
+}
+
+.disableMask:before{
+    content: '';
+    display: block;
+    height:100%;
+    width: 100%;    
+    position: absolute;
+    z-index: 99999;
+}

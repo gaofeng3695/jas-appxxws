@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base-datetime.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="index/css/main.css">
+    <link rel="stylesheet" href="index/css/organization.css" />
+    <link rel="stylesheet" href="../common/mobiscroll/css/mobiscroll.custom-3.0.0-beta2.min.css" />
+    <link rel="stylesheet" href="../event_management/index/css/datePicker.css" />
+
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+<!--事件上报-->
+<form method="post" id="event_refer1"></form>
+<form method="post" id="event_refer">
+    <div class="report us1 uof">
+        <!--处置时间-->
+        <div class="ub ub-ac report_list">
+            <div class="report_introduce">
+                <span>处置时间<em>*</em></span>
+            </div>
+            <div class="ub-f1 sc-bg report_content ub" onclick="showDataTime()">
+                <div class="ub-f1 ub-fv report_text" >
+                    <input class="sc-bg ub-f1" readonly="readonly" type="text" id="time" name="createTime" required/>
+                </div>
+                <span class="report_img" ><img src="index/images/calendar.png" height="100%" alt=""/></span>
+            </div>
+        </div>
+        <!--信息类型-->
+        <div class="ub ub-ac report_list">
+            <div class="report_sub report_introduce">
+                <span>信息类型<em>*</em></span>
+            </div>
+            <div class="ub-f1 report_radio">
+                <span class="pay_list_c1 ufl on">
+                    <input type="radio" id="recording" checked="checked" name="type" value="10" class="radioclass">
+                </span>
+                <label class="ufl" for="recording">记录</label>
+                <span class="pay_list_c1 ufl">
+                    <input type="radio" id="consult" name="type" value="20" class="radioclass">
+                </span>
+                <label class="ufl" for="consult">请示</label>
+                <span class="pay_list_c1 ufl">
+                    <input type="radio" id="opinion" name="type" value="30" class="radioclass">
+                </span>
+                <label class="ufl" for="opinion">意见</label>
+            </div>
+        </div>
+        <!--信息描述-->
+        <div class="ub ub-ac report_list">
+            <div class="report_introduce">
+                <span>信息描述<em>*</em></span>
+            </div>
+            <div class="ub-f1 sc-bg report_content ub">
+                <div class="ub-fv ub-f1">
+                    <textarea class="sc-bg ub-f1" name="content" id="introduce_text"  cols="30" rows="6"></textarea>
+                    <span id="word">(200字)</span>
+                </div>
+            </div>
+        </div>
+        <!--语音描述-->
+        <div class="ub ub-ac report_list">
+            <div class="report_introduce">
+                <span>语音描述</span>
+            </div>
+            <div class="ub-f1 report_content ">
+                <div class="" id="voice">
+                    <input id="speak" type="button" value="按住说话" ontouchstart="audioGtouchstart(this)" ontouchcancel="audioOntouchcancel(this)" ontouchend="audioGtouchend()"/>
+                    <!-- <img src="index/images/voice.png" height="100%" onclick="addVoice()" alt=""/>-->
+                    <input type="hidden" name="voiceFile" id="voiceFile" form="event_refer1" />
+                </div>
+                <div id="voiceFiles" style="display: none;">
+                    <div id="audio" class="audio" style="left: 2%" onclick="playVoice()">
+                        <div class="audio_img" id="audio_img" style="float: left"></div>
+                        <div id="voiceTime" style="float: right;margin-right: .5em;"></div>
+                    </div>
+                    <div style="float: right;">
+                       <span class="report_img"><img src="index/images/delete_icon1.png" height="95%" onclick="deleteVoice()" alt=""/></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--视频与照片-->
+    <div class="report us1 uof">
+        <div class="ub ub-ac report_list ubb sc-border-cor">
+            <div class="report_introduce">
+                <span class="">上传照片</span>
+            </div>
+            <div class="ub-f1 report_content ub">
+                <div class="ub-f1 ub-fv report_text">
+                    <span class="mun-camera ubl sc-border-cor"><span class="img_mun">0</span>/<span class="img_all">5</span></span>
+                </div>
+                <span class="report_img" ><img src="index/images/camera.png" height="100%" onclick="opensheet_tsend()" alt=""/></span>
+                <!-- <span class="report_img" id="camera"><img src="index/images/camera.png" height="100%" alt=""/></span> -->
+            </div>
+        </div>
+        <div class="ub ub-ac report_list">
+            <div class="ub-f1" id="camera_img">
+                
+            </div>
+        </div>
+    </div>
+    <!--接收人-->
+    <div class="report us1 uof">
+        <div class="radio_select">
+            <div class="ub ub-ac report_list">
+                <div class="report_introduce report_people">
+                    <span>接收人</span>
+                </div>
+                <div class="ub-f1 sc-bg report_content ub" onclick="usersSelect()">
+                    <div class="ub-f1 ub-fv report_text">
+                        <input class="sc-bg ub-f1" readonly="readonly" type="text" name="people" form="event_refer1" id="recipient"/>
+                    </div>
+                    <span class="report_img"><img src="index/images/people.png" height="100%" alt=""/></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="ub-ac" id="kuai" style="display: none;position: absolute;">
+    <div class="report_introduce">
+    </div>
+    <div class="ub-f1" >
+        <div style="margin: 0px auto;width: 100%">
+            <span id="pTip" style="margin-left: 35%;">开始录音</span>
+        </div>
+        <progress value="0" max="30" id="proDownFile"></progress>
+    </div>
+</div>
+</body>
+<script src="../common/mobiscroll/js/jquery-1.12.2.min.js"></script>
+<script src="../common/mobiscroll/js/mobiscroll.custom-3.0.0-beta2.min.js"></script>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../common/js/common_base.js"></script>
+<script src="../common/js/common_httprequest.js"></script>
+<script src="../common/js/common_form.js"></script>
+<script src="../common/js/common_tianji.js"></script>
+<script src="index/js/disposal_report.js"></script>
+</body>
+</html>

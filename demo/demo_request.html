@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" type="text/css" href="../page_resource/index/css/main.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="slider" class="slider"></div>
+            <!--header结束-->
+            <!-- 模块开始 -->
+            <div id="module" class="ub ub-ver">
+            	<!-- 第一排 -->
+            	<div class="ub-f1 ub ub-pj"> 
+            		<div class="ub ub-ver ub-ac ub-f1 unit" >
+            			<img src="../page_resource/index/images/m1.png" class="ub" alt="" >
+            			<div class="ub tips">日常巡检</div>
+            		</div>
+            		<div class="ub ub-ver ub-ac ub-f1 unit">
+            			<img src="../page_resource/index/images/m2.png" class="ub" alt="">
+            			<div class="ub tips">事件管理</div>
+            		</div>
+            		<div class="ub ub-ver ub-ac ub-f1 unit">
+            			<img src="../page_resource/index/images/m3.png" class="ub" alt="">
+            			<div class="ub tips">巡检监控</div>
+            		</div>
+             	</div>
+            	<!-- 第二排 -->
+            	<div class="ub-f1 ub ub-pj"> 
+            		<div class="ub ub-ver ub-ac ub-f1 unit">
+            			<img src="../page_resource/index/images/m4.png" class="ub" alt="">
+            			<div class="ub tips">统计分析</div>
+            		</div>
+            		<div class="ub ub-ver ub-ac ub-f1 unit">
+            			<img src="../page_resource/index/images/m5.png" class="ub" alt="">
+            			<div class="ub tips">通讯录</div>
+            		</div>
+            		<div class="ub ub-ver ub-ac ub-f1 unit">
+            			<img src="../page_resource/index/images/m6.png" class="ub" alt="">
+            			<div class="ub tips">路线设置</div>
+            		</div>
+             	</div>
+            </div>
+            <!--模块结束-->
+            <!--content开始-->            
+            <div id="content" class="ub-f1 tx-l">
+            	<div class="titlle ">
+
+            	</div>
+				<div id="listview" class=""></div>
+            </div>
+            <!--content结束-->
+            <!--footer-->
+            <div id="footer" class="ub ub-pc">
+				<div class="tab01 ub-f1">
+				</div>
+				<div class="tab02 ub-f1">
+				</div>
+				<div class="tab03 ub-f1">
+				</div>
+				<div class="tab04 ub-f1">
+				</div>
+            </div>
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../js/appcan.slider.js"></script>
+        <script src="../js/appcan.listview.js"></script>
+        <script src="../common/js/common_httprequest.js"></script>
+    </body>
+    <script>
+        /*
+         * 关于AJAX请求调用的方法
+         * 1.引用ccommon_httprequest.js
+         * 2.创建AJAX请求对象 var jasHttpRequest = new JasHttpRequest();
+         */
+        appcan.ready(function() {
+           var jasHttpRequest = new JasHttpRequest();
+           var partURL = "postfordata.do?class=dcsPipeinfoController&function=findPage&rows=20";
+           //Get请求
+           jasHttpRequest.jasHttpGet(partURL,function(id, state, dbSource){
+               alert(id);
+               alert(state);
+               alert(dbSource);
+           });
+           //Post请求
+           jasHttpRequest.jasHttpPost(partURL,function(id, state, dbSource){
+               alert(id);
+               alert(state);
+               alert(dbSource);
+           },JSON.stringify({eventid:""}));
+        });
+    </script>
+</html>    

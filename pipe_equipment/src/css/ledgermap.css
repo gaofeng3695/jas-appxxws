@@ -1,0 +1,196 @@
+.select_height {
+    height: 2.4em;
+}
+
+.pb625 {
+    padding-bottom: .625em;
+}
+
+.bt1 {
+    border-top: 1px solid #ccc;
+}
+
+.bb1 {
+    border-bottom: 1px solid #ccc;
+}
+.listpic{
+  background: url(../images/list.png) no-repeat center center;
+  background-size: 1.4em;  
+}
+
+.tran25 {
+    transform: translateY(-.25em);
+    -webkit-transform: translateY(-.25em);
+}
+
+.bgfff {
+    background: white;
+}
+
+.local {
+    margin: 0 .9375em;
+    width: 2.9em;
+    text-align: center;
+    color: white;
+    border: 1px solid #9fd3fb;
+    height: 1.65em;
+    line-height: 1.65em;
+}
+
+.local div {
+    position: absolute;
+    height: 1.6em;
+    line-height: 1.6em;
+    font-size: .6em;
+    padding: 0 .6em;
+    background-color: #ff625b;
+    border-radius: .8em;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    -webkit-transform: translate(50%, -50%);
+}
+.footerEquired{
+    display:none;
+}
+.select .text {
+    padding: 0 .5em;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.posi_left {
+    position: absolute;
+    left: 0;
+}
+
+.posi_right {
+    position: absolute;
+    right: 0;
+}
+
+.nav-btn {
+    min-width: 2.5em;
+}
+
+.add {
+    background: url(../images/add.png) no-repeat center center;
+    background-size: 1.4em;
+}
+
+.linh {
+    height: 1.937em;
+    line-height: 1.937em;
+}
+
+.mapLocation {
+    background: url(../images/add.png) no-repeat center center;
+    background-size: 1.4em;
+}
+
+.total {
+    background-color: #fff;
+}
+
+.footer .btn_wrapp {
+    box-sizing: border-box;
+}
+
+.mrl25 {
+    margin-left: .25em;
+}
+
+.mrr25 {
+    margin-right: .25em;
+}
+
+.bg_or {
+    background: #ee9127;
+}
+
+.bg_clr {
+    background: #15C48D;
+}
+
+.bg {
+    background: #fff;
+}
+
+
+/*footer底部*/
+
+.padd5 {
+    padding: .5em;
+}
+
+.switchBtn {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    color: white;
+    background-color: rgba(100, 100, 100, .2);
+}
+
+.switchBtn:first-child {
+    margin-left: .2em;
+}
+
+
+/* .switchBtn:first-child>span{
+    margin-right: .1em;
+} */
+
+.switchBtn:last-child {
+    margin-right: .2em;
+}
+
+.flr {
+    float: right;
+}
+
+.line1 {
+    height: 1.6em;
+    line-height: 1.6em;
+}
+
+.imgp {
+    width: 2.5em;
+    height: 2.5em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+
+.imgaddress {
+    vertical-align: middle;
+    margin-right: 0.55em;
+    width: 0.7em;
+    height: 0.83em;
+    ;
+}
+
+.addressimg {
+    background: url(../images/map_h.png) no-repeat 0em center;
+    background-size: 0.7em 0.91em;
+}
+
+.marl5 {
+    margin: 0em .5em;
+}
+
+.marll5 {
+    margin-left: 1em;
+}
+
+.linmh {
+    height: 4em;
+    line-height: 4em;
+}
+
+.textcenter {
+    text-align: center;
+}
+.pd25{
+    padding:0.78125em 0em;
+}

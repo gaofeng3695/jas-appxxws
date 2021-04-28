@@ -1,0 +1,122 @@
+.mb05{
+    margin-bottom:.5em;
+}
+.mt05{
+    margin-top:.5em;
+}
+.lineHeight{
+    line-height:1.472;
+}
+.mr06{
+    margin-right:.6em;
+}
+.ml{
+    margin-left: .6em;
+}
+.bgcolor{
+    background:#fff;
+}
+.clr_red{
+    color: #ff3129;
+}
+.redclr{
+    color:#e73e43;
+}
+.p06{
+    padding:.6em 0;
+}
+.p03{
+    padding:.3em 0;
+}
+.leftStyle{
+    padding-right:0.625em;
+}
+.borderBottom{
+    margin-left:.8em;
+    margin-right:.8em;
+    border-bottom:1px solid #ebebeb;
+}
+.borderLeft{
+    border-left:1px solid #ececec;
+    padding-left:1.25em;
+}
+.overflowBr{
+    word-break:break-all;overflow:auto;
+}
+.status{
+    width:5.5em;
+    text-align:center;
+    display:inline-block;
+    background: url("../images/yes.png") no-repeat .2em;
+    background-size: .7em .7em;
+    border:1px solid #EC9126;
+    color:#EC9126;
+    height:2em;
+    line-height:2em;
+    padding:0 0 0 .6em;
+    margin:.5em 1em .5em 0;
+    border-radius:.2em;
+}
+.user_signature div{
+    padding-right: 3em;
+    box-sizing: border-box;
+    width: 100%
+}
+.user_signature img{
+    width:100%;
+    height:2.8125em;
+}
+.user_signature .imgStyle img{
+    width:auto;
+    height:100%;
+}
+.imgStyle{
+     display:inline-block;
+     height:6em;
+     text-align:center;
+     line-height:6em;
+     width:32.33%;
+} 
+.imgStyle img{
+    display:inline-block;
+    height:100%;
+    /*margin-right:.5em;*/
+    width:92%;
+}
+.image img:nth-child(2){
+    padding:0 .5em;
+}
+.image img:nth-child(5){
+    padding:0 .5em;
+}
+.image img:nth-child(8){
+    padding:0 .5em;
+}  
+.w2{
+    letter-spacing:2em;
+    margin-right:-2em;
+}
+.w3{
+    letter-spacing:0.5em;
+    margin-right:-0.5em;
+}
+.failureTimes{
+    height:1.5em;
+    width:1.5em;
+    color:#fff;
+    text-align:center;
+    line-height:1.5em;
+    float:right;
+    margin-right:.625em;
+    background:#EE9127;
+    border-radius:50%;
+}
+.clearmb{
+    margin-top:0em;
+    border-bottom: none;
+}
+.rating img{
+    height: 1.35em;
+    margin-right:.4em;
+    vertical-align: top;
+}

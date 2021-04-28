@@ -1,0 +1,155 @@
+.b-d8 {
+    border-color: #d8d8d8;
+}
+
+.t-21 {
+    color: #218dd5;
+}
+
+.uw-reg {
+    min-width: 5em;
+}
+
+.uinn-at1 {
+    padding-top: 1em;
+}
+
+.c-wh {
+    background-color: #FFF;
+}
+
+.bc-border {
+    border: none;
+}
+
+.photo {
+    background: #ffffff;
+    margin-top: 0.6em ;
+    padding:0em .625em;
+   
+}
+.photo1 {
+    background: #ffffff;
+  
+    padding: 0 .625em;
+}
+.ub1 {
+    border-left: 1px solid #000000;
+}
+
+
+.imgsize {
+    margin: 0.5em;
+    width: 5em;
+    height: 4em;
+}
+
+.left, .center, .right {
+    width: 33%;
+}
+
+.all {
+    position: relative;
+    float: left;
+}
+
+.camera_img {
+    float: right;
+
+}
+
+.header {
+    width: 100%;
+}
+
+.photo_text {
+    width: 5em;
+    /*padding-left: 0.5em*/
+}
+
+.photo_text.report_people {
+    width: 4.825em;
+}
+
+
+.linh {
+    height:2.25em;
+    line-height: 2.25em;
+}
+
+.photonum {
+    height: 1.6em;
+    margin-top: .3em;
+    display: inline-block;
+    overflow: hidden;
+    margin-right: .3em;
+}
+
+.photo_content span.mun {
+    line-height: 2.25em;
+    padding-left: .75em;
+}
+
+.bitian {
+    margin-left: -0.5em;
+}
+
+.uinput {
+    margin-left: .5em;
+    background-color: #f4f4f4;
+    padding-left: 10px;
+}
+
+.ulev-app1 {
+    width: 8.5em;
+}
+
+.img_mun_bus,.img_mun_iden,.img_mun_rose, .img_all {
+    color: #666666;
+    margin-left:0em;
+}
+
+#footer {
+    box-shadow: 0 -.079em .225em #999;
+    margin-top: .169em;
+    background: white;
+}
+
+#footer .btn {
+    margin: 0 .563em;
+    min-height: 2.025em;
+    padding: .225em 0;
+    display: -webkit-box;
+}
+
+#btn1 {
+    background: #59b5fc;
+}
+
+.applay_main{
+    padding:0em .625em .625em .625em;
+    overflow: hidden;
+}
+.applay_list{
+    margin-top: .75em;
+}
+.applay_title{
+    padding-left: .5em;
+}
+.applay_title p{
+  
+    color: #888;
+    padding-top: .3em;
+}
+div.pic_list{
+    width: 33%;
+}
+div.pic_list img{
+    width: 100%;
+}
+.padl1{
+    padding-left:1em;
+}
+.imgbg{
+    background:#fff;
+}

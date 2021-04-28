@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/network_facilities_details.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="sectionShadow sectionMargin ulev26 bgcolor lineHeight">
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac">设施名称</div>
+                <div class="ub-f1 borderLeft clr333 facility_name overflowBr"></div>
+            </div>
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac">设施编号</div>
+                <div class="ub-f1 borderLeft clr333 facility_number overflowBr"></div>
+            </div>
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac">设施类型</div>
+                <div class="ub-f1 borderLeft clr333 lineHeight facility_type"></div>
+            </div>
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac">管网类型</div>
+                <div class="ub-f1 borderLeft clr333 pipe_type"></div>
+            </div>
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac">设施状态</div>
+                <div class="ub-f1 borderLeft clr333 state"></div>
+            </div>
+            <div id="maplocation" class="ub p06 borderBottom borderBottomNone report_content">
+                <div class="ub ub-ac leftStyle clr666">详细位置</div>
+                <div id="address" class="ub-f1 borderLeft clr333 overflowBr map_location"></div>
+                <div id="locationMapImg" class="pr05 ub ub-ac uhide">
+                    <img src="../../event_management/index/images/map.png" id="mapIcon" style="height:1.5em;width:1.5em;"/>
+                </div>
+            </div>
+        </div>
+        <div class="sectionShadow sectionMargin ulev26 bgcolor lineHeight">
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 w2 ub ub-ac ">规格</div>
+                <div class="ub-f1 borderLeft clr333 overflowBr specifications"></div>
+            </div>
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac">生产厂家</div>
+                <div class="ub-f1 borderLeft clr333 overflowBr manufacturer"></div>
+            </div>
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac">安装日期</div>
+                <div class="ub-f1 borderLeft clr333 lineHeight install_date"></div>
+            </div>
+            <div class="ub p06 borderBottom borderBottomNone">
+                <div class="leftStyle clr666 ub ub-ac">投产日期</div>
+                <div class="ub-f1 borderLeft clr333 lineHeight start_date"></div>
+            </div>
+        </div>
+        <div class="sectionShadow ulev26 sectionMargin bgcolor lineHeight">
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac w3">负责人</div>
+                <div class="ub-f1 borderLeft person_in_charge overflowBr"></div>
+            </div>
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac">巡检频次</div>
+                <div class="ub-f1 borderLeft inspection_frequency"><span class="second"></span>次/<span class="day"></span>天</div>
+            </div>
+            <div class="ub p06 borderBottom">
+                <div class="leftStyle clr666 ub ub-ac w3">录入人</div>
+                <div class="ub-f1 borderLeft overflowBr entry_man"></div>
+            </div>
+            <div class="ub p06 borderBottom pictures borderBottomNone">
+                <div class="leftStyle clr666 w2 ub ub-ac">图片</div>
+                <div class="ub-f1 borderLeft image"></div>
+            </div>
+            <div class="ub borderBottom borderBottomNone">
+                <div class="ub-f1 clearfloat picture">
+                    <!--<div class="picList ufl ub-ac " style="border:.325em solid white; box-sizing:border-box;width:33.3%;" >
+                        <div style="height: 0px;padding-bottom: 100%;"></div>
+                        <div class="uof uabs" style="height: 100%;width: 100%;">
+                            <img src="'+ sUrl +'"  data-bigSrc="'+ bigSrc + '" width="100%" style="top: 50%;-webkit-transform: translateY(-50%);" class="uabs js_viewBig"/>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_database.js"></script>
+    <script src="../../common/js/common_httprequest.js"></script>
+    <script src="../src/js/network_facility_details.js"></script>
+    <script src="../../check_in_room/src/js/common_viewBigPic.js"></script>
+    </body>
+</html>

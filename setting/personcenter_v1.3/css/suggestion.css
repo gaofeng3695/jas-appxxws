@@ -1,0 +1,117 @@
+
+#case{
+    margin:0.625em 0.625em;
+    background: #fff;
+}
+#text{
+    width:100%;
+    height:11.250em;
+    border:0;
+    outline:none;
+    resize:none;
+    color:#999;
+    padding:.625em;
+    box-sizing: border-box;
+    font-size:0.875em; 
+    }
+.umar-a{
+    width:90%;
+    border:0;
+    margin-top:0.5em;
+    border:0;
+    outline:none;
+    resize:none;
+
+    }
+#quite{
+    margin-top:1.688em;
+    }
+
+#word{
+    font-size:0.875em;
+    color:#999;
+    position:absolute;
+    bottom:0.563em;
+    right:0.5em; 
+    padding:0.625em 0.625em;   
+    }
+.textinput{
+    color:#999;
+    font-size:0.875em;
+    margin-right: 0.625em;
+    padding:0.625em 0.625em;  
+}
+.checks{
+    font-size:0.855em;
+    color:#999;
+}
+.checkbox{
+    font-size:0.8em;
+    padding-left:0.625em;
+}
+.types{
+    display:inline-block;
+    float:left;
+}
+.bg{
+    background:#ffffff;
+}
+
+.des{
+    font-size:0.875em;
+    color:#999;
+}
+.photo{
+    color:#999;
+    font-size:0.875em;
+    background: #ffffff;
+    margin: 0.675em 0.625em 0em 0.625em;
+}
+.bug{
+    padding-bottom:0.625em;
+}
+.photo_content{
+   padding-bottom: 0.3em;
+   padding-left:0.625em; 
+}
+.suggestion{
+    margin: 0.625em 0.625em;
+}
+.photonum{
+    height:2.8em;
+}
+.photonum img{
+    width:2em;
+    height:2em;
+    padding-right:0.625em;
+}
+.pic_list{
+    margin:0.5em; 
+}
+.addphoto{
+ background:#ffffff;
+ overflow: hidden;   
+}
+#sug,#check{
+   vertical-align: middle;
+}
+.tel-img{
+    height: 1.5em;
+}
+.tel{
+    color: #999;
+    font-size: 0.875em
+}
+.telbg{
+     background: url(../image/tel.jpg) no-repeat center ;
+     background-size:100% 100%;
+     background-color: #fff;
+     padding: .325em .625em;
+}
+.telHeight{
+    height: 1.3em;
+    line-height: 1.3em;
+}
+.telNumber{
+    color:#59b6fc;
+}

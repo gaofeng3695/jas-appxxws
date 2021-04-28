@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="index/css/map.css">
+</head>
+<body class="um-vp " ontouchstart>
+<div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+    <!--header开始-->
+    <div id="header" class="bottomShadow">
+        <div>
+            <div class="uh bc-text-head ub bc-head ">
+                <div class="nav-btn btn_return" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">事件地图</h1>
+
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+        </div>
+        <div id="searchMdl" class="ub searchWrap ub-pc">
+            <div class="ub ub-f1 searchBox umartbs uc-a5">
+                <div class="uinput ub ub-f1 ub-ac">
+                    <input id="queryParam" placeholder="搜索" type="search" class="ub-f1"
+                           onfocus="$(this).parent().next().css('visibility','visible')"
+                           onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}">
+                </div>
+                <div id="" class="searchDelete"
+                     onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden')"></div>
+                <div class="searchLine"></div>
+                <div id="search" class="searchBtn ulev26 ub ub-ac">搜索</div>
+            </div>
+        </div>
+    </div>
+    <!--header结束--><!--content开始-->
+    <div id="content" class="ub-f1 tx-l">
+
+    </div>
+    <!--content结束-->
+    <!--footer-->
+    <div id="footer" class="ubt bc-border ub">
+        <!--事件地图详情-->
+        <div class="ub-f1 map_content">
+            <input type="hidden" name="objectId" value="0"/>
+            <input type="hidden" name="disposeTime" value="0"/>
+            <div class="ub map_content_title ubb">
+                <h1 class="ub-f1">事件号：<span class="map_num">------</span>
+                    <span class="ufr line1 userName line_hidden">------</span>
+                </h1>
+            </div>
+            <div class="ub map_content_main ubb">
+                <dl class="ub ub-f1 ub-ac">
+                    <dt class="map_img"><img id="event-icon-name" style="height:100%;"  src="index/icons/D01.png"/></dt>
+                    <dd class="ub-f1">
+                        <p class="map_typeName line1 line_hidden">------</p>
+                        <p class="line2 line_hidden map_description">------</p>
+                        <p class="event_address line1 line_hidden">------</p>
+                    </dd>
+                </dl>
+            </div>
+            <div class="map_content_newest tx-c">
+                <span class="" onclick="open_task(0);">查看详情</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../common/js/common_httprequest.js"></script>
+<script src="../common/js/common_base.js"></script>
+<script src="../common/js/linq.min.js"></script>
+<script src="index/js/eventJson.js"></script>
+</body>
+<script>
+    var titHeight = $('#content').offset().top;
+    var cHeight = $('#content').offset().height;
+    var cWidth = $('#content').offset().width;
+
+    var baiduLon = null;
+    var baiduLat = null;
+    var bubbleId = null;
+    var mapDataSource = [];
+    var jsonMapPoints = [];
+
+    var _data=null;
+    var _i = 100;
+    var queryParam = '';
+    var partURL = 'cloudlink-inspection-event/eventInfo/getList';
+
+
+
+    appcan.ready(function () {
+
+       /*
+        * 错误异常
+        */
+        uexWidgetOne.cbError = function (opCode, errorCode, errorInfo) {
+            alert("errorCode:" + errorCode + "\nerrorInfo:" + errorInfo);
+        };
+        /*
+         * 注册地图加载完成的事件
+         */
+        uexBaiduMap.cbOpen = function (data) {
+            baseOperation.alertToast("数据加载中，请稍候...",30000);
+            initEventData();
+        }
+
+         /*点击图标的事件*/
+        uexBaiduMap.onMarkerClickListener = function (data) {
+            var queryResult = Enumerable.From(mapDataSource)
+                    .Where(function (x) {
+                        return x.objectId == data
+                    })
+                    .OrderBy(function (x) {
+                        return x.reportTime
+                    })
+                    .ToArray()
+                    .forEach(function (x) {
+                        $("input[name='objectId']").val(data);
+                        $("input[name='disposeTime']").val(x.disposeTime);
+                        $(".map_typeName").text(x.fullTypeName);
+                        $(".map_num").text(x.eventCode);
+                        $(".userName").text(x.inspectorName);
+                        $(".map_description").text(x.description);
+                        $(".event_address").text(x.address);
+                        //$(".map_content_main dt").attr("class",'map_img'+x.parentTypeId);
+                        if(x.eventIconName == "" || x.eventIconName == null){
+                            x.eventIconName = "D01.png";
+                        }
+
+                        $("#event-icon-name").attr('src',"index/icons/"+x.eventIconName);
+
+                        uexBaiduMap.showBubble(data);
+                    });
+        };
+
+        /*
+         * 初始化百度地图
+         */
+        uexBaiduMap.open(0, titHeight, cWidth, cHeight, "116.309", "39.977");
+        uexBaiduMap.setZoomLevel(11);
+
+
+    });
+
+    appcan.button("#nav-left", "btn-act", function () {
+        uexBaiduMap.close();
+        appcan.window.close(-1);
+    });
+
+    appcan.button(".btn", "ani-act", function () {
+        uexLocation.openLocation("wgs84");
+    });
+
+    /*
+     * 初始化事件数据
+     */
+    function initEventData(){
+        var jasHttpRequest = new JasHttpRequest();
+        jasHttpRequest.jasHttpPost('cloudlink-inspection-event/eventInfo/getList',function(id, state, data){
+            if (state == -1 || data == "") {
+                baseOperation.closeToast();
+                alert("当前网络异常，无法请求服务器！\r\n请您检查手机网络。");
+                return;
+            }
+
+            baseOperation.closeToast();
+            var resultData = JSON.parse(data);
+            if (resultData.success == "1") {
+                var _data = resultData.rows;
+                if(_data.length == 0){
+                    alert("您好，暂无数据，请点击确定返回！");
+                    uexBaiduMap.close();
+                    appcan.window.close(-1);
+                }else{
+                    mapDataSource = _data;
+                    addMarkers(_data);
+                }
+            } else {
+                baseOperation.alertToast("网络繁忙，请稍候再试...");
+                return;
+            }
+
+        }, JSON.stringify({"queryParam":""}));
+    }
+
+    /*搜索*/
+    $("#search").on('click', function () {
+        queryParam = $("#queryParam").val().trim();
+        if(queryParam!=''){
+            dataObj={"queryParam":queryParam};
+            jasHttpRequest = new JasHttpRequest();
+            jasHttpRequest.jasHttpPost(partURL, onDataCallbackSearch, JSON.stringify(dataObj));
+            function onDataCallbackSearch(id, state, dbSource){
+                if (dbSource.length == 0) {
+                    baseOperation.alertToast("网络繁忙，请稍候再试...");
+                    return;
+                }
+                var resultData = JSON.parse(dbSource);
+                if (resultData.success == "1") {
+                    var data_search = resultData.rows;
+                    if(data_search.length==0){
+                        baseOperation.alertToast("没有查到您需要的信息");
+                    }else{
+                        upData(data_search[0]);
+                    }
+                }else {
+                    baseOperation.alertToast("网络繁忙，请稍候再试...");
+                    return;
+                }
+            }
+        }else{
+            uexBaiduMap.setZoomLevel(11);
+        }
+    });
+
+    /*设置信息*/
+    function upData(data){
+        baiduLon = data.bdLon;
+        baiduLat = data.bdLat;
+        bubbleId = data.objectId;
+        $("input[name='objectId']").val(bubbleId);
+        $("input[name='disposeTime']").val(data.disposeTime);
+        $(".map_typeName").text(data.fullTypeName);
+        $(".map_num").text(data.eventCode);
+        $(".userName").text(data.inspectorName);
+        $(".map_description").text(data.description);
+        $(".event_address").text(data.address);
+        //$(".map_content_main dt").attr("class",'map_img'+data.parentTypeId);
+
+        if(data.eventIconName == "" || data.eventIconName == null){
+            data.eventIconName = "D01.png";
+        }
+
+        $("#event-icon-name").attr('src',"index/icons/"+data.eventIconName);
+        /*添加中心点*/
+        uexBaiduMap.setCenter(baiduLon,baiduLat);
+        uexBaiduMap.setZoomLevel(18);
+        /*显示气泡内容*/
+        uexBaiduMap.showBubble(bubbleId);
+    }
+
+    /*打开事件详情*/
+   /* function open_event(){
+        var eventID = $("input[type='hidden']").val();
+        var disposeTime=$(".map_disposeTime").text();
+        if (eventID == 0 || eventID == '') {
+            baseOperation.alertToast("请点击您要查询的事件！")
+        } else {
+            appcan.locStorage.setVal("event_Id", eventID);
+            appcan.locStorage.setVal("tabIndex_param","0");
+            appcan.locStorage.remove("disposeTime_param");
+            appcan.locStorage.setVal("disposeTime_param",disposeTime);
+            appcan.openWinWithUrl("task_details", "../task/task_details.html");
+        }
+    }*/
+
+    /*打开事件详情*/
+    function open_task(e){
+        var eventID = $("input[name='objectId']").val();
+        var disposeTime= $("input[name='disposeTime']").val();
+        if (eventID == 0 || eventID == '') {
+            baseOperation.alertToast("请点击您要查询的事件！")
+        } else {
+            appcan.locStorage.setVal("event_Id", eventID);
+            appcan.locStorage.setVal("tabIndex_param",e);
+            appcan.locStorage.remove("disposeTime_param");
+            appcan.locStorage.setVal("disposeTime_param",disposeTime);
+            appcan.openWinWithUrl("task_details", "../task/task_details.html");
+        }
+    }
+
+    /*任务被关闭的方法   传事件id*/
+    function uploadMarkers(e){
+        var ids=[];
+        ids.push(e);
+        uexBaiduMap.removeMakersOverlay(JSON.stringify(ids));
+        for(var i=0;i<_data.length;i++){
+            if(_data[i].objectId == e){
+                _data.splice(i,1);
+                break;
+            }
+        }
+        if(_data.length==0){
+            $("input[name='objectId']").val('');
+            $("input[name='disposeTime']").val('');
+            $(".map_typeName").text("事件类型");
+            $(".map_num").text('事件号');
+            $(".userName").text("上报人");
+            $(".map_description").text("事件描述");
+            $(".event_address").text("事件地址");
+            uexBaiduMap.hideBubble();
+        }else{
+            // addMarkers(_data);
+            upData(_data[0]);
+        }
+    }
+
+    /*加载标注点*/
+    function addMarkers(obj){
+        for (var i = 0; i < obj.length; i++) {
+            if(obj[i].bdLon != "" && obj[i].bdLon != null){
+
+                if(obj[i].eventIconName == "" || obj[i].eventIconName == null){
+                    obj[i].eventIconName = "D01.png";
+                }
+
+                var _bubbleTitle = "";
+                if(obj[i].childTypeName==null || obj[i].childTypeName ==""){
+                    if(obj[i].description.length > 5){
+                        _bubbleTitle =obj[i].description.slice(0,5) + "...";
+                    }
+                    else{
+                        _bubbleTitle =obj[i].description;
+                    }
+                }
+                else{
+                    _bubbleTitle = obj[i].childTypeName;
+                }
+
+                arr = {
+                    id: obj[i].objectId,
+                    longitude: obj[i].bdLon,
+                    latitude: obj[i].bdLat,
+                    icon: 'res://eventMapIcons/'+obj[i].eventIconName,
+                    bubble: {
+                        title: _bubbleTitle
+                    }
+                }
+                jsonMapPoints.push(arr);
+            }
+        }
+        uexBaiduMap.addMarkersOverlay(JSON.stringify(jsonMapPoints));  //地图上添加图标
+        upData(obj[0]);    //初始化显示数据
+    }
+
+</script>
+</html>

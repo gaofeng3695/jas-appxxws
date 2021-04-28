@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="css/people_listview.css">
+</head>
+
+<body class="um-vp bc-bg" ontouchstart>
+    <div class="ub-fh ub-fv uhide ub ub-pc clr666 tx-c ub-ac" id="maskTip">未匹配到相关人员<br>请重新搜索</div>
+    <div class="ub-fh ub-fv uhide ub ub-pc clr666 ub-ac" id="mask">今日暂无已巡人员</div>
+    <div class="listview ubt bc-border" id="listview">
+
+    </div>
+
+    <script src="../js/appcan.js"></script>
+    <script src="../js/appcan.control.js"></script>
+    <script src="../common/js/common_bounce.js"></script>
+    <script src="../common/js/common_httprequest.js"></script>
+    <script src="../common/js/common_base.js"></script>
+    <script src="../js/appcan.listview.js"></script>
+    <script src="js/people_listview.js"></script>
+    <script>
+        appcan.ready(function() {
+            peopleObj.init();
+        });
+        var peopleObj = {
+            aPeopleAll: null,
+            aPeopleOnline: null, //当日已巡人员
+            aPeopleOffline: null, //当日未巡人员
+            init: function() {
+
+                this.aPeopleAll = this.getPeopleData();
+                //this.aPeopleOnline = this.sortByIfOnline(true,this.aPeopleAll); //当日已巡人员
+                //this.aPeopleOffline = this.sortByIfOnline(false,this.aPeopleAll);//当日未巡人员
+                this.groupOnlieUser();
+
+                if (this.aPeopleOnline.length === 0) {
+                    $('#mask').removeClass('uhide');
+                    return;
+                }
+                setListView(this.aPeopleOnline);
+
+            },
+            getPeopleData: function() {
+                var peopleArr = JSON.parse(appcan.locStorage.getVal('peopleList'));
+                return peopleArr;
+            },
+            sortByIfOnline: function(bol, arr) {
+                return arr.filter(function(item) {
+                    return item.isOnline > -1 && +item.bdLon > 0;
+                });
+            },
+            groupOnlieUser: function() {
+                this.aPeopleOnline = [];
+                this.aPeopleOffline = [];
+                if (this.aPeopleAll != null && this.aPeopleAll.length > 0) {
+                    for (var i = 0; i < this.aPeopleAll.length; i++) {
+                        var item = this.aPeopleAll[i];
+                        if (item.isOnline > -1 && +item.bdLon > 0) {
+                            this.aPeopleOnline.push(item);
+                        } else {
+                            this.aPeopleOffline.push(item);
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>

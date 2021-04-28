@@ -1,0 +1,79 @@
+/*footer*/
+.us_top{
+    -webkit-box-shadow: 0 -.07em .2em #999;
+    box-shadow: 0 -.07em .2em #999;
+    margin-top: 5px;
+}
+.daily_btn{
+    padding: .4em .625em;
+    background: #FFFFFF;
+    box-sizing: border-box;
+}
+.daily_btn span{
+    display: inline-block;
+    /*padding: .4em 1.5em;*/
+    border-radius: .25em;
+    color: #FFFFFF;
+    margin: 0 1em;
+    width: 5.625em;
+    height: 2.1875em;
+    line-height: 2.1875em;
+    font-size: .9375em;
+}
+.daily_btn span.daily_delete{
+    background: #59b5fc;
+}
+.daily_btn span.daily_report{
+    background: #f9ae3e;
+}
+.daily_btn span.report_submit{
+    width: 15.9375em;
+    background: #59b5fc;
+}
+.daily_btn span.daily_preserve{
+    background: #f9ae3e;
+}
+.daily_btn span.submit_cor{
+    background: #59b5fc;
+}
+#daily_check{
+    display: none;
+}
+.for_check{
+    background: url("../images/select.png") no-repeat;
+    background-size: 1.25em 1.25em;
+    line-height: 1.25em;
+    padding-left: 1.8em;
+    float: left;
+}
+.for_check.for_on_check{
+    background: url("../images/selected.png") no-repeat;
+    background-size: 1.25em 1.25em;
+}
+
+
+.daily_nav{
+    background: #ffffff;
+}
+.daily_nav li{
+    height: 3em;
+    line-height: 3em;
+}
+.daily_nav li.selected_A{
+    color: #00A1EA;
+    border-bottom: 1px solid #00A1EA;
+}
+
+/*列表tab样式*/
+.uf.t-bla.ub.tab_l{
+    background: #ffffff;
+}
+
+.btn_top{
+    min-width: 2em;
+    display: -webkit-box;
+}
+.btn_top span{
+    width: 1.3em;
+    display: inline-block;
+}

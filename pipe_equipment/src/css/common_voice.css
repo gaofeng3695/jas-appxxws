@@ -1,0 +1,83 @@
+/* 录音 */
+._pTip{
+    color: #666;
+    font-size: 0.875em;  
+}
+progress{
+    width: 100%;
+    border: 1px solid #0064B4;
+    background-color: #e6e6e6;
+    color: #0064B4;
+    border-radius: .2em
+}
+progress::-moz-progress-bar { background: #84c1ff; border-radius:.2em;}
+progress::-webkit-progress-bar { background: #e6e6e6; border-radius:.2em;}
+progress::-webkit-progress-value  { background: #84c1ff;}
+.speakBegin{
+    width: 100%;
+    height: 2.5em;
+    background: #59b5fe;
+    color: #fff;
+    font-size: .875em;
+    border-radius: .27em;
+    border: 1px solid #e4e4e4;
+    outline: none;    
+    box-sizing: border-box;
+}
+.audio{
+    width: 85%;
+    /* top: -2em; */
+    position: absolute;
+    border-radius: .3em;
+    height: 2.2em;
+    line-height: 2em;
+    font-size: 1em;
+    background: #00A1EA;
+    color: #FFFFFF;
+    padding: 0px;    
+}
+.audio:before {
+    top: 35%;
+    left: -.5em;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #00A1EA;
+    border-width: .4em;
+    margin-left: -.2em;
+    padding: 0em;
+}
+.audio_img {
+    width: 2.2em;
+    height: 2.2em;
+    background: red;
+    background: url(../images/voice3.png) no-repeat left center;
+    background-size: 2em 2em;    
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+}
+.bgDelete{
+    width: 2em;
+    height: 2em;
+    background: url(../../../images/delete.png) no-repeat center center;
+    background-size: 1.52em;
+}
+.audio_img_animation{
+    animation: myfirst 2s;
+    -moz-animation: myfirst 2s; /* Firefox */
+    -webkit-animation: myfirst 2s; /* Safari and Chrome */
+    -o-animation: myfirst 2s; /* Opera */
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+0%  {background:url("../images/voice1.png") no-repeat left center;}
+50%  {background:url("../images/voice2.png") no-repeat left center;}
+100% {background:url("../images/voice3.png") no-repeat left center;}
+}
+

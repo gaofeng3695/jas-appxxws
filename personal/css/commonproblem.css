@@ -1,0 +1,58 @@
+.question{
+    word-break:normal;
+    color: #333333;
+    font-size:0.85em;
+    margin-left:0em;
+}
+.anwser{
+    line-height:140%;
+    padding-left:1.2em;
+    color: #666;
+    font-size: 0.81em;
+    text-align: left;
+    word-break:normal;
+}
+.deali ul{
+   padding-left:1em;
+}
+
+.deali ul li{
+    list-style:disc;  
+    line-height:140%;
+    font-size:0.81em;
+    color:#666;
+    word-break:normal;
+}
+
+.title {
+    word-break:normal;
+    color: #333333;
+    display:block;
+    margin-top:0.625em;
+    font-size:0.85em;
+    margin-left:0em;
+}
+
+.title-text {
+    line-height:140%;
+    padding-left:1.2em;
+    color: #666;
+    font-size: 0.81em;
+    text-align: left;
+    word-break:normal;
+}
+#textList ul{
+    padding-left:2em;
+}
+#textList ul li{ 
+    list-style:disc;  
+    line-height:140%;
+    font-size:0.81em;
+    color:#666;
+    word-break:normal;
+}
+.pl{
+    padding-left:1.8em;
+    }    
+.mt{margin-top:1em}
+.mb{margin-bottom:1em}

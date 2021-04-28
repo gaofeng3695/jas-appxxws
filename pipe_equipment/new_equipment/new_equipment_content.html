@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+    <link rel="stylesheet" href="../src/css/new_equipment.css">
+</head>
+
+<body class="um-vp bc-bg" ontouchstart>
+    <div class="section sectionMargin sectionShadow">
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666">设施名称</span></div>
+            <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 bgMustDone">
+                <input id="facilityName" type="text" placeholder="请输入设备名称（必填）">
+            </div>
+        </div>
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666">设施编号</span></div>
+            <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 bgMustDone">
+                <input id="facilityCode" type="text" placeholder="请输入设施编号（必填）">
+            </div>
+        </div>
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666">设施类型</span></div>
+            <div class="select ub-f1 ownSelect " id="facilityTypeCode">
+                <div class="text ulev26 clr333">请选择</div>
+                <div class="icon clr666"></div>
+                <select selectedindex="0" >
+                    <!-- <option value='FT_01'>调压设备</option>
+                    <option value='FT_02'>阀室</option>
+                    <option value='FT_03'>阀门</option>
+                    <option value='FT_04'>井</option>
+                    <option value='FT_05'>缸</option>
+                    <option value='FT_06'>三通</option>
+                    <option value='FT_07'>四通</option>
+                    <option value='FT_08'>桩</option>
+                    <option value='FT_09'>警示牌</option>
+                    <option value='FT_10'>流量计</option>
+                    <option value='FT_11'>压力表</option>
+                    <option value='FT_99'>其他</option> -->
+                </select>
+            </div>
+        </div>
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666">管网类型</span></div>
+            <div class="select ub-f1 ownSelect" id="pipelineTypeCode">
+                <div class="text ulev26 clr333">请选择</div>
+                <div class="icon clr666"></div>
+                <select selectedindex="0" >
+                    <!-- <option value='PT_04'>高压</option>
+                    <option value='PT_03'>次高压</option>
+                    <option value='PT_02'>中压</option>
+                    <option value='PT_01'>低压</option> -->
+                </select>
+            </div>
+        </div>                
+        <div class="line ub">
+            <div class="lineTitle "><span class="ulev26 clr666 ">设施状态</span></div>
+            <div class="select ub-f1 ownSelect" id="facilityStatusCode">
+                <div class="text ulev26 clr333">请选择</div>
+                <div class="icon clr666"></div>
+                <select selectedindex="0">
+                    <!-- <option value='FS_01'>在用</option>
+                    <option value='FS_02'>停用</option>
+                    <option value='FS_03'>废弃</option> -->
+                </select>
+            </div>
+        </div>   
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666">详细位置</span></div>
+            <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 bgSelectLoca" id="selectLocation">
+                <input id="address" data-gps="" type="text" placeholder="正在获取当前位置..." disabled>
+            </div>
+        </div>          
+    </div>
+    <div class="section sectionMargin sectionShadow">
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666 word2">规格</span></div>
+            <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333">
+                <input id="specification" type="text" placeholder="请输入规格">
+            </div>
+        </div>
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666">生产厂家</span></div>
+            <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333">
+                <input id="manufacturer" type="text" placeholder="请输入生产厂家">
+            </div>
+        </div>   
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666">安装日期</span></div>
+            <div id="" class="selectDate ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 bgSelectDate">
+                <input id="installationTime" type="text" disabled placeholder="请选择安装日期">
+            </div>
+        </div>   
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666">投产日期</span></div>
+            <div id="" class="selectDate ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 bgSelectDate">
+                <input id="investmentTime" type="text" disabled placeholder="请选择投产日期">
+            </div>
+        </div>                   
+    </div>        
+    <div class="section">
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666 word3">负责人</span></div>
+            <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 bgSelectPeop" id="selectUser">
+                <input id="relationshipPersonList" type="text" data-people="" placeholder="请选择负责人" disabled>
+            </div>
+        </div>
+        <div class="line ub">
+            <div class="lineTitle"><span class="ulev26 clr666">巡检频次</span></div>
+            <div class=" uinput ub ub-ac ulev26 clr333 sInput">
+                <input id="inspectionCount" class="tx-c" type="number" >
+            </div>
+            <div class="ulev26 clr333 ub ub-ac margin20">次/</div>
+            <div class=" uinput ub ub-ac ulev26 clr333 sInput">
+                <input id="inspectionDays" class="tx-c" type="number" >
+            </div>
+            <div class="ulev26 clr333 ub ub-ac margin20">天</div>
+        </div>   
+        <div class="ub">
+            <div class="lineTitle"><span class="ulev26 clr666">上传图片</span></div>
+            <div class="ub-f1 ub ub-ac ">
+                <div class="shelter"></div>
+                <div class="ulev26 clr333" id="pic_count">0</div>
+                <div class="ulev26 clr333">/</div>
+                <div class="ub-f1 ulev26 clr333" id="pic_count_max">6</div>
+                <div class="clickIcon" id="choosephoto"></div>
+            </div>
+        </div>
+        <div class="photo_list clearfloat">
+            <!-- <div class="picList ufl ub-ac " style="border:.325em solid white; box-sizing:border-box;width:33.3%;" >
+                <div style="height: 0px;padding-bottom: 100%;"></div>
+                <div class="uof uabs" style="height: 100%;width: 100%;">
+                    <img src="../src/images/map_h.png" width="100%" style="top: 50%;-webkit-transform: translateY(-50%);" class="uabs picListimg"/>
+                </div>
+            </div> --> 
+
+
+
+        </div>          
+    </div>
+    <!-- <script>
+        window.onerror = function(msg, url, line) {
+            alert("erro" + msg + "\n" + url + ":" + line);
+            return true;
+        };        
+    </script> -->
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_database.js"></script>
+    <script src="../../common/js/common_httprequest.js"></script>
+    <script src="../../common/js/common_imagesObj.js"></script>
+    <script src="../offlinedata/facilityOffline.js"></script>
+    <script src="../src/js/common/uploadRecord.js"></script> 
+    <script src="../src/js/common/getLocationObj.js"></script>
+    <script src="../src/js/new_equipment.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="index/css/organization.css" />
+        <link rel="stylesheet" href="index/css/main.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div>
+            <div class="report us1 uof">
+                <!--事件时间-->
+                <div class="ub ub-ac report_list ubb sc-border-cor">
+                    <div class="report_introduce">
+                        <span class="">事件时间</span>
+                    </div>
+                    <div class="ub-f1 report_content ub">
+                        <div class="ub-f1 ub-fv report_text">
+                            <span class="mun-camera ubl sc-border-cor details_occurrenceTime">----</span>
+                        </div>
+                    </div>
+                </div>
+                <!--事件类型-->
+                <div class="ub ub-ac report_list ubb sc-border-cor">
+                    <div class="report_introduce">
+                        <span class="">事件类型</span>
+                    </div>
+                    <div class="ub-f1 report_content ub">
+                        <div class="ub-f1 ub-fv report_text">
+                            <span class="mun-camera ubl sc-border-cor details_typeName">----</span>
+                        </div>
+                    </div>
+                </div>
+                <!--事件编号-->
+                <div class="ub ub-ac report_list ubb sc-border-cor">
+                    <div class="report_introduce">
+                        <span class="">事件编号</span>
+                    </div>
+                    <div class="ub-f1 report_content ub">
+                        <div class="ub-f1 ub-fv report_text">
+                            <span class="mun-camera ubl sc-border-cor details_eventCode">----</span>
+                        </div>
+                    </div>
+                </div>
+                <!--上报人-->
+                <div class="ub ub-ac report_list ubb sc-border-cor">
+                    <div class="report_introduce">
+                        <span class="">上报人</span>
+                    </div>
+                    <div class="ub-f1 report_content ub">
+                        <div class="ub-f1 ub-fv report_text">
+                            <span class="mun-camera ubl sc-border-cor details_inspectorId">----</span>
+                        </div>
+                    </div>
+                </div>
+                <!--详细位置-->
+                <div class="ub ub-ac report_list ubb sc-border-cor">
+                    <div class="report_introduce">
+                        <span class="">详细位置</span>
+                    </div>
+                    <div class="ub-f1 report_content ub">
+                        <div class="ub-f1 ub-fv report_text">
+                            <span class="mun-camera ubl sc-border-cor details_address">----</span>
+                        </div>
+                        <!--<span class="report_img"><img src="index/images/map.png" height="100%" alt=""/></span>-->
+                    </div>
+                </div>
+                <!--事件描述-->
+                <div class="ub ub-ac report_list ubb sc-border-cor">
+                    <div class="report_introduce">
+                        <span class="">语音描述</span>
+                    </div>
+                    <div class="ub-f1 report_content ubl sc-border-cor">
+                        <div id="voiceFiles" >
+                            <div id="audio" class="audio1" style="left: 2%" onclick="playVoice()">
+                                <div class="audio_img" id="audio_img" style="float: left"></div>
+                            </div>
+                            <span id="audioFile" style="display: none;"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--文字描述-->
+                <div class="ub ub-ac report_list ubb sc-border-cor">
+                    <div class="report_introduce">
+                        <span class="">事件描述</span>
+                    </div>
+                    <div class="ub-f1 report_literal ubl sc-border-cor">
+                        <p>----</p>
+                    </div>
+                </div>
+                <!--视频与照片-->
+                <div class="">
+                    <div class="ub ub-ac report_list ubb sc-border-cor">
+                        <div class="report_introduce">
+                            <span class="">事件图片</span>
+                        </div>
+                        <div class="ub-f1 report_content ub">
+                            <div class="ub-f1 ub-fv report_text">
+                                <span class="mun-camera ubl sc-border-cor"><span class="camera_number">0</span>/5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ub ub-ac report_list">
+                        <div class="ub-f1 img_details">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="../js/appcan.js"></script>
+    <script src="../js/appcan.control.js"></script>
+    <script src="../common/js/common_base.js"></script>
+    <script src="../common/js/common_database.js"></script>
+    <script src="../common/js/common_httprequest.js"></script>
+    <script src="index/js/event_detais.js"></script>
+    </body>
+</html>

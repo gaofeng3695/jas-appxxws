@@ -1,0 +1,68 @@
+.bg {
+    background: #fff;
+}
+
+.mar05 {
+    margin: 0em .5em;
+}
+
+.umh70 {
+    height: 1.92em;
+    line-height: 1.92em;
+}
+
+.imgp {
+    vertical-align: middle;
+    margin-right: 0.55em;
+    width: 0.7em;
+    height: 0.83em;
+}
+
+.ulr42 {
+    margin-right: 0.5em;
+}
+.ubtop{
+    border-top:1px solid #ececec;
+}
+.ulev18 {
+    font-size: .5625em !important;
+}
+
+.ulev20 {
+    font-size: .625em !important;
+}
+
+.ulev22 {
+    font-size: .6875em !important;
+}
+
+.ulev24 {
+    font-size: .75em !important;
+}
+
+.ulev26 {
+    font-size: .8125em !important;
+}
+
+.ulev28 {
+    font-size: .875em !important;
+}
+
+.ulev30 {
+    font-size: .9375em !important;
+}
+
+.ulev32 {
+    font-size: 1em !important;
+}
+
+.sectionShadow {
+    box-shadow: 0 0 5px rgba(188, 188, 188, 0.4) !important;
+}
+
+.sectionMargin {
+    margin-bottom: .625em;
+}
+.textcolred{
+    color:#e54138;
+}

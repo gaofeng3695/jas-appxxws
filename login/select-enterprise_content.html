@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="css/select-enterprise.css">
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+<div class="ub ub-ver um um-vp">
+    <div class="ub ub-ver ">
+        <div class="listWrapper joinedlist" style="display: none">
+            <div class="title ub ub-ac">
+                <div class="ub-f1 uhide des" id="joined">
+                    您已加入的企业：
+                </div>
+            </div>
+            <div id="groupJoined"></div>
+        </div>
+
+        <div class="listWrapper invitedlist" style="display: none">
+            <div class="title ub ub-ac">
+                <div class="ub-f1 uhide des" id="invited">
+                    您受邀请的企业：
+                </div>
+            </div>
+            <div id="grounpInvited"></div>
+        </div>
+        
+        <div class="listWrapper  forbiddenlist" style="display: none">
+            <div class="title ub ub-ac">
+                <div class="ub-f1 uhide des" id="forbidden">
+                    您已失效的企业：
+                </div>
+            </div>
+            <div id="grounpForbidden"></div>
+        </div>
+    </div>
+    <div class="ub-f1 ub-ae ub ub-pc umar-bgf">
+        <span class="sc-text-active create_border" id="create">我要创建新企业</span>
+    </div>
+</div>
+
+</body>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/appcan.listview.js"></script>
+<script src="../common/js/common_base.js"></script>
+<script src="../common/js/common_httprequest.js"></script>
+<script src="../common/js/common_tianji.js"></script>
+</body>
+<script>
+    //已经加入企业的对象
+    var grounpJoined = {
+        titleDom: $('#joined'),
+        listview: appcan.listview({
+            selector: '#groupJoined',
+            type: "thinLine",
+            hasIcon: true,
+            hasAngle: true,
+            hasSubTitle: false,
+            multiLine: 1
+        }),
+        data: null,
+        init: function () {
+            this.titleDom.removeClass('uhide');
+            this.listview.set(this.data);
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            this.listview.on("click", function (ele, obj, curEle) {
+                var partURL1 = "cloudlink-core-framework/login/joinEnterprise";
+                jasHttpRequest.jasHttpPost(partURL1, function (id, state, dbSource) {
+                    if (dbSource == "") {
+                        baseOperation.alertToast("选择企业：网关异常");
+                    } else {
+                        var dbObj = JSON.parse(dbSource);
+                        if (dbObj.success == 1) {
+                            setDefaultEnterprise(_userBo.objectId,obj.id);
+                            appcan.locStorage.setVal("token", dbObj.token);
+                            appcan.locStorage.setVal("userBo", dbObj.rows[0]); //存储全部的userbo
+                            zhugeLoginBuriedPoint(dbObj.rows[0]);
+                            appcan.openWinWithUrl("index", "../index.html");
+                            appcan.window.evaluateScript("select-enterprise", "closeWindow()");
+                        }
+                    }
+                }, JSON.stringify({userId: _userBo.objectId, enterpriseId: obj.id}));
+            });
+        }
+    };
+    //受邀请企业的对象
+    var grounpInvited = {
+        titleDom: $('#invited'),
+        listview: appcan.listview({
+            selector: '#grounpInvited',
+            type: "thinLine",
+            hasIcon: true,
+            hasAngle: true,
+            hasSubTitle: false,
+            multiLine: 1
+        }),
+        data: null,
+        init: function () {
+            this.titleDom.removeClass('uhide');
+            this.listview.set(this.data);
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            this.listview.on("click", function (ele, obj, curEle) {
+                var partURL1 = "cloudlink-core-framework/login/registEnterpriseAndLogin";
+                jasHttpRequest.jasHttpPost(partURL1, function (id, state, dbSource) {
+                    if (dbSource == "") {
+                        baseOperation.alertToast("选择企业：网关异常");
+                    } else {
+                        var dbObj = JSON.parse(dbSource);
+                        if (dbObj.success == 1) {
+                            setDefaultEnterprise(_userBo.objectId,obj.id);
+                            appcan.locStorage.setVal("token", dbObj.token);
+                            appcan.locStorage.setVal("userBo", dbObj.rows[0]); //存储全部的userbo
+                            zhugeLoginBuriedPoint(dbObj.rows[0]);
+                            appcan.openWinWithUrl("index", "../index.html");
+                            appcan.window.evaluateScript("select-enterprise", "closeWindow()");
+                        }
+                    }
+                }, JSON.stringify({userId: _userBo.objectId, enterpriseId: obj.id}));
+            });
+        }
+    };
+    
+    //无权限企业的对象
+    var grounpForbidden = {
+        titleDom: $('#forbidden'),
+        listview: appcan.listview({
+            selector: '#grounpForbidden',
+            type: "thinLine",
+            hasIcon: true,
+            hasAngle: false,
+            hasSubTitle: false,
+            multiLine: 1
+        }),
+        data: null,
+        init: function () {
+            this.titleDom.removeClass('uhide');
+            this.listview.set(this.data);
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            this.listview.on("click", function (ele, obj, curEle) {
+                if (obj.status == -1) {
+                    baseOperation.alertToast("您已经被该企业冻结账户");
+                }
+                if (obj.status == -2) {
+                    baseOperation.alertToast("您已经被该企业移除账户");
+                }
+                if (obj.status == -3) {
+                    baseOperation.alertToast("您已经退出该企业");
+                }
+            });
+        }
+    };
+    
+    
+    var jasHttpRequest =null;
+    var _userBo = null;
+    
+    var joinedArray = [];//已加入的企业
+    var invitedArray = [];//受邀请的企业
+    var forbiddenArray = [];//被冻结或移除的企业
+
+    appcan.ready(function () {
+        _userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+        jasHttpRequest = new JasHttpRequest();
+        baseOperation.londingToast('数据加载中，请稍候...',3000);        
+        var parturl = "cloudlink-core-framework/login/getEnterpriseList?registNum=" + _userBo.mobileNum;
+        jasHttpRequest.jasHttpGet(parturl, function (id, state, dbSource) {
+            if(dbSource==""){
+              baseOperation.alertToast("获取企业列表失败：网关异常");   
+              return;
+            }
+            //根据获取到的status  设定不同状态 目前0：受邀  1：已存在； -1：冻结 -2：移除
+            var data = JSON.parse(dbSource);
+            if(data.success==1){
+                var datalist = data.rows;
+                for (var i = 0; i < datalist.length; i++) {
+                    if (datalist[i].status == 1) {
+                        joinedArray.push({
+                            title: '<div class="content"><div class="left">'+ datalist[i].enterpriseName+'</div><div class="acceptright">已加入</div></div>',
+                            id: datalist[i].objectId,
+                            status: 1,
+                            icon: "images/joined.png"
+                        });
+    
+                    }
+                    if (datalist[i].status == 0) {
+                        invitedArray.push({
+                            title: '<div class="content"><div class="left">'+ datalist[i].enterpriseName+'</div><div class="invitedright">受邀请</div></div>',
+                            id: datalist[i].objectId,
+                            status:0,
+                            icon: "images/invited.png"
+                       });
+                    }
+                    if (datalist[i].status == -1) {
+                        forbiddenArray.push({
+                            title: '<div class="content"><div class="left">'+ datalist[i].enterpriseName + '</div><div class="frozeright">被冻结</div></div>',
+                            id: datalist[i].objectId,
+                            status: -1,
+                            icon: "images/forbidden.png"
+                        });
+                    }
+                    
+                    if (datalist[i].status == -2) {
+                        forbiddenArray.push({
+                            title: '<div class="content"><div class="left">' + datalist[i].enterpriseName + '</div><div class="deleteright">被移除</div></div>',
+                            id: datalist[i].objectId,
+                            status: -2,
+                            icon: "images/forbidden.png"
+                        });
+                    }
+                     if (datalist[i].status == -3) {
+                        forbiddenArray.push({
+                            title: '<div class="content"><div class="left">' + datalist[i].enterpriseName + '</div><div class="deleteright">已退出</div></div>',
+                            id: datalist[i].objectId,
+                            status: -3,
+                            icon: "images/forbidden.png"
+                        });
+                    }
+                }
+                /*已加入企业的加载及显示*/
+                if (joinedArray.length > 0) {
+                    $(".joinedlist").css({
+                        display: "block"
+                    });
+                    grounpJoined.data = joinedArray;
+                    grounpJoined.init();
+                }
+                
+                /*受邀企业的加载及显示*/
+                if (invitedArray.length> 0) {
+                    $(".invitedlist").css({
+                        display: "block"
+                    });
+                    grounpInvited.data = invitedArray;
+                    grounpInvited.init();
+                }
+                
+                /*无权限企业的加载及显示*/
+                if (forbiddenArray.length> 0) {
+                    $(".forbiddenlist").css({
+                        display: "block"
+                    });
+                    grounpForbidden.data = forbiddenArray;
+                    grounpForbidden.init();
+                }
+            }
+            else{
+                if(data.code=="400"){
+                      baseOperation.alertToast("代码异常");   
+                }
+                 if(data.code=="400"){
+                      baseOperation.alertToast("参数异常");   
+                }
+            }
+        });
+        baseOperation.closeToast();
+    });
+    
+    /*创建新企业*/
+    appcan.button("#create", "ani-act", function () {
+        appcan.locStorage.setVal("enterpriseId", "");//清空企业ID的缓存
+        //appcan.locStorage.setVal("isExistandcreate", "1"); //已经存在企业，但是还要进行新企业的创建
+        appcan.openWinWithUrl("regist-group", "../register/create-group.html");
+    });
+    
+    /*
+     * 设置默认企业的方法
+     */
+    function setDefaultEnterprise(_userId,_enterpriseId){
+        var parturl = "cloudlink-core-framework/user/setDefaultEnterprise";
+        jasHttpRequest.jasHttpPost(parturl, function (id, state, dbSource) {
+            //alert(dbSource);
+        },JSON.stringify({userId:_userId,enterpriseId:_enterpriseId}));
+    }
+
+    /*
+     * 诸葛IO 埋点的处理方法
+     */
+    function zhugeLoginBuriedPoint(_userBo) {
+        if (tjSwitch == 1) {
+            try {
+                var zg_param = {id:_userBo.objectId,info:{
+                     objectName : _userBo.userName,
+                     gender : _userBo.sex,
+                     age:_userBo.age,
+                     email:_userBo.email,
+                     qq:_userBo.qq,
+                     weixin:_userBo.wechat,
+                     'mobile':_userBo.mobileNum,
+                     '企业名称':_userBo.enterpriseName==null?"":_userBo.enterpriseName,
+                     '部门名称':_userBo.orgName==null?"":_userBo.orgName}};
+                uexTianji.identify(zg_param);
+                var zg_param1={eventName:"选择企业列表登录成功",info:{}};
+                uexTianji.track(zg_param1);
+            } catch(e) {}
+        }
+    }
+</script>
+</html>

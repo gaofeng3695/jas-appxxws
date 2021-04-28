@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="css/organization.css">
+        <style>
+            .titleWrapper {
+                height: 3.425em;
+                line-height: 3.425em;
+                width: 100%;
+                background-color: #fff;
+                overflow: auto;
+            }
+            .title {
+                width: auto;
+                height: 3.425em;
+                white-space: nowrap;
+                color: #999;
+            }
+            .title:after {
+                content: '';
+                padding-right: 3em;
+            }
+            .title span:nth-child(odd) {
+                padding: .5em .5em;
+                vertical-align: middle;
+            }
+            .title span:nth-child(even) {
+                vertical-align: middle;
+                font-weight: 100;
+                font-size: 1.6em;
+            }
+            .outerWrapper {
+                overflow: auto;
+            }
+            .itemWrapper {
+                background: #fff;
+                padding: 0 .6em;
+            }
+            .itemWrapper .item {
+                height: 3.2em;
+            }
+            .item:not(:last-child){
+            border-bottom:  1px solid #ddd;
+            }
+            /*        .itemWrapper .item .name{
+             padding-right: 2em;
+             } */
+            .active {
+                color: #5fb3f1;
+            }
+            .icon {
+                font-weight: 100;
+                font-size: 1.6em;
+                color: #999;
+            }
+            .pr625 {
+                padding-right: .625em;
+            }
+            .pl625{
+                padding-left:.625em;
+            }
+            .hidden{
+                display:none;
+            }
+        </style>
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">组织机构列表</h1>
+
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 ub ub-ver tx-l">
+                <div class="titleWrapper sectionMargin sectionShadow">
+                    <div class="title ">
+                        <!-- <span class="ulev30 active">北京中盈安信有限公司</span>
+                        <span class="fa fa-angle-right "></span>
+                        <span class="ulev30  active">巡线卫士事业部</span>
+                        <span class="fa fa-angle-right "></span>
+                        <span class="ulev30 active">技术部</span>
+                        <span class="fa fa-angle-right "></span>
+                        <span class="ulev30 active">前端组</span>
+                        <span class="fa fa-angle-right "></span>
+                        <span class="ulev30"> 高峰</span> -->
+                    </div>
+                </div>
+                <div class="ub-f1 outerWrapper ub-f1">
+                    <div class="itemWrapper">
+                        <!-- <div class="item ub ub-ac">
+                            <div class="radiobox js_check" >
+                                <input type="radio" class="js_check">
+                            </div>
+                            <div class="ub-f1 name ut-s ulev28 clr333 pr625 ">
+                                北京中银安新技术股份有限公司
+                            </div>
+                            <div class="ulev28 clr999 pr625">
+                                0个子部门
+                            </div>
+                            <div class="fa fa-angle-right icon"></div>
+                        </div> -->
+                    </div>
+                </div>
+
+            </div>
+            <!--content结束-->
+            <div id="footer" class=" ub uinn">
+                <div class="btn ub ub-ac bc-text-head ub-pc  uc-a1 ub-f1" id="btn1">
+                    创建部门
+                </div>
+            </div>
+
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+
+        <script src="js/organization.js"></script>
+    </body>
+    <script>
+
+        appcan.ready(function() {
+            orgObj.init();
+        });
+
+    </script>
+</html>

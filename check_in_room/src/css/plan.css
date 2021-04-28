@@ -1,0 +1,241 @@
+.lh80 {
+    line-height: 2.18em;
+}
+
+.mt28 {
+    margin-top: .6em;
+}
+
+.mb28 {
+    margin-bottom: .875em;
+}
+
+.mt20 {
+    margin-top: .675em;
+}
+
+.mb20 {
+    margin-bottom: .675em;
+}
+
+.ml18 {
+    margin-left: 0.5em;
+}
+
+li {
+    padding: 0 .625em .625em .625em;
+    background-color: white;
+    margin-bottom: .625em;
+}
+.border_b_grey{
+    border-bottom: 1px solid #ececec;
+}
+.title {
+    color: #333;
+    line-height: 2.18em;
+    height: 2.18em;
+    border-bottom: 1px solid #ececec;
+}
+
+.icon {
+    color: white;
+}
+
+.icon span {
+    padding: .3em;
+    border-radius: .1em;
+}
+
+.bg-1 {
+    background-color: #5cdcf7;
+}
+
+.bg0 {
+    background-color: #59b6fc;
+}
+
+.bg1 {
+    background-color: #39cf78;
+}
+
+.bg2 {
+    background-color: #cecece;
+}
+
+.bg3 {
+    background-color: #fea235;
+}
+
+.mid {
+    padding: 0 .6em;
+}
+
+.btn01 {
+    line-height: 1.8125em;
+    background: #ebf5ff;
+    color: #56b3f9;
+}
+
+.btn02 {
+    line-height: 1.8125em;
+    background: #fdf1e3;
+    color: #fb9e34;
+}
+
+.dist_wrapper {
+    /*background: #f2f2f2;*/
+}
+
+.dist {
+    padding-left: .625em;
+    line-height: 2.1875em;
+}
+
+.icon_see {
+    padding: 0 .7em;
+    // width: 1.2em;
+    // background: url(../images/eye.png) no-repeat 0px center;
+    // background-size: 1.1em;
+}
+
+.icon_people {
+    width: 1em;
+    background: url(../images/people.png) no-repeat center center;
+    background-size: 1.1em;
+}
+
+.icon_index {
+    width: 0.9375em;
+    background: url(../images/index.png) no-repeat center center;
+    background-size: 0.9375em;
+}
+
+.newBtn span {
+    color: #fff;
+    background: #59b6fc;
+    display: inline-block;
+    padding: .5em 3.6em;
+    border-radius: 0.3em;
+    // letter-spacing: .5em;
+    // text-indent: .5em    
+}
+
+.textline {
+    display: inline;
+}
+
+.mt22 {
+    margin-top: 0.5em;
+}
+.fwBold{
+    font-weight: 600;
+}
+
+.right_icon{
+    // position: absolute;
+    // right: 0 !important;
+}
+.plan_title{
+    padding: 0 .5em 0 0;
+}
+
+       .box22{
+            width: 100%;
+        }
+        .sub_box{
+            height: 50%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .sub_box22{
+            width: 50%;
+            /*height: 100%;*/
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            border:0.5em solid white ;
+            border-radius: 50%;
+        }
+        .bg_grey{
+            background: #ececec;
+        }
+        .bg_green{
+            background: #34d17a;
+        }
+        .bg_org{
+            background: #f58714;
+        }
+        .clr_green{
+            color:  #34d17a;
+        }
+        .clr_org{
+            color: #f58714;            
+        }
+        .box12{
+            height: 50%;
+        }
+        .sub_box12{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        div.left{
+            position: absolute;
+            left:0 !important; 
+        }
+        div.right{
+            position: absolute;
+            right: 0 !important;            
+        }
+        .pb100{
+            padding-bottom: 100%;
+        }
+        .pb50{
+            padding-bottom: 50%;
+        }
+        .pt02{
+            padding-top: .3em;
+        }
+        .mb_50{
+            margin-bottom: -75%;
+        }
+        .width100{
+            width: 100%;
+        }
+        .width50{
+            width: 50%;
+        }
+        .height50{
+            height: 50%;
+        }
+        .height100{
+            height: 100%;
+        }
+        .rotate{
+            transform-origin: 50% 100%;
+            -webkit-transform-origin: 50% 100%;
+            transform: rotate(-180deg);
+            -webkit-transform: rotate(-180deg);
+            transition: all 1s ease-out;            
+        }
+        .topMask{
+            z-index: 2;
+            box-sizing: border-box;
+        }
+        .content{
+            text-align: center;
+            border-radius: 50%;
+            background: #fff;
+            height: 88%;
+            width: 88%;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+        }
+        .ulev44{
+            font-size: 1.375em;
+        }

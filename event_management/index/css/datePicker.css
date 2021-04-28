@@ -1,0 +1,15 @@
+.mbsc-fr-popup { /* 最外框字体大小  */
+    font-size: .75em;
+}
+.mbsc-material .mbsc-fr-w{ /* 次外框字体大小  */
+    font-size: 1em;
+}
+.mbsc-material .mbsc-sc-itm { /* 时间字体大小  */
+    font-size: .875em;
+}
+.mbsc-material .mbsc-sc-whl-gr { /* 表头边距大小  */
+    padding: 1.2em .25em; 
+}
+.mbsc-material .mbsc-fr-hdr { /* 表头字体大小  */
+    font-size: 1.2em; 
+}

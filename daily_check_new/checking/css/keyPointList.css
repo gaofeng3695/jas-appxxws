@@ -1,0 +1,64 @@
+.point_list ul li {
+  padding: 0em .625em;
+}
+.point_list ul li:first-child{
+  margin-top:0em;
+}
+.clr_succ {
+  background: #59b6fc;
+}
+
+.uinn3 {
+  padding: .3em;
+}
+
+.uc-a0 {
+  border-radius: .3em;
+}
+
+.linh {
+  height: 2em;
+  line-height: 2em;
+}
+
+.bor {
+  padding: 0em .625em;
+  border-top: 1px solid #ececec;
+  background:#eee;
+}
+
+.lh78 {
+  height: 2.475em;
+  line-height: 2.475em;
+}
+
+.clred {
+  background: #e73e43;
+}
+
+.paddr15 {
+  padding-right: .5em;
+}
+
+.textc {
+  text-align: center;
+}
+
+.mart {
+  margin-top: .3em;
+}
+
+.passMask {
+  position: relative;
+}
+
+.passMask:after {
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(../images/pass.png) no-repeat right .6em bottom -1em;
+  background-size: 4.4em;
+}

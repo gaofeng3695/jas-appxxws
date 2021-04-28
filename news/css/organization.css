@@ -1,0 +1,71 @@
+/*footer*/
+.bgffffff{
+    background-color: #FFFFFF;
+}
+/*气泡样式*/
+.bubble {
+    top : -2em;
+    position : absolute;
+    border-radius : .3em;
+    height : 2em;
+    line-height : 2em;
+    font-size : 1em;
+    background : #00A1EA;
+    color : #FFFFFF;
+}
+.bubble:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-top-color: #00A1EA;
+    border-width: .4em;
+    margin-left: -.2em;
+}
+.bubble span{
+    padding: .5em;
+}
+/*气泡样式*/
+.bubble1 {
+    top : -2em;
+    position : absolute;
+    border-radius : .3em;
+    width : 15em;
+    height:auto;
+    line-height : 135%;
+    font-size : 1em;
+    background : #eee;
+    color : #666;
+    z-index: 1000;
+    padding: .5em;
+    box-shadow: 0 1px 1px #ccc;
+}
+.bubble1:after {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #eaeaea;
+    border-width: .4em;
+    margin-left: -.2em;
+}
+/*organization_content_detail*/
+.bc-bg{
+    background-color : #EEEEEE;
+}
+.col00A1EA{
+    color : #00A1EA;
+}
+.font_size{
+    font-size: .9em;
+}

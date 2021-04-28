@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="css/editpersonal.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="ub ub-ver">
+            <div class=" umar-at1">
+                <div id="listview3">
+                    <ul class='ubver'>
+                        <li class='ub ub-ac  li-bottom' id="photo">
+                            <p class="comment">
+                                头像
+                            </p>
+
+                            <div class="ub-f1">
+                                <img src="" class="personal" id="personal"  >
+                            </div>
+                            <img src="images/direction.png" class="imgsrc">
+                        </li>
+                        <li class='ub ub-ac li-bottom' id="name">
+                            <p class="comment">
+                                姓名
+                            </p>
+
+                            <p class='right ub-f1 name' id="nameedit"></p>
+
+                            <img src="images/direction.png" class="imgsrc">
+                        </li>
+                        <li class='ub ub-ac usl' id="sex">
+                            <p class="comment">
+                                性别
+                            </p>
+
+                            <p class='right ub-f1' id="choosesex"></p>
+                            <img src="images/direction.png" class="imgsrc">
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../js/appcan.listview.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_userprofile.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+    </body>
+    <script>
+        var fileid = "";
+        var jasHttpRequest = null;
+        appcan.ready(function() {  
+            jasHttpRequest = new JasHttpRequest();
+            initUser();
+            //开始的时候进行数据的加载
+            uexUploaderMgr.onStatus = function(opCode, fileSize, percent, serverPath, status) {
+                switch (status) {
+                case 0:
+                    break;
+                case 1:
+                    updateUserBoImg();
+                    uexUploaderMgr.closeUploader(1);
+                    break;
+                case 2:
+                    baseOperation.alertToast("上传失败");
+                    uexUploaderMgr.closeUploader(1);
+                    break;
+
+                }
+            };
+            window.uexOnload = function() {
+                uexUploaderMgr.cbCreateUploader = cbCreateUploader;
+            }
+            uexCamera.cbOpenInternal = function(opId, dataType, data) {
+                var imgpic = data;
+                appcan.locStorage.setVal("profile", data);
+                document.getElementById("personal").src = data;
+                upload(imgpic);
+            };
+            uexImage.onPickerClosed = function(info) {
+                var objData = JSON.parse(info);
+                if (!objData.isCancelled) {
+                    var imgPaths = objData.data;
+                    for (var i = 0; i < imgPaths.length; i++) {
+                        document.getElementById("personal").src = imgPaths[i];
+                        upload(imgPaths[i]);
+                    }
+                }
+            };
+        });
+        function initUser() {
+            var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            name = userBo.userName;
+            $("#name").find("p").eq(1).text(name);
+            sex = userBo.sex;
+            if (sex == null || sex == "" || sex == "男") {
+                $("#sex").find("p").eq(1).text("男");
+            } else {
+                $("#sex").find("p").eq(1).text(sex);
+            }
+            //初始化的时候，获取个人的头像信息。根据businessid获取文件id进行头像的获取
+            fileid = userBo.profilePhoto;
+            initProfile(sex);
+        }
+
+        /*
+         * 初始化 用户头像的方法
+         */
+        function initProfile(_sex) {
+            var _path = getUserProfilePath();
+            if (_path != "") {
+                document.getElementById("personal").src = _path;
+            } else {
+                if (_sex == "女") {
+                    document.getElementById("personal").src = "../images/girl.png";
+                } else {
+                    document.getElementById("personal").src = "../images/nantou.png";
+                }
+            }
+        }
+
+
+        appcan.button("#name", "btn-act", function() {
+            appcan.openWinWithUrl("editname", "editname.html");
+        });
+        appcan.button("#sex", "btn-act", function() {
+            var x = 0;
+            var y = 0;
+            var width = 0;
+            var height = 0;
+            var JsonData = {
+                "actionSheet_style" : {
+                    "frameBgColor" : "#00000000",
+                    "frameBroundColor" : "#00000000",
+                    "frameBgImg" : "",
+                    "btnSelectBgImg" : "res://btn.png",
+                    "btnUnSelectBgImg" : "res://btn.png",
+                    "cancelBtnSelectBgImg" : "res://btn.png",
+                    "cancelBtnUnSelectBgImg" : "res://btn.png",
+                    "textSize" : "17",
+                    "textNColor" : "#333",
+                    "textHColor" : "#333",
+                    "cancelTextNColor" : "#333",
+                    "cancelTextHColor" : "#333",
+                    "actionSheetList" : [{
+                        "name" : "男"
+                    }, {
+                        "name" : "女"
+                    }]
+                }
+            };
+            uexActionSheet.open(x, y, width, height, JSON.stringify(JsonData));
+            uexActionSheet.onClickItem = function(data) {
+                var sex = "";
+                var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+                if (data == 0) {
+                    userBo.sex = "男";
+                    sex = "男";
+                    document.getElementById("choosesex").innerHTML = "男";
+                } else if (data == 1) {
+                    userBo.sex = "女";
+                    sex = "女";
+                    document.getElementById("choosesex").innerHTML = "女";
+                }
+                //进行性别的修改并且进行调用接口实现保存
+
+                var partURL = "cloudlink-core-framework/user/update";
+                jasHttpRequest.jasHttpPost(partURL, function(id, state, data) {
+                    var obj = JSON.parse(data);
+                    if (obj.success == 1) {
+                        appcan.locStorage.setVal("userBo", userBo);
+                        appcan.window.evaluatePopoverScript("updateadmininformation", "content", 'relaodUserInfo()');
+                    }
+                }, JSON.stringify({
+                    "objectId" : userBo.objectId,
+                    "sex" : sex
+                }));
+
+            }
+        });
+        appcan.button("#photo", "btn-act", function() {
+            var x = 0;
+            var y = 0;
+            var width = 0;
+            var height = 0;
+            var JsonData = {
+                "actionSheet_style" : {
+                    "frameBgColor" : "#00000000",
+                    "frameBroundColor" : "#00000000",
+                    "frameBgImg" : "",
+                    "btnSelectBgImg" : "res://btn.png",
+                    "btnUnSelectBgImg" : "res://btn.png",
+                    "cancelBtnSelectBgImg" : "res://btn.png",
+                    "cancelBtnUnSelectBgImg" : "res://btn.png",
+                    "textSize" : "17",
+                    "textNColor" : "#333",
+                    "textHColor" : "#333",
+                    "cancelTextNColor" : "#333",
+                    "cancelTextHColor" : "#333",
+                    "actionSheetList" : [{
+                        "name" : "拍照"
+                    }, {
+                        "name" : "从相册选择"
+                    }]
+                }
+            };
+            uexActionSheet.open(x, y, width, height, JSON.stringify(JsonData));
+            uexActionSheet.onClickItem = function(data) {
+                if (data == 1) {
+                    openAlbum();
+                    //打开相册
+                } else if (data == 0) {
+                    openCarme();
+                    //打开照相机
+                }
+            }
+        });
+
+        /**
+         * 打开相册
+         */
+        function openAlbum() {
+            var data = {
+                min : 1,
+                max : 1,
+                quality : 0.5,
+                detailedInfo : false
+            };
+            var json = JSON.stringify(data);
+            uexImage.openPicker(json);
+        }
+
+        /*打开照相机
+         */
+        function openCarme() {
+            uexCamera.openInternal(0, 75);
+        }
+
+        function upload(imgpic) {
+            if (fileid == "" || fileid == null) {
+                uploadphoto(imgpic);
+            } else {
+                //在进行图片重新上传之前，先需要进行图片的删除功能
+                deletephoto(imgpic);
+                // var deleteurl = "cloudlink-core-file/attachment/deleteByBizIdAndBizAttrAndFileId";
+                // var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+                // jasHttpRequest.jasHttpPost(deleteurl, function(id, state, dbSource) {
+                // if (dbSource == "") {
+                // baseOperation.alertToast("网关异常");
+                // return;
+                // }
+                // var obj = JSON.parse(dbSource);
+                // if (obj.success == 1) {
+                // uploadphoto(imgpic);
+                // }
+                // }, JSON.stringify({
+                // "fileId" : fileid,
+                // "bizType" : "pic",
+                // "businessId" : userBo.objectId
+                // }));
+            }
+        }
+
+        function deletephoto(imgpic) {
+            baseOperation.londingToast('图片正在上传，请稍候...', 5000);
+            var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var uploadHttp = serverURL + "cloudlink-core-file/attachment/update?businessId=" + userBo.objectId + "&bizType=pic&fileId="+fileid;
+            if (appcan.locStorage.getVal("token") != null && appcan.locStorage.getVal("token").length > 0) {
+                var token = appcan.locStorage.getVal("token");
+                if (uploadHttp.indexOf("?") != -1) {
+                    uploadHttp += "&token=" + token;
+                } else {
+                    uploadHttp += "?token=" + token;
+                }
+            }
+            var headJson = '{"Content-type":"Multipart/form-data;charset=utf-8"}';
+            uexUploaderMgr.setHeaders(1, headJson);
+            uexUploaderMgr.createUploader(1, uploadHttp);
+            uexUploaderMgr.uploadFile(1, imgpic, "file", 1);
+        }
+
+        function uploadphoto(imgpic) {
+            baseOperation.londingToast('图片正在上传，请稍候...', 5000);
+            var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var uploadHttp = serverURL + "cloudlink-core-file/attachment/save?businessId=" + userBo.objectId + "&bizType=pic";
+            if (appcan.locStorage.getVal("token") != null && appcan.locStorage.getVal("token").length > 0) {
+                var token = appcan.locStorage.getVal("token");
+                if (uploadHttp.indexOf("?") != -1) {
+                    uploadHttp += "&token=" + token;
+                } else {
+                    uploadHttp += "?token=" + token;
+                }
+            }
+            var headJson = '{"Content-type":"Multipart/form-data;charset=utf-8"}';
+            uexUploaderMgr.setHeaders(1, headJson);
+            uexUploaderMgr.createUploader(1, uploadHttp);
+            uexUploaderMgr.uploadFile(1, imgpic, "file", 1);
+        }
+
+        //创建服务，获取
+        function cbCreateUploader(id, dataType, data) {
+            if (data == 0) {
+                //baseOperation.alertToast("创建成功");
+            } else {
+                //baseOperation.alertToast("创建失败");
+            }
+        }
+
+        function updateUserBoImg() {
+            var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+            var partURL = "cloudlink-core-file/attachment/getFileIdListByBizIdAndBizAttr?businessId=" + userBo.objectId + "&bizType=pic";
+            jasHttpRequest.jasHttpGet(partURL, function(id, state, dbSource) {
+                if (dbSource == "") {
+                    baseOperation.alertToast("网关异常，请稍候尝试...");
+                    return;
+                }
+                var dataobj = JSON.parse(dbSource);
+                if (dataobj.rows.length > 0) {
+                    fileid = dataobj.rows[0].fileId;
+                    //返回来的fileid
+                    var partURL = "cloudlink-core-framework/user/update";
+                    jasHttpRequest.jasHttpPost(partURL, function(id, state, data) {
+                        if (data == "") {
+                            baseOperation.alertToast("网关异常，请稍候尝试...");
+                            return;
+                        }
+                        var obj = JSON.parse(data);
+                        if (obj.success == 1) {
+                            userBo.profilePhoto = fileid;
+                            appcan.locStorage.remove("userBo");
+                            appcan.locStorage.setVal("userBo", userBo);
+                            appcan.window.evaluatePopoverScript("updateadmininformation", "content", 'relaodUserInfo()');
+                            baseOperation.closeToast();
+                        }
+                    }, JSON.stringify({
+                        "objectId" : userBo.objectId,
+                        "profile_photo" : fileid
+                    }));
+                }
+            });
+        }
+
+        /*浏览照片*/
+        function previewPicture(thisObj) {
+            var picData = [];
+            var _path = getUserProfilePath();
+            var obj = {
+                "src" : _path
+            };
+            picData.push(obj);
+            var dataParam = {
+                displayActionButton : true,
+                displayNavArrows : true,
+                enableGrid : false,
+                startOnGrid : false,
+                data : picData
+            };
+            var json = JSON.stringify(dataParam);
+            uexImage.openBrowser(json);
+        }
+    </script>
+</html>

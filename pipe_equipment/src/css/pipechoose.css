@@ -1,0 +1,24 @@
+*{
+    margin:0em;
+    padding:0em;
+}
+.bc-bg{
+    background:#fff;
+}
+#pipechoose{
+    margin:0em 0.5em;
+}
+.pl42{
+  padding-left:1.16em;  
+}
+.umh140{
+    height:4em;
+    line-height: 4em;
+}
+.imgposition{
+    vertical-align: middle;
+}
+.imgsize{
+    width:2.7em;
+    height:2.7em;
+}

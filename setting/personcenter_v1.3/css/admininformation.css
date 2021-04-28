@@ -1,0 +1,117 @@
+.bc-bg {
+    background-color: #f4f4f4;
+}
+.btc {
+    border-top: 1px solid #ececec;
+}
+.comment {
+    width: 5.625em;
+    height: 2.813em;
+    font-size: 0.875em;
+    color: #666666;
+    line-height: 2.813em;
+}
+.right {
+    width: 60%;
+    height: 2.813em;
+    line-height: 2.813em;
+    text-align: right;
+    padding-right: 0.2em;
+    font-size: 0.875em;
+    color: #333333;
+}
+.textwidth {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+#listview1 {
+    height: 5.625em;
+    background: #ffffff;
+}
+#listview1 #left {
+    width: 3.75em;
+    height: 3.75em;
+    padding-left: 0.625em;
+    padding-top: 0.9375em;
+}
+#listview1 #left img {
+    height: 3.75em;
+    width: 3.75em;
+    border-radius: 50%;
+}
+#listview1 #right {
+    height: 5.625em;
+    margin-left: 0.625em;
+    margin-top: 1.688em;
+}
+#listview1 #right .name {
+    color: #333333;
+    font-size: 0.875em;
+}
+#listview1 #right .name img {
+    width: 0.810em;
+    height: 0.810em;
+    padding-left: 0.625em;
+}
+#listview1 #right .age {
+    line-height: 1.125em;
+    color: #333333;
+    font-size: 0.875em;
+    padding-top: 0.5em;
+}
+
+#listview2 {
+    margin-top: 0.625em;
+    border: none;
+    background: #ffffff;
+}
+#listview2 ul {
+    list-style: none;
+    padding-left: 0.625em;
+}
+#listview2 ul li {
+    width: 98%;
+    height: 2.8125em;
+    line-height: 100%;
+}
+
+#listview3 {
+    border: none;
+    background: #ffffff;
+    margin-top: 0.625em;
+}
+#listview3 ul {
+    list-style: none;
+    padding-left: 0.625em;
+}
+#listview3 ul li {
+    width: 98%;
+    height: 2.8125em;
+    line-height: 100%;
+}
+#listview3 ul li .hao {
+    color: #333;
+    height: 2.813em;
+    line-height: 3.375em;
+}
+#listview3 img {
+    height: 1.5em;
+    padding-top: 0.9375em;
+}
+
+
+.name, .age {
+    font-size: 0.78em;
+    color: #333333;
+}
+#admin {
+    margin-top: 1.5em;
+    margin-left: 40px;
+    margin-right: 40px;
+    background-color: white;
+    color: white;
+    overflow: hidden;
+}

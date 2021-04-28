@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="resource/regist_content/css/main.css">
+</head>
+<body class="um-vp ub ub-ver bc-bg" ontouchstart>
+<div class="ub ub-ver uinn-a1">
+    <div class="uba  b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1">
+        <div class="ulev-app1  umw55">
+            输入手机号
+        </div>
+        <div class="ub ub-ac umh5 ub-f1">
+            <div class="uinput ub ub-f1">
+                <input placeholder="请输入手机号" type="text" class="ub-f1" id="tel">
+            </div>
+        </div>
+    </div>
+    <div class="uba  b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1">
+        <div class="ulev-app1 umw55">
+            获取验证码
+        </div>
+        <div class="ub ub-ac umh5 ub-f1">
+            <div class="uinput ub ub-f1">
+                <input placeholder="请输入验证码" type="text" class="ub-f1" id="paw">
+            </div>
+        </div>
+        <div id="codeBtn" class="uc-a1 ulev-app1 umar-l umw55 umh4 tx-c ub ub-ac bgclr">
+            <div class="ub-f1 ub-ver" id="accept">获取验证码</div>
+        </div>
+    </div>
+    <div class="ub umar-at1 uinn-a7 umh2">
+                <span class="ulev-1  sc-text-warn" id="reminder">
+
+                </span>
+    </div>
+
+
+    <div class="ub ub-pc">
+        <div class="uinn-at1 ub-f1">
+            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="next">
+                下一步
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="ub ub-f1 ub-ae ub-pc uinn-a6 ulev-1 marBtm">
+    <!-- div class="ub ub-ac umar-r checkbox" style="font-size: 0.6em;margin-top: 0.25em;">
+        <input id="agree" type="checkbox">
+    </div>
+    <label for="agree" class="ub sc-text" style="display: block;">我同意</label> -->
+    <div class="ub ub-ac clr666">
+        注册表示您同意
+    </div>
+    <div class="ub ub-ac sc-text-active" id="serviceAgreement">《服务协议》</div>
+    <div class="ub ub-ac">和</div>
+    <div class="ub ub-ac sc-text-active" id="privacyPolicy">《隐私政策》</div>
+</div>
+</body>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/codeTimer.js"></script>
+<script src="../common/js/common_base.js"></script>
+<script src="../common/js/common_httprequest.js"></script>
+<script src="../common/js/common_tianji.js"></script>
+</body>
+<script>
+    var jasHttpRequest = null;
+    appcan.ready(function () {
+        jasHttpRequest = new JasHttpRequest();
+        registTel.init();
+    });
+    var registTel = {
+        nameDom: $('#tel'),
+        wordDom: $('#paw'),
+        tipDom: $('#reminder'),
+        submitDom: $('#next'),
+        tip: '',
+        init: function () {
+            this.showTip(this.tip);
+            this.setCodeTimer();
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            var that = this;
+            this.nameDom.blur(function () {
+                that.verifyTel(c);
+            });
+            appcan.button("#next", "ani-act", function () {
+                that.goToNext();
+            });
+
+            appcan.button("#serviceAgreement", "ani-act", function () {
+                appcan.openWinWithUrl("serviceAgreement", "../agreement/service.html");
+            });
+
+            appcan.button("#privacyPolicy", "ani-act", function () {
+                appcan.openWinWithUrl("privacyPolicy", "../agreement/private.html");
+            });
+
+
+        },
+        setCodeTimer: function () {
+            var that = this;
+            var timecode = new CodeTimer("#accept", 60, function () {
+                that.verifyTel(that.nameDom);
+                if (that.tip !== '') {
+                    return; //手机号验证不通过，返回
+                }
+                timecode.originalHtml = '重新获取';
+                $('#codeBtn').addClass('bg-grey');
+                timecode.setTimer();
+                that.requestCode(that.nameDom.val()); //请求验证码
+            }, function () {
+                $("#accept").html('重新获取');
+                $('#codeBtn').removeClass('bg-grey');
+            });
+        },
+        showTip: function (s) { //显示提示
+            this.tipDom.html(s);
+        },
+        verifyTel: function (dom) { //验证手机号，并提示（需要传入input对象）
+            this.tip = '';
+            var s = dom.val();
+            myreg = /^1\d{10}$/;
+            if (s.length === 0) {
+                this.tip = '请输入手机号码';
+            } else if (s.length != 11) {
+                this.tip = '请输入有效的手机号码';
+            } else if (!myreg.test(s)) {
+                this.tip = '请输入有效的手机号码';
+            }
+            if (this.tip !== '') {
+                dom.focus();
+            }
+            this.showTip(this.tip);
+            return false;
+        },
+        goToNext: function () { //登录执行以下，验证各输入框并请求，合格请求数据，再次提示
+            var that = this;
+            this.verifyTel(this.nameDom);
+            if (this.tip !== '') {
+                return;
+            }
+
+            that.requestIfCodeRight(that.nameDom.val(), that.wordDom.val());
+        },
+        requestCode: function (tel) { //请求验证码
+            var that = this;
+            var partURL2 = "cloudlink-core-framework/login/getVerifyCode?sendMode=1&sendNum=" + tel + "&useMode=1";
+            jasHttpRequest.jasHttpGet(partURL2, function (id, state, dbSource) {
+                if (state == -1) {
+                    alert("当前网络异常，无法请求服务器！\r\n请您检查手机网络。");
+                    return;
+                }
+                var obj = JSON.parse(dbSource);
+                if (tjSwitch == 1) {
+                    try {
+                        var zg_param={eventName:"获取验证码",info:{'手机号':tel}};
+                        uexTianji.track(zg_param);
+                    }
+                    catch (e) {}
+                }
+            });
+        },
+        requestIfCodeRight: function (tel, paw) { //请求验证 手机号、验证码是否一致
+            var that = this;
+            var partURL = "cloudlink-core-framework/login/checkVerifyCode?sendMode='1'&sendNum=" + tel + "&verifyCode=" + paw;
+            jasHttpRequest.jasHttpGet(partURL, function (id, state, dbSource) {
+                var obj = JSON.parse(dbSource);
+                if (obj.success == 1) {
+                    /*if ( !$('#agree').prop('checked') ) {
+                     that.tip = '请阅读相关协议';
+                     that.showTip(that.tip);
+                     return;
+                     }*/
+                    that.requestIfUserRegisted(tel);
+                    return;
+                }
+                that.tip = obj.msg;
+                that.showTip(that.tip);
+            });
+        },
+        requestIfUserRegisted: function (tel) { //请求验证手机号是否注册
+            var partURL = "cloudlink-core-framework/login/isExist?registNum=" + tel;
+            jasHttpRequest.jasHttpGet(partURL, function (id, state, dbSource) {
+                appcan.locStorage.setVal("registNum", tel);
+                var objtel = JSON.parse(dbSource);
+                if (objtel.success == 1 && objtel.rows.isExist != "0") {
+                    appcan.window.confirm({
+                        title: '提示',
+                        content: '亲爱的用户，您的手机号已注册！\r\n是否离开并登录？',
+                        buttons: ['确定', '取消'],
+                        callback: function (err, data, dataType, optId) {
+                            if (data == 0) {
+                                appcan.openWinWithUrl("login", "../login.html");
+                            }
+                        }
+                    });
+                } else {
+                    /*
+                     * 表示该用户未注册
+                     */
+                    if (objtel.success == 1) {
+                        if (tjSwitch == 1) {
+                            try {
+                                var zg_param={eventName:"获取验证码下一步",info:{'手机号':tel}};
+                                uexTianji.track(zg_param);
+                                appcan.openWinWithUrl("regist-password", "regist-password.html");
+                            }
+                            catch (e) {
+                                appcan.openWinWithUrl("regist-password", "regist-password.html");
+                            }
+                        }
+                        else {
+                            appcan.openWinWithUrl("regist-password", "regist-password.html");
+                        }
+                    }
+                }
+            });
+        }
+    };
+</script>
+</html>

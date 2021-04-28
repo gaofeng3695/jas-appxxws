@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="css/share.css">
+        <link rel="stylesheet" href="../common/share/css/share.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">关于我们</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l" style="background:#fff">
+                <div class="content">
+                    <div class="top">
+                        <img src="images/icon.png"/>
+                    </div>
+                    <div class="name">
+                        巡线卫士
+                    </div>
+                    <div class="num"></div>
+                    <div class="descrip">
+                        <div class="fontstyle">
+                            <p>
+                                巡线卫士，是北京中盈安信技术服务股份有限公司开发的管线安全生产信息化工具，致力于提高管线巡查中人员、事件、设施管理的效率，实现管线安全的全员管理、全过程控制与全方位预防，以轻资产的方式助力企业迈入“互联网+管线”时代。
+                            </p>
+                        </div>
+
+                        <div class="barcodeWrapp ub ub-pc">
+                            <div class="ub ub-ver ub-ac">
+                                <img class="shareDownload" src="images/download.png" alt="">
+                                <p class="shareDownload">
+                                    <span>推荐朋友下载</span>
+                                </p>
+                            </div>
+                            <div class="ub ub-ver ub-ac">
+                                <img class="shareGZH" src="images/weixin.png" alt="">
+                                <p class="shareGZH">
+                                    <span>推荐朋友关注</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div style="position:fixed;bottom:1em;width:100%" class="ub ub-ac clr999 ulev0825">
+                            <div class="ub ub-f1 ub-ac ub-pc ulev"></div>
+                            <div class="ub ub-f1 ub-ac ub-pc ulev"></div>
+                            <div class="ub ub-f1 ub-ac ub-pc ulev agreement">
+                                《服务协议》
+                            </div>
+                            <div class="ub ub-f1 ub-ac ub-pc ulev private" style="border-left:1px solid #e4e4e4">
+                                《隐私政策》
+                            </div>
+                            <div class="ub ub-f1 ub-ac ub-pc ulev"></div>
+                            <div class="ub ub-f1 ub-ac ub-pc ulev"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="mask" class="up" style="display: none;">
+                    <div class="ub ub-ver tableWrapper">
+                        <div class="ub ub-ver table">
+                            <div class="ub ub-pj line">
+                                <div class="ub ub-ver ub-ac item">
+                                    <img src="../common/share/images/wx.png">
+                                    <div>
+                                        微信好友
+                                    </div>
+                                </div>
+                                <div class="ub ub-ver ub-ac item">
+                                    <img src="../common/share/images/pyq.png">
+                                    <div>
+                                        朋友圈
+                                    </div>
+                                </div>
+                                <div class="ub ub-ver ub-ac item">
+                                    <img src="../common/share/images/qq.png">
+                                    <div>
+                                        QQ好友
+                                    </div>
+                                </div>
+                                <div class="ub ub-ver ub-ac item">
+                                    <img src="../common/share/images/qzone.png">
+                                    <div>
+                                        QQ空间
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ub ub-pj line">
+                                <div class="ub ub-ver ub-ac item">
+                                    <img src="../common/share/images/dingding.png">
+                                    <div>
+                                        钉钉
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ub ub-ac ub-pc ub-ac ulev30 clr666 cancelBtn">
+                            取消
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--content结束-->
+
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../common/share/js/common_weixin.js"></script>
+        <script src="../common/share/js/common_qq.js"></script>
+        <script src="../common/share/js/common_dingding.js"></script>
+        <script src="../common/share/js/share.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            uexWidgetOne.getCurrentWidgetInfo();
+            uexWidgetOne.cbGetCurrentWidgetInfo = function(opId, dataType, data) {
+                var appClient = eval('(' + data + ')');
+                var appCliehtVersion = appClient.version;
+                $(".num").text("版本号：V" + appCliehtVersion);
+            };
+        });
+        function openUrl(url) {
+            //android设备
+            uexWidget.loadApp('android.intent.action.VIEW', 'text/html', url);
+        }
+
+        /*
+         * 分享
+         */
+        $('.shareDownload').click(function() {
+            shareObj.flag = '下载';
+            shareObj.show();
+        });
+        $('.shareGZH').click(function() {
+            shareObj.flag = '公众号';
+            shareObj.show();
+        });
+        $('.barcodeWrapp p').click(function() {
+            var that = $(this);
+            that.addClass('active');
+            setTimeout(function() {
+                that.removeClass('active');
+            }, 300);
+        });
+        appcan.button(".agreement", "btn-act", function() {
+            appcan.openWinWithUrl('service', '../agreement/service.html');
+        });
+        appcan.button(".private", "btn-act", function() {
+            appcan.openWinWithUrl('private', '../agreement/private.html');
+        });
+        appcan.button("#nav-left", "btn-act", function() {
+            appcan.window.close(-1);
+        });
+    </script>
+</html>

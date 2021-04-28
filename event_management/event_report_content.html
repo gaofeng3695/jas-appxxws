@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base-datetime.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="index/css/main.css">
+    <link rel="stylesheet" href="index/css/organization.css" />
+    <link rel="stylesheet" href="../common/mobiscroll/css/mobiscroll.custom-3.0.0-beta2.min.css" />
+    <link rel="stylesheet" href="index/css/datePicker.css" />
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+<!--事件上报-->
+<form method="post" id="event_refer1"></form>
+<form method="post" id="event_refer">
+    <input type="hidden" id="inspRecordId" name="inspRecordId" value="" />
+    <input type="hidden" id="lon" name="lon" value="116.309" />
+    <input type="hidden" id="lat" name="lat" value="39.975" />
+    <input type="hidden" id="lonBd" name="bdLon" value="116.309" />
+    <input type="hidden" id="latBd" name="bdLat" value="39.975" />
+    <input type="hidden" name="fullTypeName" id="fullTypeName" />
+     <!--事件类型的图标-->
+    <input type="hidden" id="eventIconName" name ="eventIconName" value="" />
+
+    <div class="report us1 uof">
+        <!--事件类型-->
+        <div class="ub ub-ac report_list">
+            <div class="report_introduce">
+                <span>事件类型<em>*</em></span>
+            </div>
+            <div class="ub-f1 sc-bg report_content ub">
+                <div class="ub-f1 ub-fv report_text">
+                    <div class="select bc-border bc-text">
+                        <div class="text">请选择</div>
+                        <div class="icon"></div>
+                        <select class="ulev28" selectedindex="-1" name="type" id="select_type">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--事件时间-->
+        <div class="ub ub-ac report_list">
+            <div class="report_introduce">
+                <span>事件时间<em>*</em></span>
+            </div>
+            <div class="ub-f1 sc-bg report_content ub" onclick="showDataTime()">
+                <div class="ub-f1 ub-fv report_text" >
+                    <input class="sc-bg ub-f1"  type="text" readonly="readonly" id="time" name="occurrenceTime" required/>
+                </div>
+                <span class="report_img"><img src="index/images/calendar.png" height="100%" alt=""/></span>
+            </div>
+        </div>
+        <!--详细位置-->
+        <div class="ub ub-ac report_list">
+            <div class="report_introduce">
+                <span>详细位置<em>*</em></span>
+            </div>
+            <div class="ub-f1 sc-bg report_content ub">
+                <div class="ub-f1 ub-fv report_text">
+                    <input class="sc-bg ub-f1"  type="text" id="address" value="" name="address" max="50" required />
+                </div>
+                <span class="report_img" onclick="getAddres()"><img src="index/images/map.png" height="100%" alt="" id="mapIcon"/></span>
+            </div>
+        </div>
+        <!--事件描述-->
+        <div class="ub ub-ac report_list">
+            <div class="report_introduce">
+                <span>事件描述<em>*</em></span>
+            </div>
+            <div class="ub-f1 sc-bg report_content ub">
+                <div class="ub-fv ub-f1">
+                    <textarea class="sc-bg ub-f1 ulev28"  name="description" id="introduce_text" cols="30" rows="6"></textarea>
+                    <span id="word">(200字)</span>
+                </div>
+            </div>
+        </div>
+        <!--语音描述-->
+        <div class="ub ub-ac report_list">
+            <div class="report_introduce">
+                <span>语音描述</span>
+            </div>
+            <div class="ub-f1 report_content ">
+                <div class="" id="voice">
+                    <input id="speak" type="button" value="按住说话" ontouchstart="audioGtouchstart(this)" ontouchcancel="audioOntouchcancel(this)" ontouchend="audioGtouchend()"/>
+                    <!-- <img src="index/images/voice.png" height="100%" onclick="addVoice()" alt=""/>-->
+                    <input type="hidden" name="voiceFile" id="voiceFile" />
+                </div>
+                <div id="voiceFiles" style="display: none;">
+                    <div id="audio" class="audio" style="left: 2%" onclick="playVoice()">
+                        <div class="audio_img" id="audio_img" style="float: left"></div>
+                        <div id="voiceTime" style="float: right;margin-right: .5em;"></div>
+                    </div>
+                    <div style="float: right;">
+                       <span class="report_img"><img src="index/images/delete_icon1.png" height="95%" onclick="deleteVoice()" alt=""/></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--视频与照片-->
+    <div class="report us1 uof">
+        <div class="ub ub-ac report_list ubb sc-border-cor">
+            <div class="report_introduce">
+                <span class="">上传照片</span>
+            </div>
+            <div class="ub-f1 report_content ub">
+                <div class="ub-f1 ub-fv report_text">
+                    <span class="mun-camera ubl sc-border-cor"><span class="img_mun">0</span>/<span class="img_all">5</span></span>
+                </div>
+                <span class="report_img" onclick="opensheet_tsend()"><img src="index/images/camera.png" height="100%" alt=""/></span>
+                <!-- <span class="report_img" id="camera"><img src="index/images/camera.png" height="100%" alt=""/></span> -->
+            </div>
+        </div>
+        <div class="ub ub-ac report_list">
+            <div class="ub-f1" id="camera_img">
+            </div>
+        </div>
+    </div>
+    <!--审核联系人-->
+    <!--<div class="report us1 uof">
+        <div class="ub ub-ac report_list">
+            <div class="report_sub">
+                <span>是否需要报送</span>
+            </div>
+            <div class="ub-f1 report_radio">
+                <span class="pay_list_c1 ufl on">
+                    <input type="radio" id="radio_yse" checked="checked" form="event_refer1" name="radio" value="20" class="radioclass">
+                </span>
+                <label class="ufl" for="radio_yse">是</label>
+                <span class="pay_list_c1 ufl">
+                    <input type="radio" id="radio_no" form="event_refer1" name="radio" value="30" class="radioclass">
+                </span>
+                <label class="ufl" for="radio_no">否</label>
+            </div>
+        </div>
+        <div class="radio_select">
+            <div class="ub ub-ac report_list">
+                <div class="report_introduce report_people">
+                    <span>审核联系人</span>
+                </div>
+                <div class="ub-f1 sc-bg report_content ub" onclick="usersSelect()">
+                    <div class="ub-f1 ub-fv report_text">
+                        <input class="sc-bg ub-f1" readonly="readonly" type="text" name="people" form="event_refer1" />
+                    </div>
+                    <span class="report_img"><img src="index/images/people.png" height="100%" alt=""/></span>
+                </div>
+            </div>
+            <div class="ub ub-ac report_list yes_no ubt sc-border-cor">
+                <div class="ub-f1 radio_prompt">
+                    <p class="tx-c" style="color:#FC7800;">无报送人，事件将会直接关闭</p>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <div class="report us1 uof">
+        <div class="report_whether">
+            <span>是否报送</span>
+        </div>
+        <div class="report_whether_main uba">
+            <div class="ub uof whether_list">
+                <div class="ub whether_fl ub-ac">
+                    <span class="pay_list_c1 on">
+                        <input type="radio" id="radio_yse" checked="checked" form="event_refer1" name="radio" value="20" class="radioclass">
+                    </span>
+                    <label class="" for="radio_yse">是</label>
+                </div>
+                <div class="ub-f1 ub" onclick="usersSelect()">
+                    <span class="sc-bg ub-f1 whether_people line1 line_hidden"></span>
+                    <span class="report_img"><img src="index/images/people.png" height="100%" alt=""/></span>
+                </div>
+            </div>
+            <div class="ub uof whether_list">
+                <div class="ub whether_fl ub-ac">
+                    <span class="pay_list_c1">
+                        <input type="radio" id="radio_no" form="event_refer1" name="radio" value="30" class="radioclass">
+                    </span>
+                    <label class="" for="radio_no">否</label>
+                </div>
+                <div class="ub-f1 ub ub-ac">
+                    <span class="whether_no">事件将会直接关闭</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+<div class="ub-ac" id="kuai" style="display: none;position: absolute;">
+    <div class="report_introduce">
+    </div>
+    <div class="ub-f1" >
+        <div style="margin: 0px auto;width: 100%;text-align: center;">
+            <span id="pTip">开始录音</span>
+        </div>
+        <progress value="0" max="30" id="proDownFile"></progress>
+    </div>
+</div>
+</body>
+<script src="../common/mobiscroll/js/jquery-1.12.2.min.js"></script>
+<script src="../common/mobiscroll/js/mobiscroll.custom-3.0.0-beta2.min.js"></script>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../common/js/common_base.js"></script>
+<script src="../common/js/common_database.js"></script>
+<script src="../common/js/common_device.js"></script>
+<script src="../common/js/common_httprequest.js"></script>
+<script src="../common/js/common_form.js"></script>
+<script src="../common/js/common_tianji.js"></script>
+<script src="drafts/draftsave.js"></script>
+<script src="index/js/event_report.js"></script>
+</body>
+</html>

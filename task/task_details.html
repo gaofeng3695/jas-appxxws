@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/ui-box.css">
+        <link rel="stylesheet" href="../css/ui-base.css">
+        <link rel="stylesheet" href="../css/ui-color.css">
+        <link rel="stylesheet" href="../css/appcan.icon.css">
+        <link rel="stylesheet" href="../css/appcan.control.css">
+        <link rel="stylesheet" href="index/css/common.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn btn_return" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">详情</h1>
+                <div class="nav-btn nav-bt" id="nav-right" onclick="showShareToolsEvent()">
+                    <div><img src="../common/css/img/share.png" style="width:1.6em"/></div>
+                </div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l" onresize="resizeWindowSize();">
+
+            </div>
+            <!--content结束-->
+            <!--footer-->
+            <div id="footer" class="bc-border ub sc-bg us_top" style="display:none">
+                <div class="ub-ac event_btn ub-fh ub">
+                    <div class="ub-f4 event_btn_r tx-c">
+                        <span class="event_report" onclick="event_delete();">填写信息</span>
+                        <span class="event_delete" onclick="close_task();">关闭任务</span>
+                    </div>
+                </div>
+            </div>
+            <!--footer结束-->
+        </div>
+        <script src="../js/appcan.js"></script>
+        <script src="../js/appcan.control.js"></script>
+        <script src="../common/js/common_httprequest.js"></script>
+        <script src="../common/js/common_tianji.js"></script>
+        <script src="index/js/task_details.js"></script>
+    </body>
+</html>

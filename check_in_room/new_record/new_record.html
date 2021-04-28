@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+    <style>
+        .footer .btn_wrapp {
+            box-sizing: border-box;
+        }
+        
+        .marginl25{
+            margin-left: .25em;
+        }
+        .marginr25{
+            margin-right: .25em;
+        }        
+        .width1000{
+            width: 1000px;
+        }
+        
+        .bg_or {
+            background: #ee9127;
+        }
+    </style>
+</head>
+
+<body class="um-vp " ontouchstart>
+    <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh bc-text-head ub bc-head">
+            <div class="nav-btn" id="nav-left">
+                <div class="fa fa-angle-left fa-2x"></div>
+            </div>
+            <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">新建安检记录</h1>
+            <div class="nav-btn nav-bt" id="nav-right"></div>
+        </div>
+        <!--header结束-->
+        <!--content开始-->
+        <div id="content" class="ub-f1 tx-l">
+
+        </div>
+        <!--content结束-->
+        <!--footer开始-->
+        <div id="footer" class="footer topShadow">
+            <div class="btn_wrapp ub ub-fv uinn">
+                <div id="save" class="marginr25 uc-a1 ub-f1 width1000 clrfff bg_or ulev30 ub ub-ac ub-pc ub-fv">保存草稿</div>
+                <div id="sign" class="marginl25 uc-a1 ub-f1 width1000 clrfff bgclr ulev30 ub ub-ac ub-pc ub-fv">下一步</div>
+            </div>
+        </div>
+        <!--footer结束-->
+    </div>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../common/js/common_tianji.js"></script>    
+</body>
+<script>
+    var clickTure = true;
+    appcan.ready(function() {
+         appcan.window.evaluateScript('new_user', 'wrapperObj.close()');
+        var titHeight = $('#header').offset().height;
+        appcan.frame.open("content", "new_record_content.html", 0, titHeight);
+        window.onorientationchange = window.onresize = function() {
+            appcan.frame.resize("content", 0, titHeight);
+        };
+        appcan.window.on('resume',function(){
+            clickTure = true;
+        }); //窗口回到前台时执行回调函数                
+    });
+    appcan.button("#nav-left", "btn-act", function() {
+        appcan.window.close(-1);
+    });
+    appcan.button("#sign", "btn-act", function() {
+        if (clickTure === true) {     
+            appcan.window.evaluatePopoverScript('new_record', 'content', 'newRecordObj.triggerToNext()');
+            if (tjSwitch == 1) {
+                try {
+                    var param = {
+                        eventName: "入户安检-点击下一步（新建安检）",
+                        info: {}
+                    };
+                    uexTianji.track(param);
+                } catch (e) {}
+            }
+        }
+    });
+    appcan.button("#save", "btn-act", function() {
+        appcan.window.evaluatePopoverScript('new_record', 'content', 'newRecordObj.trigerSaveToLocal()');
+        if (tjSwitch == 1) {
+            try {
+                var param = {
+                    eventName: "入户安检-点击保存草稿（新建安检）",
+                    info: {}
+                };
+                uexTianji.track(param);
+            } catch (e) {}
+        }
+    });
+    //改变点击状态
+    function changeClick() {
+        clickTure = !clickTure;
+    }
+</script>
+
+</html>

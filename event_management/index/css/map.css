@@ -1,0 +1,213 @@
+
+/*搜索框*/
+/* #searchMdl{
+    box-shadow: 0 .1em .2em #999;
+    margin-bottom: .2em;
+    background: white;
+    padding: .5em 0;
+} */
+/*
+#searchMdl .searchBox{
+    width: 80%;
+    border:1px solid #dcdbd9;
+    padding-left: .5em;
+}
+#searchMdl .searchBox input{
+    font-size: .7222em ;
+    line-height: 1.8em;
+}*/
+
+.searchLine{
+    margin-top: .3em;
+}
+/*
+#search{
+    width: 2.6em;
+    background-size: 1.2em;
+}*/
+
+
+/*事件地图详情*/
+#header{
+    margin-bottom: .2em;
+}
+#footer{
+    background: #ffffff;
+    -webkit-box-shadow: 0 -.07em .2em #999;
+    box-shadow: 0 -.07em .2em #999;
+}
+.map_foot{
+    padding: .6em 0;
+    background: #ffffff;
+}
+.map_main{
+    width: 6.25em;
+}
+.map_main dl dt{
+    height: 2.5em;
+    width: 2.5em;
+    display: inline-block;
+}
+.map_main dl dt.map_img2{
+    background: url("../images/disasters.png") no-repeat;
+    background-size: 100% 100%;
+}
+.map_main dl dt.map_img1{
+    background: url("../images/construction.png") no-repeat;
+    background-size: 100% 100%;
+}
+.map_main dl dt.map_img3{
+    background: url("../images/pipe.png") no-repeat;
+    background-size: 100% 100%;
+}
+.map_main dl dd{
+    height: 1.4em;
+    line-height: 1.4em;
+    font-size: .7222em;
+}
+.map_information{
+    padding-left: 1.25em;
+}
+.map_information p{
+    height: 1.3em;
+    line-height: 1.3em;
+    font-size: .7222em;
+    color: #848484;
+}
+.map_information p.map_num,.map_information p.map_typeName,.map_information p.map_name{
+    color: #000000;
+}
+.map_nav{
+    width: 6em;
+}
+.map_btn{
+    padding: .4em 0;
+}
+.map_btn span{
+    display: inline-block;
+    /*padding: .4em 1.5em;*/
+    border-radius: .25em;
+    color: #FFFFFF;
+    margin: 0 1em;
+    height: 2.1875em;
+    line-height: 2.1875em;
+    font-size: .9375em;
+    width: 15.9375em;
+    background: #59b5fc;
+}
+
+
+.map_content{
+    padding: 0 .625em;
+}
+/*.bor_cor{
+    border-color: #59b5fc;
+    border-radius: .3125em;
+}*/
+.map_content_title{
+    height: 2.125em;
+    border-color: #ececec;
+    /*border-bottom: 1px solid #ececec;*/
+    line-height: 2.125em;
+}
+.map_content_title h1{
+    font-weight: normal;
+    font-size: .75em;
+    color: #999;
+    overflow: hidden;
+}
+.map_content_title h1 span.userName {
+    /*display: block !important; *//* gaofeng 2016.12.15  */
+    width: 6em;
+    text-align: right;
+    word-break:break-all;
+}
+.map_content_main{
+    border-color: #ececec;
+    height: 6.5625em;
+}
+
+.map_content_main dl{
+    padding: .625em 0;
+}
+
+.map_content_main dl dt{
+    height: 2.875em;
+    width: 2.875em;
+    display: -webkit-box;
+    margin-right: .9375em;
+}
+.map_content_main dl dt.map_img{
+    background-size: 100% 100%;
+}
+
+.map_content_main dl dt.map_img2{
+    background: url("../images/disasters.png") no-repeat;
+    background-size: 100% 100%;
+}
+.map_content_main dl dt.map_img1{
+    background: url("../images/construction.png") no-repeat;
+    background-size: 100% 100%;
+}
+.map_content_main dl dt.map_img3{
+    background: url("../images/pipe.png") no-repeat;
+    background-size: 100% 100%;
+}
+.map_content_main p.map_typeName{
+    color: #333333;
+    font-size: .875em;
+    padding-bottom: .625em;
+}
+.map_content_main p.map_description{
+    color: #666666;
+    font-size: .875em;
+    /*line-height: 130%;*/
+    line-height: 1.2125em;
+    word-break:break-all;
+}
+.map_content_main p.event_address{
+    color: #59b5fc;
+    font-size: .8125em;
+    line-height: 1.0625em;
+    margin-top: .7em;
+    padding-left: 1.4em;
+    background: url("../images/mapL.png") no-repeat center left;
+    background-size: auto 100%;
+    box-sizing: border-box;
+}
+
+.map_content_newest{
+    padding: .625em 0;
+}
+.map_content_newest p.map_time{
+    color: #666666;
+    font-size: .875em;
+}
+.map_content_newest span{
+    display: inline-block;
+    width: 16em;
+    height: 2.1875em;
+    line-height: 2.1875em;
+    background: #59b6fc;
+    color: #ffffff;
+    font-size: .9375em;
+    border-radius: .2em;
+}
+
+
+.line_hidden{
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+
+.map_disposeUserName{
+    max-width: 6em;
+    display: -webkit-inline-box;
+    vertical-align: middle;
+}
+.map_disposeTime{
+    display: -webkit-inline-box;
+    vertical-align: middle;
+}

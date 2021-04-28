@@ -1,0 +1,78 @@
+
+/*搜索框*/
+#searchMdl{
+    box-shadow: 0 .1em .2em #999;
+    margin-bottom: .2em;
+    background: white;
+    padding: .5em 0;
+}
+#searchMdl .searchBox{
+    width: 80%;
+    border:1px solid #dcdbd9;
+    padding-left: .5em;
+}
+#searchMdl .searchBox input{
+    font-size: .7222em ;
+    line-height: 1.8em;
+}
+
+#search{
+    width: 2.6em;
+    border-left: 1px solid #ececec;
+    background: url(../images/search.png) no-repeat center center;
+    background-size: 1.2em;
+}
+
+/*事件地图详情*/
+#header{
+    margin-bottom: .2em;
+}
+#footer{
+    background: #ffffff;
+    -webkit-box-shadow: 0 -.07em .2em #999;
+    box-shadow: 0 -.07em .2em #999;
+}
+.map_foot{
+    padding: .6em 0;
+    background: #ffffff;
+}
+.map_main{
+    width: 6.25em;
+}
+.map_main dl dt{
+    height: 2.5em;
+}
+.map_main dl dd{
+    height: 1.4em;
+    line-height: 1.4em;
+    font-size: .7222em;
+}
+.map_information{
+    padding-left: 1.25em;
+}
+.map_information p{
+    height: 1.3em;
+    line-height: 1.3em;
+    font-size: .7222em;
+    color: #848484;
+}
+.map_information p.map_num,.map_information p.map_typeName,.map_information p.map_state{
+    color: #000000;
+}
+.map_nav{
+    width: 6em;
+}
+.map_btn{
+    padding: .5em 0;
+}
+.map_btn span{
+    display: inline-block;
+    width: 68%;
+    background: #59b6fc;
+    color: #ffffff;
+    border-radius: .3em;
+    padding: .4em 1.5em;
+    font-size: 1em;
+}
+
+

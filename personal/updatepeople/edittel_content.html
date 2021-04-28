@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+    <link rel="stylesheet" href="css/edittel.css">
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+<div class="ub ub-ver uinn-a1 bc-bg1 us1 num">
+     验证码将发送到您的手机:
+    <span id="telnote"></span>
+
+    <div class="  b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1">
+
+        <div class="ub ub-ac umh5 ub-f1 ubr">
+            <div class="uinput ub ub-f1">
+                <input placeholder="请输入验证码" type="text" class="ub-f1" id="code">
+            </div>
+        </div>
+        <div class="  umw55 umh4 tx-c ub ub-ac bgclr">
+            <div class="ub-f1 ub-ver tx-c" id="getCode">获取验证码</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="ub ub-pc">
+    <div class="uinn-at1 ub-f1">
+        <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="next">
+            下一步
+        </div>
+    </div>
+</div>
+     
+</body>
+<script src="../../js/appcan.js"></script>
+<script src="../../js/appcan.control.js"></script>
+<script src="../../js/appcan.listview.js"></script>
+<script src="../../js/codeTimer.js"></script>
+<script src="../../common/js/common_base.js"></script>
+<script src="../../common/js/common_httprequest.js"></script>
+</body>
+<script>
+    var jasHttpRequest =null;
+    var flag = true;
+    appcan.ready(function () {
+        jasHttpRequest = new JasHttpRequest();
+        var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+        $("#telnote").html(userBo.mobileNum.substring(0,3)+"******"+userBo.mobileNum.substring(9,11));
+    });
+    
+    function changeBtn(){
+        flag = true;
+    }
+    appcan.button("#next", "ani-act", function () {
+        //进行验证码的校验
+        if(flag == true) {
+            flag = false;
+            var verifyCode=$("#code").val().trim();
+            if(verifyCode == ''){
+                baseOperation.alertToast('请输入验证码');
+                changeBtn();
+                return;
+            }else{
+                 var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+                 var partURL ="cloudlink-core-framework/login/checkVerifyCode?sendMode='1'&verifyCode="+verifyCode+"&sendNum="+userBo.mobileNum;
+                 jasHttpRequest.jasHttpGet(partURL,function(id, state, dbSource){
+                     if(dbSource.length==0){
+                        baseOperation.alertToast("网络繁忙，请稍候再试...");
+                        changeBtn();
+                        return;
+                    }
+                    var obj=JSON.parse(dbSource);
+                    //获取验证码并且输入到验证码框中
+                    if(obj.success==1){
+                         appcan.openWinWithUrl("inputtel", "inputtel.html");  
+                     }else{
+                        baseOperation.alertToast('您好，验证码错误，请重新输入！');
+                        changeBtn();
+                        return;
+                    }
+                 }); 
+            }
+        }
+    });
+    
+    var timer = new CodeTimer('#getCode',60,function(){
+        timer.originalHtml = '重新获取';
+        timer.setTimer(); //开启倒计时
+        var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+        var partURL ="cloudlink-core-framework/login/getVerifyCode?sendMode=1&useMode=3&sendNum="+userBo.mobileNum;
+         jasHttpRequest.jasHttpGet(partURL,function(id, state, dbSource){
+             var obj=JSON.parse(dbSource);
+            //获取验证码并且输入到验证码框中
+         });
+         
+    },function(){
+        //alert('woshi 0');
+        $('#getCode').html('重新获取')
+    });
+</script>
+</html>

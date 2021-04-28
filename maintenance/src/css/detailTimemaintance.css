@@ -1,0 +1,99 @@
+.pl {
+    padding-left: 0.5em;
+}
+
+.pr1 {
+    padding-right: 1em;
+}
+
+.pr53 {
+    padding-right: 5.3em;
+}
+
+.pr33 {
+    padding-right: 3.3em;
+}
+
+.pl18 {
+    padding-left: 1.8em;
+}
+
+.mt {
+    margin-top: 1em;
+}
+
+.mt5 {
+    margin-top: 0.5em;
+}
+
+.bor_b {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1em;
+}
+
+.c888 {
+    color: #888;
+}
+
+.box {
+    background: url('../images/dian.png') 3em center repeat-y;
+    margin: 0em .625em;
+}
+
+.list_all h3 {
+    background: url('../images/day.png') 1em .1em no-repeat;
+    background-size: 0.8em;
+    padding-left: 2.2em;
+    margin: 0 0 0.425em 2.2em;
+    height: 1.5em;
+}
+
+.time_top {
+    margin-top: .625em;
+    min-height: 1em;
+    background: #ffffff;
+}
+
+.time_bottom {
+    min-height: 1em;
+    background: #ffffff;
+}
+
+.time {
+    /*padding-left: 0.5em;*/
+    display: block;
+    float: left;
+    width: 3em;
+    color: #666;
+}
+
+.box li .task {
+    display: block;
+    background: url('../images/task.png') 0.4em 0.6em no-repeat;
+    background-size: 0.6em;
+    padding-left: 1.8em;
+}
+
+.box li .task .depict {
+    word-wrap: break-word;
+    line-height: 140%;
+}
+
+.no_data {
+    display: none;
+}
+
+.linh2 {
+    line-height: 2em;
+}
+
+.pl20 {
+    padding-left: .625em;
+}
+
+.borstyle {
+    margin-left: 5em;
+    margin-top: .6em;
+    border: none;
+    border: 1px solid #ececec;
+}

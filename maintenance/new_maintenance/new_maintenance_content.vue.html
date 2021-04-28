@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+    </head>
+    <body class="um-vp bc-bg" style="background: #fff;" >
+
+        <div style="margin: 0em .625em;padding-top: .625em;" id="app">
+
+            <select-common
+                v-model="originTypeCode"
+                :valuename="originTypeName"
+                :options="originTypes"
+                :required="true"            
+                placeholder="请选择维修类型（必选）"
+                title="维修来源"
+            ></select-common>
+
+            <!-- 入户整改 -->
+            <div v-show="originTypeCode==='MO_01'">
+                <input-common
+                    keyname="address"
+                    v-model="address"
+                    :valid="valid.address"
+                    title="用户选择"
+                    :required="true"
+                    placeholder="请选择用户地址（必选）"
+                    icon="../src/images/location.png"
+                    iconwidth="1.2em"
+                    @verify="varifyValue"
+                    @click="selectHouser"
+                ></input-common>            
+                <input-common
+                    v-if="maintenanceName"
+                    v-model="maintenanceName"
+                    title="用户名称"
+                    placeholder="请填写用户名称"
+                    disabled="true"
+                ></input-common>
+                <input-common
+                    v-if="contactPhone"                
+                    v-model="contactPhone"
+                    title="联系方式"
+                    placeholder="请填写联系方式"
+                    disabled="true"
+                ></input-common>
+
+            </div>
+            <!-- 管道设施 -->
+            <div v-show="originTypeCode==='MO_02'">
+                <input-common
+                    keyname="maintenanceName"
+                    v-model="maintenanceName"
+                    :valid="valid.maintenanceName"
+                    title="设施选择"
+                    :required="true"                    
+                    placeholder="请选择设施（必选）"
+                    icon="../src/images/choose.png"
+                    @verify="varifyValue"
+                    @click="selectFacility"
+                ></input-common>
+                <input-common
+                    v-if="typeCodeName"                
+                    v-model="typeCodeName"
+                    title="设施类型"
+                    placeholder="请填写设施类型"
+                    disabled="true"
+                ></input-common>
+                <input-common
+                    v-if="address"                
+                    v-model="address"
+                    title="设施位置"
+                    placeholder="请填写设施位置"
+                    disabled="true"
+                ></input-common>
+
+            </div>
+
+            <!-- 巡检事件 -->
+            <div v-show="originTypeCode==='MO_03'">
+                <input-common
+                    keyname="maintenanceName"
+                    v-model="maintenanceName"
+                    :valid="valid.maintenanceName"
+                    title="事件选择"
+                    :required="true"
+                    placeholder="请选择事件（必选）"
+                    icon="../src/images/choose.png"
+                    @verify="varifyValue"
+                    @click="selectEvent"
+                ></input-common>
+                <input-common
+                    v-if="typeCodeName"                
+                    v-model="typeCodeName"
+                    title="事件类型"
+                    placeholder="请填写事件类型"
+                    disabled="true"
+                ></input-common>
+                <input-common
+                    v-if="address"                
+                    v-model="address"
+                    title="事件位置"
+                    placeholder="请填写事件位置"
+                    disabled="true"
+                ></input-common>
+
+            </div>
+            <!-- 其他维修 -->
+            <div v-show="originTypeCode==='MO_99'">
+                <input-common
+                v-model="maintenanceName"
+                keyname="maintenanceName"
+                :valid="valid.maintenanceName"
+                title="联系人"
+                :required="true"                
+                placeholder="请填写联系人（必填）"               
+                @verify="varifyValue"
+                ></input-common>
+                <input-common
+                v-model="contactPhone"
+                keyname="contactPhone"
+                :valid="valid.contactPhone"
+                title="联系电话"
+                :required="true"                
+                placeholder="请填写联系电话（必填）"
+                @verify="varifyValue"
+                ></input-common>
+                <input-common
+                v-model="address"
+                keyname="address"
+                :valid="valid.address"
+                title="地址"
+                :required="true"                
+                placeholder="请填写地址（必填）"
+                @verify="varifyValue"
+
+                ></input-common>
+
+            </div>
+
+            <input-common
+                v-model="maintainers"
+                keyname="maintainers"
+                :valid="valid.maintainers"
+                title="维修人"
+                placeholder="请选择维修人（必填）"
+                :required="true"            
+                icon="../src/images/people.png"
+                iconwidth="1.2em"
+                @verify="varifyValue"
+                @click="selectPeople"
+            ></input-common>
+
+            <input-common
+                v-model="remediationTime"
+                keyname="remediationTime"
+                :valid="valid.remediationTime"
+                title="维修期限"
+                :required="true"                  
+                placeholder="请选择维修期限（必填）"
+                icon="../src/images/date.png"
+                @verify="varifyValue"
+                @click="selectDate"
+            ></input-common>
+
+            <textarea-common
+                v-model="reason"
+                keyname="reason"
+                :valid="valid.reason"
+                title="维修原因"
+                :required="true"                  
+                placeholder="请填写维修原因（必填）"
+                @verify="varifyValue"
+            ></textarea-common>
+
+        </div>
+
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_jasRequest.js"></script>
+
+        <script src="../../vue_component/input_common.component.vue.js"></script>
+        <script src="../../vue_component/select_common.component.vue.js"></script>
+        <script src="../../vue_component/textarea_common.component.vue.js"></script>
+        
+        <script src="../src/js/new_maintenance.js"></script>
+    </body>
+</html>

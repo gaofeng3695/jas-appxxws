@@ -1,0 +1,133 @@
+/*气泡样式*/
+.bubble {
+    top: -2em;
+    position: absolute;
+    border-radius: .3em;
+    height: 2em;
+    line-height: 2em;
+    font-size: 1em;
+    background: #00A1EA;
+    color: #FFFFFF;
+}
+
+.bubble:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-top-color: #00A1EA;
+    border-width: .4em;
+    margin-left: -.2em;
+}
+
+.bubble span {
+    padding: .5em;
+}
+
+/*footer*/
+.ub-h {
+    height: 100%;
+}
+.bg-59b5fc{
+    background-color: #59b5fc;
+}
+.w510{
+    width: 14.166em;
+}
+.h70{
+    height: 1.944em;
+    line-height: 1.944em;
+}
+.mg-tb5lr{
+    margin:.5em auto;
+}
+.bd-r4{
+    border-radius: 0.111em;
+}
+.btn-mg {
+    margin: .4em 3.5em;
+}
+.bg-ff {
+    background-color: #FFFFFF;
+}
+.bd-c {
+    border-top-color: #ddd;
+}
+.fc-ff{color:#FFFFFF}
+.talign{text-align:center;}
+.footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+/*organization_content_detail*/
+.bc-bg {
+    background-color: #EEEEEE;
+}
+
+.col00A1EA {
+    color: #00A1EA;
+}
+
+.font_size {
+    font-size: .9em;
+}
+.childrentext,#childrentitle{
+    color:#333;
+    font-size:0.875em;
+}
+#childrentitle a{
+    font-size: 1.5em;
+}
+.childrennum{
+    color:#666;
+    font-size:0.8125em;
+}
+/*底部新增按钮*/
+#footer {
+    box-shadow: 0 -.079em .225em #999;
+    margin-top: .169em;
+    background: white;
+}
+
+#footer .btn {
+    margin: 0 .563em;
+    min-height: 2.025em;
+    padding: .225em 0;
+    display: -webkit-box;
+}
+
+#btn1 {
+    background: #59b5fc;
+}
+.checkbox,
+.radiobox {
+    width: 1.15em;
+    height: 1.05em;
+}
+
+.checkbox input[type=checkbox],
+.radiobox input[type=radio] {
+    font-size: .7em !important;
+}
+
+.checkbox input[type=checkbox]:checked:before {
+    font-size: 1.65em !important;
+    content: "\f14a";
+}
+
+.checkbox input[type=checkbox]:checked:before,
+.radiobox input[type=radio]:checked:before {
+    color: #59b6fc;
+}
+
+.checkbox input[type=checkbox]:before,
+.radiobox input[type=radio]:before {
+    color: #59b6fc;
+}

@@ -1,0 +1,47 @@
+            .footer{
+                height: 3.06em;
+                background-color: white;
+                overflow: hidden;
+            }
+            .footer .wrapper{
+                transition: all .3s;        
+            }
+            .footer .btn_wrapp{
+                height: 3.06em;
+                padding: .5em;
+                box-sizing: border-box;
+            }
+            .btn_width{
+                width: 5.625em;
+            }
+            .btn_active{
+                transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+            }
+            .bg_or{
+                background : #faae3e;
+            }
+            .mar05{
+                margin: 0 .5em;
+            }
+            .marl125{
+                margin-left: .125em;
+            }
+            /*check美化样式*/
+            .checkbox, .radiobox {
+                width: 1.15em;
+                height: 1.05em;
+            }
+            .checkbox input[type=checkbox], .radiobox input[type=radio] {
+                font-size: .7em !important;
+            }
+            .checkbox input[type=checkbox]:checked:before {
+                font-size: 1.65em !important;
+                content: "\f14a";
+            }
+            .checkbox input[type=checkbox]:checked:before, .radiobox input[type=radio]:checked:before {
+                color: #59b6fc;
+            }
+            .checkbox input[type=checkbox]:before, .radiobox input[type=radio]:before {
+                color: #59b6fc;
+            } 

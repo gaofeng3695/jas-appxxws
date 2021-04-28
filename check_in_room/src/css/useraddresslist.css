@@ -1,0 +1,156 @@
+.checkbox, .radiobox {
+    width: 1.15em;
+    height: 1.05em;
+}
+
+.checkbox input[type=checkbox], .radiobox input[type=radio] {
+    font-size: .7em !important;
+}
+
+.checkbox input[type=checkbox]:checked:before {
+    font-size: 1.65em !important;
+    content: "\f14a";
+}
+
+.checkbox input[type=checkbox]:checked:before, .radiobox input[type=radio]:checked:before {
+    color: #59b6fc;
+}
+
+.checkbox input[type=checkbox]:before, .radiobox input[type=radio]:before {
+    color: #59b6fc;
+}
+
+.checkbox input[disabled]:checked:before {
+    color: #ececec;
+}
+
+.checkbox input[disabled]:before {
+    color: #ececec;
+}
+.width33 {
+    width: 33%;
+}
+.tran25 {
+    transform: translateY(-.25em);
+    -webkit-transform: translateY(-.25em);
+}
+.lh01 {
+    line-height: 2.1875em;
+}
+.bg {
+    background: #fff;
+}
+
+.mar05 {
+    margin: 0em .5em;
+}
+.ulev18 {
+    font-size: .5625em !important;
+}
+
+.ulev20 {
+    font-size: .625em !important;
+}
+
+.ulev22 {
+    font-size: .6875em !important;
+}
+
+.ulev24 {
+    font-size: .75em !important;
+}
+
+.ulev26 {
+    font-size: .8125em !important;
+}
+
+.ulev28 {
+    font-size: .875em !important;
+}
+
+.ulev30 {
+    font-size: .9375em !important;
+}
+
+.ulev32 {
+    font-size: 1em !important;
+}
+
+.sectionShadow {
+    box-shadow: 0 0 5px rgba(188, 188, 188, 0.4) !important;
+}
+
+.sectionMargin {
+    margin-bottom: .625em;
+}
+.umh70 {
+    height: 1.875em;
+    line-height: 1.875em;
+}
+.paad{
+    padding-bottom: .81em;
+}
+.padt{
+    padding-top:.31em;
+}
+.umh80{
+  height:2.5em;
+  line-height:2.5em;  
+}
+.texr {
+    text-align: right;
+}
+.width1000 {
+    width: 10000px;
+}
+.marl {
+    margin-left: 1em;
+}
+.add {
+    background: url(../images/add.png) no-repeat;
+    background-size: 1.4em;
+}
+.phone {
+    padding-left: 1.25em;
+    background: url(../images/tel1.png) no-repeat 0 center;
+    background-size: .8em;
+}
+.adduser {
+    background: url(../images/adduser.png) no-repeat center center;
+    background-size: 1.4em;
+}
+.downIcon:after {
+    content: '\f0dd';
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    font-size: 0.75em !important;
+    top: .8em;
+    right: 0;
+} 
+
+.pd1{
+    padding-left:.5em;
+}
+.width8{
+    width:8em;
+}
+/*.bgss{
+   
+    width:4em;
+    height:3em;
+    background:  url(../images/checked.png) no-repeat right;
+    background-size: 3.8em 1.75em;
+}*/
+.passMask{
+    position: relative;
+}
+.passMask:after{
+    content : '';
+    height : 100%;
+    width: 100%;
+    position: absolute;
+    top:-0.5em;
+    left: 0;
+    background:  url(../images/checked1.png) no-repeat right .6em bottom -.1em;
+    background-size: 4.4em;
+}

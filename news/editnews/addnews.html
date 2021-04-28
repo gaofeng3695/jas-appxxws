@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../css/common.css" />
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">新增消息</h1>
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+            <!--footer开始-->
+            <div id="footer" class="uf ub">
+                <div class="ub-ac event_btn ub-fh ub us">
+                    <div class="ub-f1 tx-c ub-ac" onclick="saveData()">
+                        <span class="event_delete">保存</span>
+                    </div>
+                    <div class="ub-f1 tx-c ub-ac" onclick="publishData()">
+                        <span class="event_report">推送</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+    </body>
+    <script>
+        var flag=true;
+        appcan.ready(function() {
+            appcan.window.disableBounce();
+            var titHeight = $('#header').offset().height;
+            appcan.frame.open("content", "addnews_content.html", 0, titHeight,"addnews_content");
+            window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("addnews_content", 0, titHeight);
+            }
+        });
+        appcan.button("#nav-left", "btn-act", function() {
+            appcan.window.close(-1);
+        })
+        /**
+         * 保存消息到本地库
+         */
+        function saveData(){
+            if(flag){
+                flag=false;
+                appcan.window.evaluatePopoverScript("addNews","addnews_content","saveNews()");
+            }
+        }
+        /**
+         * 发布信息 
+         */
+        function publishData(){
+            if(flag){
+                flag=false;
+                appcan.window.evaluatePopoverScript("addNews","addnews_content","publishNews()");
+            }
+        }
+        function changeButtonStatus(){
+            flag=true;
+        }
+        
+        function closeWindow(eventStatus){
+            appcan.frame.evaluateScript('enitNews','enitNews_content',"refresh('"+eventStatus+"')");
+            appcan.window.close(-1);
+        }
+    </script>
+</html>

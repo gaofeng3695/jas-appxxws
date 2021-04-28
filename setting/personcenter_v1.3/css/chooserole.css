@@ -1,0 +1,39 @@
+.bc-bg1 {
+    background: #ffffff;
+}
+
+.b-gra {
+    border-color: #d6d6d6;
+}
+
+.t-gra1 {
+    color: #787878;
+}
+
+/*.resad {
+    background-image: url('myImg/pop.png');
+}*/
+/*.umwh {
+    min-height: 10.125em;
+    min-width: 8.156em;
+}
+
+.umar-h1 {
+    margin: 1.125em .553em 0 .563em;
+}*/
+
+.c-wh {
+    background-color: white;
+}
+
+.lin-h {
+    line-height: 2.475em
+}
+.radiobox{
+    font-size:0.71em;
+}
+.radio_xiugai{margin-top:0.7em;}
+
+.rolname{
+    font-size:0.8125em;
+}

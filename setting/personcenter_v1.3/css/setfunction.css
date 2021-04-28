@@ -1,0 +1,56 @@
+
+.uh-det1 {
+    height: 12.75em;
+}
+
+.c-wh {
+    background-color: white;
+}
+
+.text {
+    font-size: 0.78em;
+    color: #666666;
+}
+
+span {
+    font-size: 0.8em;
+    color: #6b6b6b;
+}
+
+p {
+    display: inline-block;
+    margin: 0 0.5em;
+}
+
+.radiobox {
+    vertical-align: middle;
+}
+
+.explain {
+    margin: 0.5em;
+    font-size: 0.81em;
+    color:#999;
+}
+
+#job, #dept,#role,#status {
+    margin-right: 1em;
+    color: #333;
+    font-size: 0.875em;
+}
+
+.sc-border-cor{
+    color:#f4f4f4;
+}
+#chooserole,#choosedept,#choosejob,#dongjie{
+    padding:0em 0.625em;
+}
+.div_height{
+    height:2.8125em;
+}
+.directionsize{
+    width:0.5858em;
+    height:1.083em;
+}
+#dongjie{
+    height:0px;
+}

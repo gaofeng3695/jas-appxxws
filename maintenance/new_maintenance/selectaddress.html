@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../../check_in_room/src/css/useraddresslist.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="app" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+
+            <header-common
+            title="用户列表"
+            ></header-common>
+
+            <!-- 搜索框 begin -->
+            <search-input
+            v-model= "keyword"
+            @dosearch="dosearch"
+            placeholder="搜索用户名称，门牌号，楼牌号"></search-input>
+            <!-- 搜索框 end -->
+            <select-search-group
+            title1="全部片区"
+            :value1="region"
+            @change1 = "region = arguments[0]"
+            :valuename1="regionName"
+            :options1="selectOptions.region"
+
+            title2="全部小区/院/村"
+            :value2="community"
+            @change2= "community= arguments[0]"
+            :valuename2="community"
+            :options2="selectOptions.community"
+
+            ></select-search-group>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+
+            <footer-common
+            :btns="[{color:'#59bcf6',name:'确认'}]"
+            @click1="click1"></footer-common>
+
+        </div>
+        <!-- <script type="text/javascript" charset="utf-8">
+        window.onerror = function(msg, url, line) {
+            alert("erro" + msg + "\n" + url + ":" + line);
+            return true;
+        };                 
+        </script> -->
+        
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../js/appcan.tab.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_jasRequest.js"></script>
+        <script src="../../vue_component/select_search.component.vue.js"></script>
+        <script src="../../vue_component/search.component.vue.js"></script>
+        <script src="../../vue_component/input_common.component.vue.js"></script>
+        <script src="../../vue_component/header_common.component.vue.js"></script>
+        <script src="../../vue_component/footer_common.component.vue.js"></script>
+
+        <script>
+        
+   
+        
+            var vm = new Vue({
+                el : '#app',
+                data : {
+                    date : '',
+                    keyword : '',
+                    region : '',
+                    community : '',
+                    selectOptions : {
+                        region : [{
+                            value : '',
+                            text : '全部片区'
+                        },{
+                            value : 'none',
+                            text : '无片区'
+                        }],
+                        community : [{
+                            value : '',
+                             text : '全部小区/院/村'
+                        }],
+                    }
+                },
+                computed : {
+                    regionName : function() {
+                        var arr = this.selectOptions.region;
+                        for (var i = 0; i < arr.length; i++) {
+                            if (arr[i].value === this.region) {
+                                return arr[i].text;
+                            }
+                        }
+                        return '';
+                    },
+                    address : function(){
+                        return this.region + this.community;
+                    }
+                },
+                watch : {
+                    address : function(){
+                        var data='';
+                         if(this.community!='全部小区/院/村'){
+                             data=this.community;
+                         }                       
+                        appcan.window.evaluatePopoverScript('', 'content', 'userAddressObj.selectaddress("' + this.region + '","'+data+'")');
+                    },
+                    
+                    // community : function() {
+                        // alert(123)
+                        // appcan.window.evaluatePopoverScript('', 'content', 'userAddressObj.selectcommunity("' + this.community + '")');
+                    // },
+                    region : function() {
+                        operations.initCommunity(this.region);
+                        //appcan.window.evaluatePopoverScript('', 'content', 'userAddressObj.selectRegion("' + this.region + '")');
+                    },
+                },
+                methods : {
+                    dosearch : function() {
+                        appcan.window.evaluatePopoverScript('', 'content', 'userAddressObj.searchAddress("' + this.keyword + '")');
+                    },
+                    click1 : function() {
+                        appcan.window.evaluatePopoverScript('', 'content', 'userAddressObj.getAddress()');
+                    }
+                },
+                mounted : function() {
+                    var that = this;
+                    appcan.ready(function() {
+                        operations.openPopover();
+                        operations.getSelectData();
+                        operations.initCommunity();
+                        operations.bindResumeEvent();
+
+                    });
+                }
+            });
+
+            var operations = {
+                openPopover : function() {
+                    var titHeight = $('#content').offset().top;
+                    appcan.frame.open("content", "selectaddress_content.html", 0, titHeight);
+                    window.onorientationchange = window.onresize = function() {
+                        appcan.frame.resize("content", 0, titHeight);
+                    };
+                },
+                bindResumeEvent : function() {
+                    appcan.window.on('resume', function() {//窗口回到前台时执行回调函数
+                        // appcan.window.evaluatePopoverScript('', 'content', 'operations.refreshList()');
+                        //在指定的弹出窗内执行相应的脚本
+                    });
+                },
+
+                getSelectData : function() {
+                    var that = this;
+                    var params = {
+                        pageNum : 1,
+                        pageSize : 1000,
+                    };
+                    var url = "cloudlink-inspection-event/commonData/region/getPageList";
+                    jasRequest.post(url, params, function(data) {
+                        var result = data.rows;
+                        if (result.length > 0) {
+                            that.renderRegin(result);
+                        }
+
+                    });
+                },
+                renderRegin : function(data) {
+                    data.forEach(function(item) {
+                        var obj = {
+                            value : item.objectId,
+                            text : item.regionName
+                        }
+                        vm.selectOptions.region.push(obj);
+                    });
+                },
+                initCommunity : function(id) {
+                    var that = this;
+                    var param = {
+                        "regionId" : id,
+                        "pageNum" : 1,
+                        "pageSize" : 10000
+                    };
+                    var url = 'cloudlink-inspection-event/commonData/residentialName/getPageList';
+                    jasRequest.post(url, param, function(data) {
+                        var result = data.rows;
+                        that.renderCommunity(result);
+                    });
+                },
+                renderCommunity : function(data) {
+                    vm.selectOptions.community = [{
+                        value : '',
+                        text : '全部小区/院/村'
+                    }];
+                    if (data.length > 0) {                    
+                       vm.selectOptions.community = vm.selectOptions.community.concat(data.map(function(item){
+                           return {
+                               value : item.residential,
+                               text : item.residential 
+                           }
+                       }));                         
+                    }
+                    // try{
+                        // alert(JSON.stringify( vm.selectOptions.community))                        
+                    // }catch(e){
+                        // alert(e)
+                    // }
+
+                    vm.community=vm.selectOptions.community[0].text;
+                    vm.$set(vm.selectOptions.community);
+                },
+            };
+
+        </script>
+    </body>
+</html>

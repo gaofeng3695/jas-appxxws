@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/new_user.css">
+    </head>
+
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="section sectionMargin sectionShadow">
+            <div class="line ub">
+                <div class="lineTitle">
+                    <span class="ulev26 clr666">所在地区</span>
+                </div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 bgMustDone" id="chooseaddress">
+                    <input id="location" type="text" disabled  placeholder="请选择所在地区（必填）" style="color: #000;">
+                </div>
+            </div>
+            <div class="line ub">
+                <div class="lineTitle">
+                    <span class="ulev26 clr666 ">小区/院/村</span>
+                </div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 bgMustDone">
+                    <input id="residential" type="text" placeholder="请输入小区/村（必填）">
+                </div>
+            </div>
+            <div class="line ub">
+                <div class="lineTitle " >
+                    <span class="ulev26 clr666 word2">楼号</span>
+                </div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 ">
+                    <input id="building" type="text" placeholder="请输入楼号（选填）">
+                </div>
+            </div>
+            <div class="line ub">
+                <div class="lineTitle">
+                    <span class="ulev26 clr666 word3">单元号</span>
+                </div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 ">
+                    <input id="unit" type="text" placeholder="请输入单元号（选填）">
+                </div>
+            </div>
+            <div class="line ub">
+                <div class="lineTitle ">
+                    <span class="ulev26 clr666 word3">门牌号</span>
+                </div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333 bgMustDone">
+                    <input id="room" type="text" placeholder="请输入门牌号（必填）">
+                </div>
+            </div>
+            <div class="line ub">
+                <div class="lineTitle">
+                    <span class="ulev26 clr666">所属片区</span>
+                </div>
+                <div class="select ub-f1 ownSelect" id="selectregion">
+                    <div class="text ulev26 ">
+                        请选择所属片区（选填）
+                    </div>
+                    <div class="icon clr666"></div>
+                    <select selectedindex="-1" class="region"></select>
+                </div>
+            </div>
+
+        </div>
+        <div class="section ">
+            <div class="line ub">
+                <div class="lineTitle">
+                    <span class="ulev26 clr666 ">用户编号</span>
+                </div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333">
+                    <input id="userFileCode" type="text" placeholder="请输入用户编号（选填）">
+                </div>
+            </div>
+            <div class="line ub">
+                <div class="lineTitle">
+                    <span class="ulev26 clr666">用户名称</span>
+                </div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333">
+                    <input id="userFileName" type="text" placeholder="请输入用户名称（选填）">
+                </div>
+            </div>
+            <div class="line ub">
+                <div class="lineTitle">
+                    <span class="ulev26 clr666">用户类型</span>
+                </div>
+                <div class="select ub-f1 ownSelect" id="usertype">
+                    <div class="text ulev26 ">
+                        请选择用户类型（选填）
+                    </div>
+                    <div class="icon clr666"></div>
+                    <select selectedindex="0" >
+                        <option value=''>请选择</option>
+                        <option value='EHT_001'>居民</option>
+                        <option value='EHT_002'>工业</option>
+                        <option value='EHT_003'>商业</option>
+                        <option value='EHT_004'>公共福利</option>
+                        <option value='EHT_099'>其他</option>
+                    </select>
+                </div>
+            </div>
+            <div class="line ub">
+                <div class="lineTitle ">
+                    <span class="ulev26 clr666 ">用户状态</span>
+                </div>
+                <div class="select ub-f1 ownSelect" id="userstatus">
+                    <div class="text ulev26 ">
+                        请选择用户状态（选填）
+                    </div>
+                    <div class="icon clr666"></div>
+                    <select selectedindex="0">
+                        <option value='' >请选择</option>
+                        <option value='US_01'>未通气</option>
+                        <option value='US_02'>在用</option>
+                        <option value='US_03'>停用</option>
+                        <option value='US_04'>欠费</option>
+                        <option value='US_05'>已注销</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="line ub">
+                <div class="lineTitle">
+                    <span class="ulev26 clr666 word3">联系人</span>
+                </div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333">
+                    <input id="contactUser" type="text" placeholder="请输入联系人（选填）">
+                </div>
+            </div>
+            <div class="line ub">
+                <div class="lineTitle">
+                    <span class="ulev26 clr666">联系电话</span>
+                </div>
+                <div class="ub-f1 rightDiv uinput ub ub-ac ulev26 clr333">
+                    <input id="contactPhone" type="text" placeholder="请输入联系电话（选填）">
+                </div>
+            </div>
+
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_database.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+        <script src="../src/js/new_user.js"></script>
+
+    </body>
+
+</html>

@@ -1,0 +1,120 @@
+.bc-bg1 {
+    background: #ffffff;
+}
+
+span {
+    color: #666666;
+    padding-left: 3%;
+}
+
+.ubr {
+    margin-right: 3em;
+    color: #f4f4f4;
+}
+.tel{
+    border-bottom: 1px solid #f4f4f4;
+}
+.ub-pc{
+    padding:0em 1.1em;
+}
+img{
+    width:3.27em;
+    height:3.27em;
+}
+dt{
+    text-align:center;
+    padding:1.88em 0em;
+}
+dd{
+   text-align:center;
+   padding-bottom:2.78em;
+   font-size:0.875em;
+   color:#666;
+}
+#telnote{
+ color:#59B5FC;   
+}
+#next{
+  font-size:0.89em;
+  color:#ffffff;  
+}
+.num{
+font-size:0.875em;
+color:#666;
+}
+.mar5{
+    margin:.5em;
+}
+.pddt{
+    padding-top:.5em;
+}
+.pasborder{
+    border:1px solid #f4f4f4;
+    margin-bottom:.5em;
+}
+.padl5{
+    padding-left:1em;
+}
+.b-gra3 {
+    border-color: #d8d8d8;
+}
+
+.uinn-a6 {
+    padding: 1em 0.65em 0 0.65em;
+}
+
+.t-gra4 {
+    color: #8c8c8c;
+}
+
+.uinn-a1 {
+    padding: 0.625em;
+}
+
+.uinn-a7 {
+    padding: 0 0.625em;
+}
+
+.c-wh {
+    background-color: #FFF;
+}
+
+.umar-at1 {
+    margin-top: 0.625em;
+}
+
+.uinn-at1 {
+    padding-top: 1em;
+}
+
+.umw55 {
+    min-width: 5.5em;
+}
+
+.bgclr {
+    background: #00A1EA;
+    color: white;
+}
+
+.tipclr {
+    color: #fc4343;
+}
+
+.bg-grey {
+    background: #e6e6e6 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.marBtm {
+    padding-bottom: 3em;
+}
+.linh{
+    height:2em;
+    line-height: 2em;
+}
+.marb{
+  margin-bottom:.5em;
+}

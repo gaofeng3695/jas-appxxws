@@ -1,0 +1,78 @@
+.pl{
+    padding-left:0.5em;
+    }
+.pr1{
+    padding-right:1em;
+    }
+.pr53{
+    padding-right:5.3em;
+    }
+.pr33{
+    padding-right:3.3em;
+    }
+.pl18{
+    padding-left: 1.8em;
+    }
+.mt{
+    margin-top:1em;
+    }
+.mt5{
+    margin-top:0.5em;
+    }
+.bor_b{
+    border-bottom:1px solid #eee;
+    padding-bottom: 1em;
+    }
+.c888{
+    color:#888;
+    }
+.box{
+    background:url('../../css/dian3.png') 4em center repeat-y #fff;
+    }
+.font1{
+    font-size:1em;
+    color:#333;
+    padding-left:3em;
+}
+.font2{
+    font-size:1em;
+    color:#666;
+}
+.font3{
+    font-size:0.8em;
+    color:#666;
+}
+.font4{
+    font-size:1em;
+    color:#333;
+}
+ h3 {
+     background:url('../../css/day.png') 1.5em 0 no-repeat;
+     background-size:0.8em;
+     padding-left: 1.8em;
+     margin:0 0 0.5em 2.2em;
+     height:1.5em;
+     }
+.time {
+    padding-left:0.5em;
+    display:block;
+    float:left;
+    width: 3em;
+    height:100%;
+    color:#666;
+    }
+.box li .task{
+    display:block;
+     background:url('../../css/task.png') 0.3em 0.3em no-repeat;
+     background-size:0.6em;
+     padding-left: 1.8em;
+     }
+.box li .task .depict{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    word-wrap:break-word; 
+}
+.list_all{
+    background:url('../../css/task.png') 3.8em bottom no-repeat;
+    background-size:0.6em;
+}

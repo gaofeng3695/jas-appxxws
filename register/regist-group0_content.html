@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/ui-color.css">
+    <link rel="stylesheet" href="../css/appcan.icon.css">
+    <link rel="stylesheet" href="../css/appcan.control.css">
+    <link rel="stylesheet" href="resource/regist-password_content/css/main.css">
+</head>
+<body class="um-vp bc-bg" ontouchstart>
+<div class="ub ub-ver um um-vp">
+    <div class="ub ub-ver uinn-a1">
+        <div class="uba uc-a1 ub umh5 uinn-a7 ub-ac umar-at1 sc-bd-bg">
+                    <span class="ulev-1">
+                        <span id="tel"> </span>已经是巡检卫士用户并属于以下企业，可以直接选择企业进行登录？
+                    </span>
+        </div>
+        <!-- <di v class="uba b-gra3 uc-a1 c-wh ub umh5 uinn-a7 ub-pc umar-at1 umh5">
+            <!-- <div class="umw30 umh5" >
+                <img id="logo" src="resource/images/logo.png" alt="logo" >
+            </div>
+            <div class="bc-text ub-f1 ub ub-ac">
+                北京中盈安信技术服务股份有限企业
+            </div>   -->
+        <div class="ub ub-ver ">
+            <div class="listWrapper">
+                <div id="grounpInvited"></div>
+            </div>
+        </div>
+
+        <!-- </div> -->
+
+        <!-- <div class="ub umar-at1 uinn-a7 umh2">
+            <span class="ulev-1  sc-text-warn">
+                直接登录请点击下一步
+            </span>
+        </div>
+        <div class="ub ub-pc">
+            <div class="uinn-at1 ub-f1">
+                <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1"  id="next">
+                    下一步
+                </div>
+            </div>
+        </div>   -->
+    </div>
+    <div class="ub-f1 ub-ae ub ub-pc umar-bgf">
+        <span class="sc-text-active" id="create">不，我要创建新企业</span>
+    </div>
+</div>
+
+
+</body>
+<script src="../js/appcan.js"></script>
+<script src="../js/appcan.control.js"></script>
+<script src="../js/appcan.listview.js"></script>
+<script src="../common/js/common_httprequest.js"></script>
+</body>
+<script>
+    var grounpInvited = {
+        listview: appcan.listview({
+            selector: '#grounpInvited',
+            type: "thinLine",
+            hasIcon: true,
+            hasAngle: true,
+            hasSubTitle: false,
+            multiLine: 1
+        }),
+        data: null,
+        init: function () {
+            this.listview.set(this.data);
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            this.listview.on("click", function (ele, obj, curEle) {
+                appcan.locStorage.setVal("enterpriseId", obj.id);
+                appcan.openWinWithUrl("regist-info", "input-password.html");
+            });
+        }
+    };
+    appcan.ready(function () {//
+        var jasHttpRequest = new JasHttpRequest();
+        var tel = appcan.locStorage.getVal("registNum");
+        $("#tel").text(tel);
+        var partURL1 = "cloudlink-core-framework/login/getEnterpriseList?registNum=" + tel;//cloudlink-core-framework/
+        jasHttpRequest.jasHttpGet(partURL1, function (id, state, dbSource) {
+            var data = JSON.parse(dbSource);
+            var datalist = data.rows;
+            var acceptArray = [];
+            for (var i = 0; i < datalist.length; i++) {
+                acceptArray.push({
+                    title: datalist[i].enterpriseName,
+                    icon: "resource/images/join.png",
+                    id: datalist[i].objectId
+                });
+            }
+
+            grounpInvited.data = acceptArray;
+            grounpInvited.init();
+
+        });
+
+    });
+
+
+    appcan.select(".select", function (ele, value) {
+        console.log(value);
+    });
+
+    // appcan.button("#next","ani-act",function(){
+    //
+    // });
+
+    appcan.button("#create", "ani-act", function () {
+        appcan.locStorage.setVal("isExistandcreate", "1");//已经存在企业，但是还要进行新企业的创建
+        appcan.openWinWithUrl("regist-group", "regist-group.html");
+    });
+
+</script>
+</html>

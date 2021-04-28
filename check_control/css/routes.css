@@ -1,0 +1,45 @@
+
+/* 个人信息 */
+#title {
+    min-height: 5.063em;
+
+    background: url(../images/bg.png) no-repeat left bottom;
+    background-size: cover;
+}
+.head-pic {
+    overflow: hidden;
+
+    margin: .619em;
+    border-radius: 50%;
+    width: 3.026em;
+    height: 3.026em;
+
+    box-shadow: 0 0 0 .12em rgba(250,250,250,.5);
+}
+
+.head-pic img {
+    display: block;
+
+    box-sizing: border-box;
+    border: .12em solid white;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+#title span {
+    padding: 0 .450em;
+}
+
+
+
+/* 巡线轨迹列表 */
+
+#routesList {
+    background: white;
+}
+#routesList ul li > div:nth-of-type(1){
+    color: #666;
+    font-size: .875em;
+}
+

@@ -1,0 +1,131 @@
+
+a{
+    text-decoration:none;
+    color:#e4e4e4;
+  }
+#top{
+    background-color:#f4f4f4;
+    }
+.lineHeight{
+    line-height:1.6;
+}
+.umar-b0{
+    padding-top:0.625em;
+    box-sizing:border-box;
+    }
+.allDep{
+    line-height:1.25em;/*部门title样式 */ 
+    margin-left:0.625em;
+    background:#f4f4f4;
+    color:#999999;
+    }
+.departments{
+    height:1.25em;
+    line-height:1.1em;
+    margin-left:0.625em;
+    background:#f4f4f4;
+    color:#999999;
+    }
+.thisDep{
+    padding-top:0.625em;
+    }
+/*显示人员信息的总体样式*/   
+.classification{
+    height:3.75em;
+    width:100%;
+    background:#ffffff
+    }
+.classification~.classification{
+    border-top:1px solid #ececec;
+    }
+.classification .leftStyle{
+    width:12em;
+}
+/*显示人员信息的头像样式*/    
+.IMG{
+    width:2.8125em;
+    height:2.8125em;
+    margin:0 0.625em;
+    }
+.IMG img{
+    width:2.8125em;
+    height:2.8125em;
+    border-radius:50%;
+    }
+/* tab全部本部切换样式*/
+.event_nav{
+    background: #ffffff;
+    height: 2.621em;
+    line-height: 2.621em;
+    color:#666666;
+    font-size:0.934em;
+}
+.event_nav li.selected_A{
+    color:#59b6fc;
+    border-bottom: 2px solid #59b6fc;
+}
+/*锚点样式*/
+#anchor{
+    width:1em;
+    text-align:center;
+    top:1em;
+    right:0em;
+    position:fixed;
+    margin-top:3.2em;
+    }
+#anchor ul{
+    width:1em;
+    }
+#anchor ul li{
+    color:#666;
+    font-size:0.75em;
+    margin-right:0.625em;
+    }
+#anchor ul li img{
+    height:1em;
+    }
+/* 显示搜索内容样式*/
+#all{
+    width:100%;
+    display:none;
+    }
+#all ul{
+    width:100%
+    }
+#all ul li{
+    width:100%;
+    height:3.308em;
+    line-height:3.308em;
+    border-bottom:1px solid #ececec;
+    padding-left:0.626em;
+}
+#class .pointsFont{
+    font-size:0.875em;
+    color:#999;
+    width:8em;
+    margin-top:3em;
+    margin-left:33%;
+    }
+/*部门姓名切换样式*/
+#department{
+    width:4.5em;
+    height:4.5em;
+    border-radius:4.5em;
+    position:fixed;
+    right:1.875em;
+    bottom:1.875em;
+    }
+#department img{
+    width:4.5em;
+    height:4.5em;
+    border-radius:4.5em;
+    }
+.test_hidden{
+    display:block;
+    white-space:nowrap; 
+    overflow:hidden; 
+    text-overflow:ellipsis;
+}
+.pr105em{
+    padding-right:1.5em;
+}

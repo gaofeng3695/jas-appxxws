@@ -1,0 +1,13 @@
+#tabview>div.tab_l{
+	height: auto;
+	padding: .7em 0;
+}
+#tabview>div.tab_l .item{
+    padding: 0.1em 0;
+}
+#header .title{
+    min-height: 2.75em;
+}
+#header .title span{
+    font-weight: bold;
+}

@@ -1,0 +1,19 @@
+.save_btn {
+    margin-top: 0.8em;
+    border-radius: 1.3em;
+    background-color: #2964A7;
+    padding: 0.2em 0.9em;
+    min-height: 1.85em;
+    font-size: 1.0em;
+    text-align: center;
+    margin: 0em 1.2em 0em 1.2em;
+    margin-bottom: 1em;
+    width:25%
+}
+
+.form_lable_required span:before{
+    content: ' *';
+    color: red;
+    font-size: 120%;
+}
+#workteamleader{color:#000;} 

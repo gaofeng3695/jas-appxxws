@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../../common/css/add.css">
+        <link rel="stylesheet" href="../index/css/main.css" />
+        <link rel="stylesheet" href="../css/organization.css" />
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <form method="post" id="news_info">
+            <div class="report us1 uof">
+                <div class="ub ub-ac report_list">
+                    <div class="report_introduce">
+                        <span>标题</span>
+                    </div>
+                    <div class="ub-f1 sc-bg report_content ub">
+                        <div class="ub-f1 ub-fv report_text">
+                            <input class="sc-bg ub-f1" type="text" id="title" name="title" maxlength="50"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="ub ub-ac report_list">
+                    <div class="report_introduce">
+                        <span>内容</span>
+                    </div>
+                    <div class="ub-f1 sc-bg report_content ub">
+                        <div class="ub-fv ub-f1">
+                            <textarea class="sc-bg ub-f1" name="content" id="content" cols="30" rows="6"></textarea>
+                            <span id="word">(160字)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--视频与照片-->
+            <div class="report us1 uof">
+                <div class="ub ub-ac report_list ubb sc-border-cor">
+                    <div class="report_introduce">
+                        <span class="">上传照片</span>
+                    </div>
+                    <div class="ub-f1 report_content ub">
+                        <div class="ub-f1 ub-fv report_text">
+                            <span class="mun-camera ubl sc-border-cor"><span class="img_mun">0</span>/<span class="img_all">5</span></span>
+                        </div>
+                        <span class="report_img" ><img src="../index/images/camera.png" height="100%" onclick="opensheet_tsend()" alt=""/></span>
+                        <!-- <span class="report_img" id="camera"><img src="index/images/camera.png" height="100%" alt=""/></span> -->
+                    </div>
+                </div>
+                <div class="ub-ac report_list">
+                    <div class="ub-f1" id="camera_img">
+                        
+                    </div>
+                </div>
+            </div>
+            <!--审核联系人-->
+            <div class="report us1 uof">
+                <div class="ub ub-ac report_list">
+                    <div class="report_introduce report_people">
+                        <span>接收人</span>
+                    </div>
+                    <div class="ub-f1 sc-bg report_content ub" onclick="openUserInfo()">
+                        <div class="ub-f1 ub-fv report_text">
+                            <input class="sc-bg ub-f1" readonly="readonly" type="text" name="people" id="people"/>
+                        </div>
+                        <span class="report_img"><img src="../index/images/people.png" height="100%" alt="" /></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../common/js/common_base.js"></script>
+    <script src="../../common/js/common_database.js"></script>
+    <script src="../../common/js/common_httprequest.js"></script>
+    <script src="../../common/js/common_form.js"></script>
+    <script src="js/localNew.js"></script>
+    <script src="js/addnews_content.js"></script>
+    </body>
+</html>

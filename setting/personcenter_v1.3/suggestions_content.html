@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="css/suggestion.css">
+        <link rel="stylesheet" href="../../event_management/index/css/organization.css"/>
+
+    </head>
+    <body class="um-vp bc-bg" id="top" ontouchstart>
+        <div class="us1 bc-border  suggestion telbg">
+            <div class="uinput telHeight ub ub-ac">
+                <span class="tel">客服电话（9:00至17:00）</span>
+            </div>
+            <div class="uinput telHeight ub ub-ac">
+                <span class="tel">工作日：</span><span class="telNumber">010-62666705</span>
+            </div>
+            <div class="uinput telHeight ub ub-ac">
+                <span class="tel">节假日：</span><span class="telNumber">13240467546</span>
+            </div>
+        </div>
+        <div id="case" class="us1">
+            <div>
+                <textarea id="text" placeholder="欢迎您随时给我们提使用感受和建议" class="uinput"></textarea>
+                <span
+                id="word">（120字）</span>
+            </div>
+        </div>
+        <div class="us1 bc-border bg suggestion">
+            <div>
+                <div class="uinput ub umh5 ub-ac">
+                    <span class="textinput">问题类型（选填，可多选）</span>
+                </div>
+                <div class="ub ub-ac bug">
+                    <span class="pay_list_c1 checkbox">
+                        <input type="checkbox" id="check" class="text" name="texttype" value="bug">
+                    </span>
+                    <label for="check" class="des">bug</label>
+                    <span class="pay_list_c1 checkbox">
+                        <input type="checkbox" id="sug" class="text" name="texttype" value="建议">
+                    </span>
+                    <label for="sug" class="des">建议</label>
+                </div>
+            </div>
+        </div>
+        <div class="photo us1 bc-border bg ">
+            <div class="ub ub-ac ubb  sc-border-cor">
+                <div class="ub-f1 photo_content ub ub-ac">
+                    <div class="ub-f1 ub-fv ">
+                        <span class=" mun sc-border-cor ubl"> <span class="img_mun">图片（选填，提供问题的截图）</span> </span>
+                        <span class=" mun sc-border-cor ubl ulev26" style="display:none"> <span class="img_mun img_mun_suggestion padl1">0</span><span class="img_all">/6（选填）</span> </span>
+                    </div>
+                    <span class="photonum" id="choose"> <img src="image/camera.png" height="100%" /> </span>
+                </div>
+            </div>
+            <div class="photo_list clearfloat pic_suggestions" pictype='pic_suggestions'>
+
+            </div>
+            <script src="../../js/appcan.js"></script>
+            <script src="../../js/appcan.control.js"></script>
+            <script src="../../common/js/common_base.js"></script>
+            <script src="../../common/js/common_httprequest.js"></script>
+            <script src="../../common/js/common_tianji.js"></script>
+            <script src="js/common_imagesObj.js"></script>
+            <script src="js/suggestion.js"></script>
+    </body>
+   
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/ledgermap.css">
+    </head>
+
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn showList">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">设施地图</h1>
+                <div class="nav-btn nav-bt" id="nav-right">
+                    <div class=" nav-bt createledger">
+                        <div class="umw2 umh4 add"></div>
+                    </div>
+                    <div class=" nav-bt showList">
+                        <div class="umw2 umh4 listpic"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="">
+                <div id="" class="searchWrap ub-fh ub ub-pc">
+                    <div class="ub ub-f1 searchBox ub-ac">
+                        <div class="uinput ub ub-f1 ub-ac">
+                            <input id="inputDom" placeholder="搜索设施名称、设施编号、详细位置" type="search" class="ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}">
+                        </div>
+                        <div id="" class="searchDelete" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden')"></div>
+                        <div class="searchLine"></div>
+                        <div id="search" class="searchBtn ulev26 ub ub-ac">
+                            搜索
+                        </div>
+                    </div>
+                </div>
+                <!--搜索框结束-->
+                <div class="total topShadow">
+                    <div class="select_height bt1 ubb sc-border-cor">
+                        <div class="posi_left width50 ub ub-ac ub-pc lh01 bgfff">
+
+                            <div id="select01" class="select clr333">
+                                <div class="text ulev30">
+                                    管网类型
+                                </div>
+                                <i class="fa fa-sort-desc ulev24 tran25" aria-hidden="true"></i>
+                                <select selectedindex="" class="pipeOption">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class=" posi_right width50 ub ub-ac ub-pc lh01 bgfff">
+
+                            <div id="select02" class="select clr333">
+                                <div class="text ulev30">
+                                    调压设备
+                                </div>
+                                <i class="fa fa-sort-desc ulev24 tran25" aria-hidden="true"></i>
+                                <select selectedindex="" class="optionFaci">
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ub linh" style="margin:0em .5em;">
+                        <div class="ub-f1 ulev26 clr666 ">
+                            共计<span class="pipeNum">0</span>个<span class="pipeTypeName">调压设备</span>
+                        </div>
+                        <div class="mapLocation">
+                            <img src="../src/images/location.png" style="vertical-align: middle;width:0.93em;height:1.25em">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--header结束-->
+            <!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+
+            </div>
+            <!--content结束-->
+            <div id="equired" class="ub ub-ver topShadow bg ">
+                <div class=" ubb sc-border-cor initequip">
+                    <div class="ub padd5 ub-ac">
+                        <div class="ub  clr333 ulev30" style="height:3.2em;line-height: 3.2em">
+                            我的位置：
+                        </div>
+                        <div class="ub-f1">
+                            <div class="addressimg  clr333 ulev30 ulim100 currentaddress" style="padding-left:1em">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="equired" class="ub ub-ver topShadow bg ">
+                <div class=" ubb sc-border-cor footerEquired">
+                    <div class="ub padd5 ub-ac">
+                        <div class="switchBtn  ub-ac ub-pc textcenter switchBtnLeft">
+                            <span class="fa fa-angle-left fa-2x"></span>
+                        </div>
+                        <div class="ub-f1 marl5">
+                            <div class=" ub line1">
+                                <div class="ub-f1 clr333 ulev28 ulim100 facilityName">
+
+                                </div>
+                                <div class="ulev28 clr333 pipetype" style="margin-right:1em">
+
+                                </div>
+                                <div class="ulev28 clr333 facilityTypeName">
+
+                                </div>
+                            </div>
+                            <div class="ub line1">
+                                <div class="ub-f1 addressimg">
+                                    <div class=" clr666 ulev28  ulim100  marll5 address">
+                              
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="switchBtn textcenter switchBtnRight">
+                            <span class="fa fa-angle-right fa-2x "></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="footer" class="footer  ">
+                <div class=" btn_wrapp ub ub-fv uinn">
+                    <div id="detail" class="mrl25 uc-a1 ub-f1 clrfff bg_or ulev30 ub ub-ac ub-pc ub-fv js_btn">
+                        设施详情
+                    </div>
+                    <div id="new_create" class=" mrl25 uc-a1 ub-f1 clrfff bgclr ulev30 ub ub-ac ub-pc ub-fv js_btn">
+                        新建检查
+                    </div>
+                    <div id="record" class="mrl25 uc-a1 ub-f1 clrfff bg_clr ulev30 ub ub-ac ub-pc ub-fv js_btn">
+                        历史检查
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../js/appcan.tab.js"></script>
+        <script src="../../common/js/common_map.js"></script>
+        <script src="../../common/js/common_device.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_database.js"></script>
+        <script src="../src/js/common/getLocationObj.js"></script>
+        <script src="../src/js/ledgermap.js"></script>
+    </body>
+
+</html>

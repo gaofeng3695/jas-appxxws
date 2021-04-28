@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/ui-box.css">
+    <link rel="stylesheet" href="../../css/ui-base.css">
+    <link rel="stylesheet" href="../../css/ui-color.css">
+    <link rel="stylesheet" href="../../css/appcan.icon.css">
+    <link rel="stylesheet" href="../../css/appcan.control.css">
+    <link rel="stylesheet" href="../src/css/new_record.css">
+</head>
+
+<body class="um-vp " ontouchstart>
+    <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh bc-text-head ub bc-head">
+            <div class="nav-btn js_return" id="nav-left">
+                <div class="fa fa-angle-left fa-2x"></div>
+            </div>
+            <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">新建安检记录</h1>
+            <div class="nav-btn nav-bt" id="nav-right"></div>
+        </div>
+        <!--header结束-->
+        <!--content开始-->
+        <div id="content" class="ub-f1 tx-l">
+
+        </div>
+        <!--content结束-->
+        <!--footer开始-->
+        <div id="footer" class="footer topShadow">
+            <div class="wrapper animate">
+                <div class="btn_wrapp">
+                    <div id="sign" class="uc-a1 clrfff bgclr ulev30 ub ub-ac ub-pc ub-fv">用户签字</div>
+                </div>
+                <div class="btn_wrapp ub">
+                    <div class="js_return uc-a1 ub-f1 clrfff bg01 ulev30 ub ub-ac ub-pc ub-fv">修改记录</div>
+                    <div id="save" class="mid_btn uc-a1 ub-f1 clrfff bgclr ulev30 ub ub-ac ub-pc ub-fv">保存本地</div>
+                    <div id="upload" class="ub-f1 uc-a1 clrfff bg03 ulev30 ub ub-ac ub-pc ub-fv">直接上传</div>
+                </div>
+            </div>
+        </div>
+        <!--footer结束-->
+    </div>
+    <script src="../../js/appcan.js"></script>
+    <script src="../../js/appcan.control.js"></script>
+    <script src="../../common/js/common_base.js"></script>    
+    <script src="../../common/js/common_tianji.js"></script>    
+</body>
+<script>
+    appcan.ready(function() {
+        wrapperObj.init();
+    });
+    var wrapperObj = {
+        isPostReady : true,
+        init: function() {
+            this.renderFooter();
+            this.showPopover();
+            this.bindEvent();
+        },
+        renderFooter : function(){
+
+            var s = appcan.locStorage.val('recordEnterhomeSituationTypeCode');
+            if (s !== 'EHS_001') {
+                $(".footer .wrapper").removeClass("animate").addClass("btn_active");
+            }
+        },
+        showPopover: function() {
+            var titHeight = $('#content').offset().top;
+            appcan.frame.open("content", "../detail/detail_success.html#newLocal", 0, titHeight);
+            window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("content", 0, titHeight);
+            };
+        },
+        bindEvent: function() {
+            var that = this;
+            appcan.button(".js_return", "btn-act", function() {
+                //将新建安检记录页面的按钮进行释放。
+                appcan.window.evaluateScript("new_record", "changeClick()");
+                appcan.window.close(-1);
+            });
+            appcan.button("#sign", "btn-act", function() {          
+                that.triggerSign();
+                if (tjSwitch == 1) {
+                    try {
+                        var param = {
+                            eventName: "入户安检-点击用户签字",
+                            info: {}
+                        };
+                        uexTianji.track(param);
+                    } catch (e) {}
+                } 
+            });
+            appcan.button("#save", "btn-act", function() {
+                               
+                appcan.window.evaluatePopoverScript('detail_sign', 'content', 'recordDetailObj.saveDataFromDraft()');
+                if (tjSwitch == 1) {
+                    try {
+                        var param = {
+                            eventName: "入户安检-点击保存本地（安检记录未上传）",
+                            info: {}
+                        };
+                        uexTianji.track(param);
+                    } catch (e) {}
+                }   
+            });
+            appcan.button("#upload", "btn-act", function() {
+                if ( that.isPostReady ) {
+                    that.isPostReady = false;
+                                          
+                    appcan.window.evaluatePopoverScript('detail_sign', 'content', 'recordDetailObj.uploadImgSuccess()');
+                    if (tjSwitch == 1) {
+                        try {
+                            var param = {
+                                eventName: "入户安检-点击直接上传",
+                                info: {}
+                            };
+                            uexTianji.track(param);
+                        } catch (e) {}
+                    } 
+                }
+
+            });
+        },
+        triggerSign : function(){
+            var that = this;
+            uexESignature.open();
+            if (!that.isCbSeted) {
+                that.isCbSeted = true;
+                uexESignature.cbOpen = function(opId, dataType, data){
+                    //baseOperation.londingToast('正在生成签名，请稍后...', 9999);
+                    //setTimeout(function(){
+                        //baseOperation.closeToast();                            
+                        if (!data) {
+                           baseOperation.alertToast('签名生成失败，请重试');
+                            return;
+                        }
+                        // appcan.window.evaluatePopoverScript('detail_sign', 'content', 'recordDetailObj.renderSignPic("'+ data +'")');
+                        // $('.footer .wrapper').addClass('btn_active');
+                        // if (!that.isRatingCbSeted) {
+                            that.scoreRate(5,data);
+                        // }
+                    //},300);                                            
+                };                    
+            }
+        },
+        scoreRate : function(n,sSignUrl){
+            var that= this;
+            uexRatingBar.open(n || '');
+            if (!that.isRatingCbSeted) {
+                that.isRatingCbSeted = true;
+                uexRatingBar.cbOpen = function(opId, dataType, data){
+                    var ratingData = JSON.parse(data);
+                    //alert("评分："+ratingData.region+",描述："+ratingData.description);
+                    appcan.window.evaluatePopoverScript('detail_sign', 'content', 'recordDetailObj.renderSignPic("'+ sSignUrl +'")');
+                    appcan.window.evaluatePopoverScript('detail_sign', 'content', 'recordDetailObj.renderRatingAndUpdateObj("'+ ratingData.region +'")'); 
+                    appcan.window.evaluatePopoverScript('detail_sign', 'content', 'document.body.scrollTop = 10000');                    
+                    $('.footer .wrapper').addClass('btn_active');                   
+                    
+                };
+            }
+        }
+    };
+
+    function close() {
+        appcan.window.evaluateScript({
+            name: 'new_record',
+            scriptContent: 'appcan.window.close()'
+        });
+        appcan.window.evaluateScript({
+            name: 'new_user',
+            scriptContent: 'appcan.window.close()'
+        });    
+        // appcan.window.evaluateScript({
+        //     name: 'useraddresslist',
+        //     scriptContent: 'appcan.window.close()'
+        // });       
+        appcan.window.evaluateScript({
+            name: 'record_detail',
+            scriptContent: 'appcan.window.close()'
+        });            
+           
+        appcan.window.close(-1);
+    }
+</script>
+
+</html>

@@ -1,0 +1,91 @@
+/* content */
+.section {
+    margin: .625em 0 0 0;
+
+    background: white;
+}
+
+.title {
+    border-bottom: 1px solid #ececec;
+    height: 2.31em;
+
+    color: #666;
+}
+.task {
+    background: url(../images/_task.png) no-repeat .625em center;
+    background-size: 1.3em;
+}
+.event {
+    background: url(../images/_event.png) no-repeat .625em center;
+    background-size: 1.25em;
+}
+
+.title > div:nth-of-type(1) {
+    padding-left: 2.5em;
+
+    font-size: 1em;
+}
+
+.title .more {
+    padding-right: 1em;
+    height: 100%;
+
+    font-size: .750em;
+}
+
+
+#listForEvents ul li {
+    margin: 0;
+    border-color: #ececec;
+    padding: 0 .625em;
+    height: 2.813em;
+}
+
+
+#listForEvents ul li > div:nth-of-type(1) {
+    font-size: .875em;
+
+    color: #333;
+}
+#listForEvents ul .active > div:nth-of-type(1) {
+    color: #999;
+}
+#listForEvents ul li > div:nth-of-type(2) {
+    margin-left: 2.250em;
+
+    font-size: .750em !important;
+
+    color: #999;
+}
+
+#listForTasks ul li {
+    margin: 0;
+    border-color: #ececec;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 3.43em;
+}
+#listForTasks .subBtn {
+    border-radius: .2em;
+    padding: 0.375em;
+
+    font-size: .968em !important;
+}
+
+.noData {
+    min-height: 6em;
+
+    color: #666;
+}
+.umartb {
+    margin: .247em 0;
+}
+.maxWidth{
+    width: 6em;
+    display: inline-block;
+    vertical-align: top;
+}
+.inlineBlk{
+    display: inline-block;
+    vertical-align: top;
+}

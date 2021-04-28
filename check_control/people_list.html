@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="../css/fonts/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/ui-color.css">
+		<link rel="stylesheet" href="../css/appcan.icon.css">
+		<link rel="stylesheet" href="../css/appcan.control.css">
+		<link rel="stylesheet" href="css/people_list.css">
+	</head>
+	<body class="um-vp " ontouchstart>
+		<div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+			<!--header开始-->
+			<div id="header" class="uh bc-text-head ub bc-head">
+				<div class="nav-btn" id="nav-left">
+					<div class="fa fa-angle-left fa-2x"></div>
+				</div>
+				<h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">巡检人员列表</h1>
+				<div class="nav-btn nav-bt" id="nav-right">
+					<div class="ub-img icon-disk umw2 umh4"></div>
+				</div>
+			</div>
+			<!--header结束-->
+			<!--选项卡开始-->
+			<div id="tabview" class="uf sc-bg ubb bc-border tabview_nav">
+			</div>
+			<!--选项卡结束-->
+			<!-- 搜索框 begin -->
+			<div id="" class="searchWrap ub ub-pc ">
+				<div class="ub ub-f1 searchBox ub-ac">
+					<div class="uinput ub ub-f1 ub-ac">
+						<input id= "inputDom" placeholder="搜人名、部门" type="search" class="ub-f1" onfocus="$(this).parent().next().css('visibility','visible')" onblur="if($(this).val() === ''){$(this).parent().next().css('visibility','hidden')}" >
+					</div>
+					<div id="" class="searchDelete" onclick="$(this).parent().find('input').val('');$(this).css('visibility','hidden');"></div>
+					<div class="searchLine"></div>
+					<div id="search" class="searchBtn ulev26 ub ub-ac">搜索</div>
+				</div>
+			</div>
+			<!-- 搜索框 end -->
+			<!--content开始-->
+			<div id="content" class="ub-f1 tx-l">
+
+			</div>
+			<!--content结束-->
+
+		</div>
+		<script src="../js/appcan.js"></script>
+		<script src="../js/appcan.control.js"></script>
+		<script src="../js/appcan.tab.js"></script>
+		<script src="../common/js/common_bounce.js"></script>    
+		<script src="../common/js/common_httprequest.js"></script>
+		<script src="../common/js/common_base.js"></script>        
+
+
+	</body>
+	<script>
+		var peopleObj = {
+			inputDom : $('#inputDom'),
+			searchBtn : $('#search'),
+			isOfflineRendered : false,
+			ifCurrentPageIsOnline : true,
+			aPeopleAll : null,
+			aPeopleOnline : null,//今日已巡人员列表
+			aPeopleOffline : null,//今日未巡人员列表
+			init : function(){
+
+				this.aPeopleAll = this.getPeopleData();
+				this.groupOnlieUser();
+
+				this.bindHeaderEvents();                
+				this.bindSearchEvents();
+			},
+			bindHeaderEvents : function(){
+				appcan.button("#nav-left", "btn-act", function() {
+					appcan.window.close(-1);
+					appcan.openWinWithUrl('check_control','check_control.html');
+				}); 
+				appcan.button("#nav-right", "btn-act", function() {
+					appcan.openWinWithUrl('check_control','check_control.html');
+				});				               
+			},
+			bindSearchEvents : function(){
+				var that = this;
+				appcan.button("#search", "btn-act", function() {
+					that.doSearch();
+				});
+			},
+			doSearch : function(){
+
+				var that = this;
+				var arr = this.ifCurrentPageIsOnline?this.aPeopleOnline:this.aPeopleOffline;
+				if (arr.length === 0) {
+					return;
+				}
+				var sSearch = that.inputDom.val();
+				var res = that.sortBySearch(sSearch);
+				var sCurrentPage = that.ifCurrentPageIsOnline?'online':'offline';
+				if (res.length === 0) {
+					uexWindow.evaluateMultiPopoverScript('','peoplelist',sCurrentPage,'showMaskTip()');
+				}
+				
+				uexWindow.evaluateMultiPopoverScript('','peoplelist',sCurrentPage,'setListView(' + JSON.stringify(res) + ')');
+			},
+			getPeopleData : function(){
+				if (!appcan.locStorage.getVal('peopleList')) {
+					return;
+				}
+				var peopleArr = JSON.parse(appcan.locStorage.getVal('peopleList'));
+				//baseOperation.alertToast('获取到的人员数据为 ：'+appcan.locStorage.getVal('peopleList'));
+				if (peopleArr) {
+					return peopleArr;
+				}
+				/*peopleArr = [
+					{
+					  "isOnline": "1",
+					  "inspectorName": "张无忌大王",
+					  "sex" : "男",                                    
+					  "orgName": "巡检一部巡检一部巡检一部",
+					  "inspectorId": "fad7f56b-84b1-4c5a-a203-165218a2d790",
+					  "mobileNum": "15811236011",
+					},
+					{
+					  "isOnline": "1",                    
+					  "inspectorName": "刘一刀",
+					  "sex" : "男",                                    
+					  "orgName": "巡检三部",
+					  "inspectorId": "fad7f56b-84b1-4c5a-a203-165218a2d790",
+					  "mobileNum": "15811236011",
+					}
+				];*/
+				return peopleArr;
+			},
+			sortByIfOnline : function(bol,arr){
+				if (!arr) {
+					return;
+				}
+				return arr.filter(function(item){
+					return item.isOnline == bol;
+				});
+			},
+			groupOnlieUser:function(){
+			    this.aPeopleOnline = [];
+			    this.aPeopleOffline = [];
+			    if(this.aPeopleAll != null && this.aPeopleAll.length > 0){
+			        for (var i=0; i < this.aPeopleAll.length; i++) {
+			            var item = this.aPeopleAll[i];
+			            if(item.isOnline > -1 && +item.bdLon>0){
+			                this.aPeopleOnline.push(item);
+			            }
+			            else{
+			                this.aPeopleOffline.push(item);
+			            }
+					}
+			    }
+			},
+			sortBySearch : function(sSearch){
+				var arr = this.ifCurrentPageIsOnline?this.aPeopleOnline:this.aPeopleOffline;
+				return arr.filter(function(item){
+					return (item.inspectorName + item.orgName).indexOf(sSearch) !== -1; 
+				});
+			},
+			ifShouldStopSearch : function(){
+
+			}
+		};
+
+		var tabview = appcan.tab({
+			selector : "#tabview",
+			hasIcon : false,
+			hasAnim : true,
+			hasLabel : true,
+			hasBadge : false,
+			data : [{
+				label : "今日已巡人员",
+					}, {
+				label : "今日未巡人员",
+					}]
+		});
+		tabview.on("click",function(obj, index){ /*TAB变更时切换多浮动窗口*/
+			//alert(index);
+			appcan.window.selectMultiPopover("peoplelist",index);
+		});
+
+	
+
+		appcan.ready(function() {
+
+			appcan.window.evaluateScript({
+			    name:'check_control',
+			    scriptContent:'controlObj.closeWin()'
+			});
+			peopleObj.init();
+
+			var top = $('#content').offset().top;
+
+			appcan.frame.open({/*创建多浮动窗口*/
+					id : "content",
+					url : [{
+						"inPageName" : "online",
+						"inUrl" : "people_list_online.html",
+					}, {
+						"inPageName" : "offline",
+						"inUrl" : "people_list_offline.html",
+					}],
+					top : top,
+					left : 0,
+					index : 0,
+					name : 'peoplelist',
+					change:function(index,res){ //浮动窗口推拽变更时回调，可控制tab进行同步变更
+
+						//alert(res. multiPopSelectedIndex);
+						peopleObj.ifCurrentPageIsOnline = !peopleObj.ifCurrentPageIsOnline;
+						tabview.moveTo(res. multiPopSelectedIndex);
+						if (res. multiPopSelectedIndex === 1) {
+
+							if (!peopleObj.isOfflineRendered) {
+								//alert(sOfflineArr);
+								if (peopleObj.aPeopleOffline.length === 0) {
+								uexWindow.evaluateMultiPopoverScript('','peoplelist','offline','showMask()');
+									return;
+								}
+								uexWindow.evaluateMultiPopoverScript('','peoplelist','offline','setListView(' + JSON.stringify(peopleObj.aPeopleOffline) + ')');
+								peopleObj.isOfflineRendered = true;
+							}
+						 
+						}
+					}
+			});
+
+			window.onorientationchange = window.onresize = function() {
+				appcan.frame.resize("peoplelist", 0, top);
+			};
+			
+			goBack();
+			/*setTimeout(function(){
+				if (peopleObj.aPeopleOnline.length === 0) {
+					baseOperation.alertToast('当前无在线人员');
+					return;
+				}
+				uexWindow.evaluateMultiPopoverScript('','peoplelist','online','setListView(' + JSON.stringify(peopleObj.aPeopleOnline) + ')');
+			},300);*/
+		});
+		
+		function goBack(){ //返回上一级
+            //监听手机物理返回键
+            uexWindow.setReportKey(0,1);  
+            uexWindow.onKeyPressed = function(keyCode){  
+                appcan.window.close(-1);
+                if(appcan.locStorage.getVal('HistoryRecordFormMap')=="true"){
+                    appcan.openWinWithUrl('check_control','check_control.html');
+                }
+            }
+        }
+
+	</script>
+</html>

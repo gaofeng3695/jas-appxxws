@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <style>
+            .cost {
+                line-height: 2.3125em;
+            }
+
+            .border1 {
+                border-bottom: 1px solid #ebebeb;
+            }
+
+            .inputWrapper {
+                margin: .625em .625em 0;
+            }
+
+            .addBtn {
+                line-height: 2.3125em;
+                margin: 0 .625em;
+            }
+
+            .clrblue {
+                color: #59b7ff;
+            }
+
+            .addBg {
+                padding-left: 1.375em;
+                background: url(../src/images/plus.png) no-repeat left center;
+                background-size: 1.1em 1.1em;
+            }
+
+            .devide {
+                padding: 0 .5em;
+                line-height: 2.2em;
+            }
+
+            .deletebtn {
+                position: absolute;
+                right: 0em;
+                width: 2em;
+                height: 2em;
+            }
+
+            .deletebg {
+                background: url(../../check_control/images/delete.png) no-repeat center;
+                background-size: 1.2em;
+            }
+
+            .mar05 {
+                margin: 0em .625em;
+            }
+
+            .texc {
+                text-align: center;
+            }
+
+            .marb05 {
+                margin-bottom: .625em;
+            }
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body class="um-vp bc-bg">
+
+        <div id="app">
+
+            <div class="sectionMargin sectionShadow bgfff">
+
+                <item-detail name="维修编号" :value="query.maintenanceCode" :borderbottom="true"></item-detail>
+                <item-detail name="维修来源" :value="query.originTypeName" :borderbottom="true"></item-detail>
+                <item-detail name="创建人" :value="query.createUserName" :borderbottom="true"></item-detail>
+                <item-detail name="维修期限" :value="query.remediationTime" :borderbottom="true"></item-detail>
+                <item-detail name="维修状态" :value="statusName" :borderbottom="true"></item-detail>
+                <!-- <item-detail name="维修时间" :value="query.maintenanceRecordTime" :borderbottom="true"></item-detail>    -->
+
+                <div v-if="query.originTypeCode === 'MO_01'">
+                    <item-detail name="用户姓名" :value="query.maintenanceName" :borderbottom="true"></item-detail>
+                    <item-detail name="联系方式" :value="query.contactPhone" :borderbottom="true"></item-detail>
+                    <item-detail name="用户地址" :value="query.address" :borderbottom="true"></item-detail>
+                </div>
+                <div v-if="query.originTypeCode === 'MO_02'">
+                    <item-detail name="设施名称" :value="query.maintenanceName" :borderbottom="true"></item-detail>
+                    <item-detail name="设施类型" :value="query.typeName" :borderbottom="true"></item-detail>
+                    <item-detail name="设施位置" :value="query.address" :borderbottom="true"></item-detail>
+                </div>
+                <div v-if="query.originTypeCode === 'MO_03'">
+                    <item-detail name="事件编号" :value="query.maintenanceName" :borderbottom="true"></item-detail>
+                    <item-detail name="事件类型" :value="query.typeName" :borderbottom="true"></item-detail>
+                    <item-detail name="事件位置" :value="query.address" :borderbottom="true"></item-detail>
+                </div>
+                <div v-if="query.originTypeCode === 'MO_99'">
+                    <item-detail name="联系人" :value="query.maintenanceName" :borderbottom="true"></item-detail>
+                    <item-detail name="联系方式" :value="query.contactPhone" :borderbottom="true"></item-detail>
+                    <item-detail name="地址" :value="query.address" :borderbottom="true"></item-detail>
+                </div>
+
+                <!-- <div class="inputWrapper border1">
+                <input-common title="维修人" v-model="query.relationshipPersonNames"></input-common>
+                </div> -->
+
+                <item-detail name="维修人" :value="query.relationshipPersonNames" :borderbottom="true"></item-detail>
+                <item-detail name="维修原因" :value="query.reason"></item-detail>
+
+            </div>
+
+            <div class="sectionMargin sectionShadow bgfff">
+                <div v-for="(item,key) in query.workRecordCost" class="border1 mar05" v-cloak>
+                    <div class="cost clr666 ub  border1 marb05">
+                        <div class="ulev30 ub-f1 texc">
+                            维修费用表-<span v-text="key+1"></span>
+                        </div>
+
+                        <div class="deletebtn deletebg" v-show="query.workRecordCost.length>1" @click="removeMantenanceBill(key)"></div>
+                    </div>
+                    <input-common title="名称" v-model="item.name" @input="changeItemName(item)"></input-common>
+                    <input-common title="单价" :disabled="!item.name.trim()" v-model="item.price"  type="number"></input-common>
+                    <input-common title="数量" :disabled="!item.name.trim()" v-model="item.amount"  type="number"></input-common>
+                </div>
+
+                <div class="addBtn border1 ub ub-pc ">
+                    <div v-show="query.workRecordCost.length<10" @click="addMantenanceBill">
+                        <span class="addBg"><span class="ulev30 clrblue">添加费用项</span></span>
+                    </div>
+                    <!--<div v-show="query.workRecordCost.length>1 && query.workRecordCost.length<10" class="devide ulev34 clr999">|</div>
+                    <div v-show="query.workRecordCost.length>1" @click="removeMantenanceBill">
+                    <span class="addBg" ><span class="ulev30 clrblue">删除维修单</span></span>
+                    </div> -->
+                </div>
+
+                <!-- <div class="inputWrapper "> -->
+                <item-detail name="费用总计" :value="query.totalCost|pliceNumber"></item-detail>
+                <!-- <input-common title="费用总计" v-model="query.totalCost" disabled="true"></input-common> -->
+                <!-- </div> -->
+                <item-detail name="费用大写" :value="query.captialTotalCost"></item-detail>
+
+            </div>
+
+            <div class="sectionMargin sectionShadow bgfff uof">
+
+                <div class="inputWrapper">
+                    <textarea-common v-model="query.content" :required="true" title="维修记录" placeholder="请填写维修记录（必填）"></textarea-common>
+                </div>
+                <item-photo v-model="query.picUrl" :isoperate="true" :maxqtty="6"></item-photo>
+            </div>
+
+        </div>
+
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_database.js"></script>
+        <script src="../../common/js/common_jasRequest.js"></script>
+        <script src="../src/js/common/local_server.js"></script>
+        <script src="../src/js/common/capital.js"></script>
+        <script src="../../vue_component/input_common.component.vue.js"></script>
+        <script src="../../vue_component/textarea_common.component.vue.js"></script>
+        <script src="../../vue_component/item_detail.component.vue.js"></script>
+        <script src="../../vue_component/item_photo.component.vue.js"></script>
+        <script>
+            var vm = new Vue({
+                el : '#app',
+                data : {
+                    query : {
+                        "objectId" : baseOperation.createuuid(), // 维修记录ID
+                        "workId" : "", // 维修维护工单id，继承于详情的objectid
+                        "maintenanceCode" : new Date().Format("yyyyMMddHHmmssS"),
+                        "originTypeName" : "", //来源类型（maintenance_orgin）MO_01（入户整改）、MO_02（管道设施）、MO_03（巡检事件）、MO_99（其他维修）
+                        "originTypeCode" : "", //来源类型（maintenance_orgin）MO_01（入户整改）、MO_02（管道设施）、MO_03（巡检事件）、MO_99（其他维修）
+                        "createUserName" : "", //创建人
+                        "typeCode" : "", //设施类型（管道设施）、事件类型（日常巡检）
+                        "typeName" : "", //设施类型（管道设施）、事件类型（日常巡检）
+                        "maintenanceName" : "", //用户名称（入户整改）、设施名称（管道设施）、事件编号（巡检事件）、联系人（其他维修）
+                        "contactPhone" : "", //联系方式（入户整改）、联系电话（其他维修）
+                        "address" : "", // 用户地址（入户整改）、设施位置（管道设施）、事件地点（巡检事件）、地址（其他维修）
+                        "relationshipPersonNames" : "", //维修人名称
+                        "relationshipPersonIds" : "", //维修人
+                        "remediationTime" : "", // 维修期限
+                        "maintenanceRecordTime" : "", // 维修（完成）时间
+                        "status" : '', // 维修状态（1：待维修，2：已完成）默认值 1
+                        "reason" : "", // 维修原因
+                        "workRecordId" : "", // 维修工单整改记录id
+                        "workRecordCost" : [{
+                            "name" : "",
+                            "price" : '',
+                            "amount" : ''
+                        }],
+                        "totalCost" : 0,
+                        "captialTotalCost" : "", //
+                        "content" : "",
+                        "satisfaction" : "",
+                        "pic" : [], //照片id的数组
+                        "picUrl" : [], //照片url的数组
+                        "signature" : [], ////签名图片id的数组
+                        "signatureUrl" : [], //签名图片url的数组
+                    },
+                    number : 'number',
+                },
+                computed : {
+                    statusName : function() {
+                        return +this.status === 2 ? '已完成' : '待维修';
+                    },
+                },
+                watch : {
+                    query : {
+                        handler : function(val, oldVal) {
+                            var workRecordCost = val.workRecordCost;
+                            var total = 0;
+                            workRecordCost.forEach(function(item, index) {
+                                if (item.name.trim()) {
+                                    if (item.price && item.amount) {
+                                        item.price = item.price.replace(/[^\d.]/g, '');
+                                        item.amount = item.amount.replace(/[^\d.]/g, '');
+                                        total += parseFloat(item.price.trim() || 0) * parseFloat(item.amount.trim() || 0);
+                                    }
+                                }
+                            });
+                            this.query.workRecordCost = workRecordCost;
+                            this.query.totalCost = total;
+                            this.query.captialTotalCost = capital(total);
+                            // alert(JSON.stringify(this.query));
+                            vm.$set(this.query);
+                        },
+                        deep : true
+                    }
+                },
+                methods : {
+                    changeItemName : function(item) {
+                        if (!item.name) {
+                            item.price = '';
+                            item.amount = '';
+                        }
+                    },
+                    addMantenanceBill : function() {
+                        this.query.workRecordCost.push({
+                            "name" : "",
+                            "price" : '',
+                            "amount" : ''
+                        })
+                    },
+                    removeMantenanceBill : function(key) {
+                        if (this.query.workRecordCost.length > 1) {
+                            this.query.workRecordCost.splice(key, 1);
+                        }
+
+                    }
+                },
+                filters : {
+                    pliceNumber : function(value, thousand, decimal) {
+                        if (value === "" || value === null || value === undefined) {
+                            return "";
+                        } else {
+                            thousand = thousand || ",";
+                            decimal = decimal || ".";
+                            var negative = value < 0 ? "-" : "",
+                                i = parseInt( value = Math.abs(+value || 0).toFixed(2), 10) + "",
+                                j = ( j = i.length) > 3 ? j % 3 : 0;
+                            return negative + ( j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (2 ? decimal + Math.abs(value - i).toFixed(2).slice(2) : "");
+                        }
+                    }
+                },
+                mounted : function() {
+                    var that = this;
+                    appcan.ready(function() {
+                        var resource = appcan.locStorage.val('maintenanceFormEntrance');
+                        appcan.locStorage.remove('maintenanceFormEntrance');
+                        var sId = appcan.locStorage.val('maintenanceId');
+                        // appcan.locStorage.remove('maintenanceId');
+                        if (resource === 'local') {
+                            operations.requestFromLocal(that, sId);
+                        } else {
+                            operations.requestFromServer(that, sId);
+                        }
+                    });
+                }
+            });
+
+            var operations = {
+                requestFromServer : function(vm, id) {
+                    var sUrl = "cloudlink-inspection-event/commonData/maintenanceWork/get";
+                    var queryObj = {
+                        objectId : id
+                    };
+                    jasRequest.get(sUrl, queryObj, function(data) {
+                        var obj = data.rows[0];
+                        vm.query.workId = obj.objectId;
+                        var garbage = ['objectId', 'signature', 'pic', 'satisfaction', 'captialTotalCost', 'totalCost', 'workRecordCost', 'workRecordId'];
+                        garbage.forEach(function(item) {
+                            delete obj[item];
+                        });
+                        $.extend(vm.query, obj, true);
+                        appcan.locStorage.val('maintenance_originTypeCode', vm.query.originTypeCode);
+                    });
+                },
+                requestFromLocal : function(vm, id) {
+                    localServer.get(id, function(result) {
+                        if (result.success == "1") {
+                            $.extend(vm.query, result.data, true);
+                            appcan.locStorage.val('maintenance_originTypeCode', vm.query.originTypeCode);
+                        }
+                    });
+                },
+                openPeople : function() {
+                    appcan.locStorage.val("selectedusers", vm.query.relationshipPersonIds);
+                    appcan.openWinWithUrl('selectusers', 'selectusers.html');
+                },
+                changePeopleData : function() {
+                    var selectuserObj = JSON.parse(appcan.locStorage.val("selectuserObj"));
+                    appcan.locStorage.remove("selectuserObj");
+                    var relationshipPersonNames = '';
+                    var relationshipPersonIds = '';
+                    if (selectuserObj.length > 0) {
+                        selectuserObj.forEach(function(item) {
+                            relationshipPersonNames += item.relationshipPersonName + ",";
+                            relationshipPersonIds += item.relationshipPersonId + ",";
+                        });
+                    }
+                    vm.query.relationshipPersonNames = relationshipPersonNames.substring(0, relationshipPersonNames.length - 1);
+                    vm.query.relationshipPersonIds = relationshipPersonIds.substring(0, relationshipPersonIds.length - 1);
+                    vm.query.relationshipPersons = selectuserObj;
+                    vm.$set(vm.query);
+                },
+                saveToTrash : function() {
+                    this.saveToLocal();
+                },
+                saveToNext : function() {
+                    var falg = this.verify(vm.query);
+                    if (falg) {
+                        this.saveToLocal(function() {
+                            appcan.locStorage.val('maintenanceDetailEntrance', 'form');
+                            appcan.openWinWithUrl('detailmaintance', '../detail/detailmaintance.html');
+                        });
+                    }
+                },
+                saveToLocal : function(callback) {
+                    // var workRecordCost = [];
+                    // vm.query.workRecordCost.forEach(function(item) {
+                        // if (item.name.trim()) {
+                            // workRecordCost.push(item);
+                        // }
+                    // });
+                    // vm.query.workRecordCost = workRecordCost;
+                    if( !vm.query.workId ){
+                        return;
+                    }                    
+                    var obj = JSON.parse(JSON.stringify(vm.query));
+                    appcan.locStorage.val('maintenanceId', vm.query.workId);
+                    //点击保存草稿时候进行按钮。
+                    localServer.save(obj, 0, function(data) {
+                        if (+data.success === 1) {
+                            baseOperation.alertToast("保存成功", 2000);
+                            callback();
+                        } else {
+                            baseOperation.alertToast("保存失败", 2000);
+                        }
+                        //点击保存草稿时候进行按钮。
+                    });
+                },
+                verify : function(data) {
+                    var costData = data.workRecordCost;
+                    // var reg = /(^[-+]?[1-9]\d*(\.\d{1,2})?$)|(^[-+]?[0]{1}(\.\d{1,2})?$)/;
+                    //var regNum = /^\d+(?=\.{0,1}\d+$|$)/;
+                    var reg = /^[0-9]{1,1}\d{0,7}(\.\d{1,2})?$/;
+                    var regNum = /^[0-9]{1,1}\d{0,4}(\.\d{1,2})?$/;
+                    var falg = true;
+                    var num = 0;
+                    for (var i = 0; i < costData.length; i++) {
+                        if (costData[i].name.trim()) {
+                            if (costData[i].name.trim().length > 50) {
+                                baseOperation.alertToast("第" + (i + 1) + "个费用表名称不能超过50个字！");
+                                falg = false;
+                                break;
+                            }
+                            if (costData[i].price.trim()) {
+                                if (parseFloat(costData[i].price) > 10000000) {
+                                    baseOperation.alertToast("第" + (i + 1) + "个费用表单价超过1000万！");
+                                    falg = false;
+                                    break;
+                                }
+                                if (!reg.test(costData[i].price.trim())) {
+                                    baseOperation.alertToast("第" + (i + 1) + "个费用表单价输入格式有误，小数点后最多2位！");
+                                    falg = false;
+                                    break;
+                                }
+
+                            }
+                            if (costData[i].amount.trim()) {
+                                if (parseFloat(costData[i].amount) > 10000) {
+                                    baseOperation.alertToast("第" + (i + 1) + "个费用表数量超过1万！");
+                                    falg = false;
+                                    break;
+                                }
+                                if (!regNum.test(costData[i].amount.trim())) {
+                                    baseOperation.alertToast("第" + (i + 1) + "个费用表数量格式有误，小数点后最多2位！");
+                                    falg = false;
+                                    break;
+                                }
+                            }
+                            num += parseFloat(costData[i].price || 0) * parseFloat(costData[i].amount || 0);
+                        }
+                    }
+                    vm.query.totalCost = num;
+                    vm.query.captialTotalCost = capital(num);
+                    if (data.content == "" || data.content == null) {
+                        baseOperation.alertToast("请填写维修记录！");
+                        falg = false;
+                        return falg;
+                    }
+                    if (data.content.length > 200) {
+                        baseOperation.alertToast("维修记录不能超过200字！");
+                        falg = false;
+                        return falg;
+                    }
+                    return falg;
+                }
+            };
+        </script>
+    </body>
+
+</html>

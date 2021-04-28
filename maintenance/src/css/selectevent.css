@@ -1,0 +1,95 @@
+.bg{
+    background:#fff;
+}
+.mar05{
+    margin:0em .5em;
+}
+.umh70{
+    height:1.92em;
+    line-height: 1.92em;
+}
+
+.ulr42{
+    margin-right:0.5em;
+}
+.check_width{
+    width: 1.64em;
+}
+/*check美化样式*/
+.checkbox, .radiobox {
+    width: 1.1em;
+    height: 0.95em;
+}
+.checkbox input[type=checkbox], .radiobox input[type=radio] {
+    font-size: .7em !important;
+}
+.checkbox input[type=checkbox]:checked:before {
+    font-size: 1.65em !important;
+    content: "\f14a";
+}
+.checkbox input[type=checkbox]:checked:before, .radiobox input[type=radio]:checked:before {
+    color: #59b6fc;
+}
+.checkbox input[type=checkbox]:before, .radiobox input[type=radio]:before {
+    color: #59b6fc;
+}
+.checkbox input[disabled]:checked:before {
+    color: #ececec;
+}
+.checkbox input[disabled]:before{
+    color: #ececec;
+}
+
+/*模板样式*/
+.imgp{
+    width:2.5em;
+    height:2.5em;
+    margin-right:0.5em;
+    vertical-align: middle;
+}
+.imgaddress{
+    vertical-align: middle;
+    margin-right:0.55em;
+    width:0.7em;
+    height:0.83em;; 
+}
+.addressimg {
+    background: url(../images/map_h.png) no-repeat 0em center;
+    background-size: 0.7em 0.91em;
+}
+
+.ulr42 {
+    margin-right: 0.5em;
+}
+
+.marl15 {
+    margin-left: 1em;
+}
+
+.marl{
+    margin-left:3em;
+}
+.marr30{
+    margin-right:0.83em;
+}
+.padd22{
+    padding:0.61em 0em;
+}
+.umlh56{
+    height:1.56em;
+    line-height: 1.56em;
+}
+.searchheight{
+    height:3.36em;
+}
+.clrb{
+    color:#59b6fc;
+}
+.ulim2{
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

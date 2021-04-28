@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="../src/css/measurecurve.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart >
+        <div id="content">
+            <div class="sectionShadow sectionMargin bgcolor">
+                <div class="margin5">
+                    <div class="ub linwh padd10 ubb sc-border-cor">
+                        <div class="ulev26 clr666 leftstyle ">
+                            设施类型
+                        </div>
+                        <div class="ulev26 ub-f1  clr333 marl44 facility_type ">
+
+                        </div>
+                    </div>
+                    <div class="ub linwh padd10 ubb sc-border-cor">
+                        <div class="ulev26 clr666 leftstyle ">
+                            设施名称
+                        </div>
+                        <div class="ulev26 ub-f1  clr333 marl44 facility_name ulim100">
+
+                        </div>
+                    </div>
+                    <div class="ub linwh padd10">
+                        <div class="ulev26 clr666 leftstyle ">
+                            详细位置
+                        </div>
+                        <div class="ulev26 ub-f1  clr333 marl44 address ulim100">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="disableMask">
+                <div class="sectionMargin sectionShadow bgcolor ">
+                    <div class="mar5">
+                        <div class="ubb sc-border-cor ulev28 textcen lipich clr333">
+                            可燃气体浓度（近7次）
+                        </div>
+                        <div class="gas lipicgash">
+                            <div id="gaspic" style="width:100%;height:100%">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sectionMargin sectionShadow bgcolor hidpress" style="display:none">
+                    <div class="mar5">
+                        <div class="ubb sc-border-cor ulev28 clr333 textcen lipich">
+                            进出口压力（近7次）
+                        </div>
+                        <div class="gas linpic">
+                            <div id="pressurcpic" style="width:100%;height:100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+        <script src="../src/js/echarts.min.js"></script>
+        <script src="../src/js/measurecurve.js"></script>
+    </body>
+    <script></script>
+</html>

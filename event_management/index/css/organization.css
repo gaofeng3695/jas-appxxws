@@ -1,0 +1,159 @@
+/*footer*/
+.bgffffff{
+    background-color: #FFFFFF;
+}
+/*气泡样式*/
+.bubble {
+    top : -2em;
+    position : absolute;
+    border-radius : .3em;
+    height : 2em;
+    line-height : 2em;
+    font-size : 1em;
+    background : #00A1EA;
+    color : #FFFFFF;
+}
+.bubble:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-top-color: #00A1EA;
+    border-width: .4em;
+    margin-left: -.2em;
+}
+.bubble span{
+    padding: .5em;
+}
+/*organization_content_detail*/
+.bc-bg{
+    background-color : #EEEEEE;
+}
+.col00A1EA{
+    color : #00A1EA;
+}
+.font_size{
+    font-size: .9em;
+}
+.audio {
+    width: 85%;
+    /*top : -2em;*/
+    position : absolute;
+    border-radius : .3em;
+    height : 2.2em;
+    line-height : 2em;
+    font-size : 1em;
+    background : #00A1EA;
+    color : #FFFFFF;
+    padding: 0px;
+}
+.audio:before {
+    top: 35%;
+    left: -.5em;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #00A1EA;
+    border-width: .4em;
+    margin-left: -.2em;
+    padding: 0em;
+}
+.audio span{
+    padding: .5em;
+}
+.audio1 {
+    width: 95%;
+    /*top : -2em;*/
+    position : absolute;
+    border-radius : .3em;
+    height : 2.2em;
+    line-height : 2em;
+    font-size : 1em;
+    background : #00A1EA;
+    color : #FFFFFF;
+    padding: 0px;
+}
+.audio1:before {
+    top: 35%;
+    left: -.5em;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #00A1EA;
+    border-width: .4em;
+    margin-left: -.2em;
+    padding: 0em;
+}
+.audio1 span{
+    padding: .5em;
+}
+.audio2 {
+    width: 97%;
+    /*top : -2em;*/
+    position : absolute;
+    border-radius : .3em;
+    height : 2.2em;
+    line-height : 2em;
+    font-size : 1em;
+    background : #9a9a9a;
+    color : #FFFFFF;
+    padding: 0px;
+}
+.audio2:before {
+    top: 35%;
+    left: -.5em;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #9a9a9a;
+    border-width: .4em;
+    margin-left: -.2em;
+    padding: 0em;
+}
+.audio_img {
+    width: 2.2em;
+    height: 2.2em;
+    background: red;
+    background-size: 2em 2em;
+    background: url("../images/voice3.png") no-repeat left center;;
+    opacity:0.7;
+    filter:alpha(opacity=70);
+}
+.audio_img_animation{
+    animation: myfirst 2s;
+    -moz-animation: myfirst 2s; /* Firefox */
+    -webkit-animation: myfirst 2s; /* Safari and Chrome */
+    -o-animation: myfirst 2s; /* Opera */
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+.audio_title{
+    width: 100%;
+    text-align: center;
+    background-color: #e6e6e6;
+    border-radius:0.2em;
+    margin-bottom: -0.2em;
+}
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+0%  {background:url("../images/voice1.png") no-repeat left center;}
+50%  {background:url("../images/voice2.png") no-repeat left center;}
+100% {background:url("../images/voice3.png") no-repeat left center;}
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../../css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../../css/ui-box.css">
+        <link rel="stylesheet" href="../../css/ui-base.css">
+        <link rel="stylesheet" href="../../css/ui-color.css">
+        <link rel="stylesheet" href="../../css/appcan.icon.css">
+        <link rel="stylesheet" href="../../css/appcan.control.css">
+        <link rel="stylesheet" href="css/edittel.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn" id="nav-left">
+                    <div class="fa fa-angle-left fa-2x"></div>
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">修改手机号</h1>
+
+                <div class="nav-btn nav-bt" id="nav-right"></div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+                <div class="ub ub-ver uinn-a1" style="background:#fff">
+                    <div class="uba  b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1">
+                        <div class="ulev-app1  umw55">
+                            新手机号
+                        </div>
+                        <div class="ub ub-ac umh5 ub-f1">
+                            <div class="uinput ub ub-f1">
+                                <input placeholder="请输入手机号" type="text" class="ub-f1" id="tel">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uba  b-gra3 uc-a1 c-wh ub uinn-a7 ub-ac umar-at1">
+                        <div class="ulev-app1 umw55">
+                            获取验证码
+                        </div>
+                        <div class="ub ub-ac umh5 ub-f1">
+                            <div class="uinput ub ub-f1">
+                                <input placeholder="请输入验证码" type="text" class="ub-f1" id="code">
+                            </div>
+                        </div>
+                        <div id="codeBtn" class="uc-a1 ulev-app1 umar-l umw55 umh4 tx-c ub ub-ac bgclr">
+                            <div class="ub-f1 ub-ver" id="accept">
+                                获取验证码
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ub umar-at1 uinn-a7 umh2">
+                        <span class="ulev-1  sc-text-warn" id="reminder"> </span>
+                    </div>
+
+                    <div class="ub ub-pc">
+                        <div class="uinn-at1 ub-f1">
+                            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="next">
+                                下一步
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--content结束-->
+
+        </div>
+        <script src="../../js/appcan.js"></script>
+        <script src="../../js/appcan.control.js"></script>
+        <script src="../../js/codeTimer.js"></script>
+        <script src="../../common/js/common_base.js"></script>
+        <script src="../../common/js/common_locStorage.js"></script>
+        <script src="../../common/js/common_httprequest.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.window.evaluateScript('checkpass', 'checkPasObj.close()');
+            telObj.init();
+        });
+        var telObj = {
+            jasHttpRequest : new JasHttpRequest(),
+            init : function() {
+                this.bindEvent();
+            },
+            bindEvent : function() {
+                var that = this;
+                appcan.button("#nav-left", "btn-act", function() {
+                    appcan.window.close(-1);
+                });
+                $("#codeBtn").click(function() {
+                    var tel = $("#tel").val().trim();
+                    if (that.checktel(tel)) {
+                        that.getCode(tel);
+                    }
+                });
+                $("#next").click(function() {
+                    if (that.checkInput()) {
+                        that.checkVerifyCode();
+                    }
+                });
+            },
+            checkVerifyCode : function() {
+                var that = this;
+                var tel = $("#tel").val().trim();
+                var code = $("#code").val().trim();
+                var partURL = "cloudlink-core-framework/login/checkVerifyCode?sendMode=1&sendNum=" + tel + "&verifyCode=" + code;
+                that.jasHttpRequest.jasHttpGet(partURL, function(id, state, dbSource) {
+                    if (dbSource.length == 0) {
+                        baseOperation.alertToast("网络繁忙，请稍候再试...");
+                        return;
+                    }
+                    var obj = JSON.parse(dbSource);
+                    if (obj.success == 1) {
+                        that.submit(tel);
+                    } else {
+                        baseOperation.alertToast('验证码输入错误');
+                        return false;
+                    }
+                });
+            },
+            submit : function(tel) {
+                var that = this;
+                var userBo = JSON.parse(appcan.locStorage.getVal("userBo"));
+                var partURL = "cloudlink-core-framework/user/update";
+                that.jasHttpRequest.jasHttpPost(partURL, function(id, state, data) {
+                    if (data.length == 0) {
+                        baseOperation.alertToast("网络繁忙，请稍候再试...");
+                        return;
+                    }
+                    var dbObj = JSON.parse(data);
+                    if (dbObj.success == 1) {
+                        reloadUserBoLocStorage("mobileNum", tel);
+                        appcan.openWinWithUrl("edittel_finish", "edittel_finish.html");
+                    } else {
+                        baseOperation.alertToast(dbObj.msg);
+                        return;
+                    }
+                }, JSON.stringify({
+                    "objectId" : userBo.objectId,
+                    "account" : tel,
+                    "mobileNum" : tel
+                }));
+            },
+            getCode : function(mobileNum) {
+                var that = this;
+                var timer = new CodeTimer('#accept', 60, function() {
+                    timer.originalHtml = '重新获取';
+                    timer.setTimer();
+                    //开启倒计时
+                    var partURL = "cloudlink-core-framework/login/getVerifyCode?sendMode=1&useMode=3&sendNum=" + mobileNum;
+                    that.jasHttpRequest.jasHttpGet(partURL, function(id, state, dbSource) {
+                        var obj = JSON.parse(dbSource);
+                        //获取验证码并且输入到验证码框中
+                    });
+
+                }, function() {
+                    //alert('woshi 0');
+                    $('#accept').html('重新获取')
+                });
+            },
+            checktel : function(tel) {
+                var reg = /^1\d{10}$/;
+                if (tel) {
+                    if (!reg.test(tel)) {
+                        baseOperation.alertToast('您输入的电话号码有错误');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    baseOperation.alertToast('请输入手机号');
+                    return false;
+                }
+            },
+            checkInput : function() {
+                var tel = $("#tel").val().trim();
+                var code = $("#code").val().trim();
+                if (!tel) {
+                    baseOperation.alertToast('请输入手机号');
+                    return false;
+                } else if (!code) {
+                    baseOperation.alertToast('请输入手机验证码');
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            close : function() {
+                appcan.window.close(-1);
+            }
+        }
+
+    </script>
+</html>

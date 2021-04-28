@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <style>
+            .bg-size{
+                -webkit-background-size: 100%;
+            }
+            .index1{
+                background-image: url('page_resource/guide/images/guide1.png');
+            }
+            .index2{
+                background-image: url('page_resource/guide/images/guide2.png');
+            }
+            .index3{
+                background-image: url('page_resource/guide/images/guide3.png');
+            }
+            .img{
+                position: absolute;
+                z-index: -999;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+    </head>
+        <body class="um-vp bc-bg" ontouchstart>
+            <div id="page_0" class="up ub ub-ver" tabindex="0">
+                <div class="up ub ub-ver ub-img " id="center">
+                    <div class="img index3 bg-size"></div>
+                    <div class="img index2 bg-size"></div>
+                    <div class="img index1 bg-size"></div>
+                    <div class="ub ub-f4"></div>
+                    <div class="ub ub-f4"></div>
+                    <div id="btnWrapper" style="display: none ;">
+                        <div class="ub ub-f1 ub-pc ub-ae " id="begin_btn" >
+                            <div class="btn ub uc-a ub-ac bc-text-head ub-pc bc-btn" id="btn">立即使用</div>
+                        </div>                        
+                    </div>
+
+                    <div class="ub ub-f1 ub-pc ub-ae bc-text-head">
+                        <div class="ub ub-f1 ub-pe" id="index1"></div>
+                        <div class="ub ub-f1 ub-pc" id="index2"></div>
+                        <div class="ub ub-f1" id="index3" ></div>
+                    </div>
+                </div>
+            </div>
+            <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/appcan.slider.js"></script>
+        <script src="common/js/common_database.js"></script>
+        <script>
+        var index = 1;
+        function showGuidePage (index){
+            $('.img').not('.index' + index).hide();
+            $('.index' + index).show();
+            $("#btnWrapper").hide();
+            if (index === 3) {
+                $("#btnWrapper").show();                
+            }
+        }
+        appcan.ready(function(){
+          showGuidePage(index);
+
+          var param = {isSupport:true};//调试中心时，将此行代码注释
+          uexWindow.setIsSupportSwipeCallback(JSON.stringify(param));//调试中心时，将此行代码注释
+          
+          uexWindow.setSwipeRate(100);
+          uexWindow.onSwipeRight = function(){
+            if (index === 1) { return; }
+            index--;
+            showGuidePage(index);
+          };
+          uexWindow.onSwipeLeft = function(){
+            if (index === 3) { return; }
+            index++;
+            showGuidePage(index);
+          };
+        });
+        appcan.button(".btn", "btn-act", function() {
+          try{
+            var dbOperation = new DataBaseOperation();
+            var sqlinsert = "insert into guidepage (state) values (1);";
+            dbOperation.dbExec(sqlinsert,function(err,date){
+                 appcan.window.open("login","login.html",5);
+            });
+          }
+          catch(e){
+              appcan.window.open("login","login.html",5);
+          }
+        });
+</script>
+        </body>
+</html>
